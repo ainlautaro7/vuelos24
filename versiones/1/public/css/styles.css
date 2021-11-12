@@ -1,0 +1,124 @@
+@import '../../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
+body {
+    overflow-x: hidden;
+    list-style: none;
+}
+
+/* components */
+.container-busqueda-vuelo {
+    background: #fffffff2;
+    border-radius: 0.5rem;
+    box-shadow: #00000024 0px 0px 17px 0px;
+    width: 100%;
+    margin: auto;
+    padding: 3%;
+    backdrop-filter: blur(20 px);
+}
+
+.container-busqueda-vuelo form .cantPersonas{
+    width: 100px;
+}
+
+.card-vuelo-info{
+    text-decoration: none;
+    color: #000;
+    border-radius: .5rem;
+    box-shadow: 0 0 16px 0 rgb(0 0 0 / 2.5%);
+    /* border: solid rgba(0, 0, 0, 0.24) 1px; */
+    transition: .2s;
+}
+.card-vuelo-info:hover{
+    box-shadow: 0 0 16px 0 rgb(0 0 0 / 20%);
+}
+.card-vuelo-info .precio{
+    border-left: solid 1px #c0c0c0;
+}
+
+/* inicio.blade.php styles */
+.banner-inicio {
+    background-image: url("../../resources/img/banner-inicio.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+/* login.blade.php styles */
+.login {
+    background-image: url("../../resources/img/login-background.jpg");
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+}
+.login h1 {
+    font-size: 3.5rem;
+    text-transform: uppercase;
+}
+.login h2 {
+    font-size: 1.5rem;
+    text-transform: uppercase;
+}
+.login-section {
+    height: 100vh;
+    padding-top: 5%;
+    background-color: #ffffff6b;
+    backdrop-filter: blur(30px);
+    box-shadow: #0000002e 0px 0px 40px -20px;
+}
+.login-section form {
+    margin: auto;
+    width: 70%;
+    margin-top: 30%;
+    text-align: center;
+}
+.login-section a {
+    margin-left: 15%;
+}
+
+/* registrarse.blade.php styles */
+.registrarse-section {
+    margin: auto;
+    width: 50%;
+    margin-top: 10%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    background-color: #ffffff6b;
+    backdrop-filter: blur(30px);
+    box-shadow: #0000002e 0px 0px 40px -20px;
+    border-radius: 0.5rem;
+    text-align: center;
+}
+
+/* Empleado/inicio.blade.php styles */
+.inicio section {
+    width: 85%;
+    float: right;
+}
+
+/* Empleado/reportes.php styles */
+.reportes section {
+    width: 85%;
+    float: right;
+}
+
+/* Empleado/administrarVuelos.blade.php styles */
+.administrarVuelos section {
+    width: 85%;
+    float: right;
+}
+
+/* Empleado/administrarEmpleados.blade.php styles */
+.administrarEmpleados section {
+    width: 85%;
+    float: right;
+}
+
+/* COMPONENTES */
+.Sidebar {
+    height: 100vh;
+    position: fixed;
+}
+
+/* DATATABLES */
+div#empleados_filter,
+div#vuelos_filter {
+    display: none;
+}

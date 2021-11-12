@@ -1,0 +1,9 @@
+.login-body{
+    background-image: url('../img/login-background.jpg');
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+}
+body{
+    background: black;
+}
