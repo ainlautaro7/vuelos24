@@ -53,6 +53,8 @@ class ClienteController extends Controller
     // y hace la derivacion a la funcion correspondiente
     public function comprarReservarBoleto(Request $request)
     {
+        Session::put('claseBoleto', $request->claseBoleto);
+
         Session::put('tipoFormulario', $request->tipoFormulario);
 
         Session::put('nroVuelo', $request->nroVuelo);
