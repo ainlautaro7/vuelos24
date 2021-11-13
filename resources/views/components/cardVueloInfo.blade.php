@@ -1,4 +1,4 @@
-<a href="" class="card-vuelo-info border row my-3">
+<a data-bs-toggle="modal" data-bs-target="#vueloNro{{$nroVuelo}}{{$clase}}" class="card-vuelo-info border row my-3">
     <div class="d-none">{{$tarifaMenores=0}}</div>
     <div class="col-9 row">
         <div class="col-12 pt-3 pb-2">
@@ -35,7 +35,8 @@
                 adulto
             @endif
         </div>
-        <div class="col-6">${{ $tarifaAdultos = $tarifa * $cantAdultos }}</div>
+        <div class="d-none">{{$tarifaAdultos = $tarifa * $cantAdultos }}</div>
+        <div class="col-6">${{number_format($tarifaAdultos, 000, '.', '.')}}</div>
 
         {{-- menores --}}
         @if ($cantMenores > 0)
@@ -47,7 +48,8 @@
                     menor
                 @endif
             </div>
-            <div class="col-6">${{ $tarifaMenores = ($tarifa - $tarifa * 0.1) * $cantMenores }}</div>
+            <div class="d-none">{{ $tarifaMenores = ($tarifa - $tarifa * 0.1) * $cantMenores }}</div>
+            <div class="col-6">${{number_format($tarifaMenores, 000, '.', '.')}}</div>
         @endif
 
         {{-- bebes --}}
@@ -66,3 +68,5 @@
         <div class="col-12">Total: ${{ $total = $tarifaAdultos + $tarifaMenores }}</div>
     </div>
 </a>
+
+@include('components.modales.compraReservaVuelo')
