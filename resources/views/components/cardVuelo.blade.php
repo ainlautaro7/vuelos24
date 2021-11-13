@@ -33,7 +33,10 @@
         top: 0%;
         width: 100%;
         height: 100%;
-        background: linear-gradient(180deg, rgb(2 0 36 / 45%) 0%, rgb(9 9 121 / 50%) 35%, rgb(0 212 255 / 49%) 100%);
+        backdrop-filter: blur(2px) saturate(180%);
+        -webkit-backdrop-filter: blur(2px) saturate(180%);
+        background-color: rgba(39, 56, 88, 0.596);
+        border: 1px solid rgba(255, 255, 255, 0.125);
     }
 
     .card .title-overlay-center {

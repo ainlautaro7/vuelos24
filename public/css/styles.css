@@ -27,7 +27,6 @@ body {
     color: #000;
     border-radius: 0.5rem;
     box-shadow: 0 0 16px 0 rgb(0 0 0 / 2.5%);
-    /* border: solid rgba(0, 0, 0, 0.24) 1px; */
     transition: 0.2s;
 }
 .card-vuelo-info:hover {
