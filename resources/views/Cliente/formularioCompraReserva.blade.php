@@ -28,28 +28,37 @@
     <!-- navbar -->
     @include('components.cliente.navbar')
 
-    {{-- {{ auth()->user()->id }} codCliente --}}
-    {{-- {{ Session::get('nroVuelo') nroVuelo}} --}}
+    <div class="container mx-auto my-5">
+        <a href="javascript:history.back()" class="btn btn-dark">Volver</a>
 
-    <div class="container mx-auto my-5 row">
-        <a href="javascript:history.back()" class="btn btn-dark col-1">Volver</a>
+        @if (Session::get('tipoFormulario') == 'compra')
+            <form action="{{ route('cliente.comprarBoleto') }}" method="POST" class="row">
+            @else 
+                <form action="{{ route('cliente.reserva') }}" method="POST" class="row">
+        @endif
+        @csrf
         <h1 class="mt-3 mb-5 col-12 text-center">Formulario de {{ Session::get('tipoFormulario') }}</h1>
+
+        {{-- datos pre-cargados --}}
+        <input type="hidden" name="nroVuelo" value="{{ Session::get('nroVuelo') }}">
+        <input type="hidden" name="codCliente" value="{{ auth()->user()->id }}">
+        <input type="hidden" name="claseBoleto" value="{{Session::get('claseBoleto')}}">
+        <input type="hidden" name="tipoBoleto" value="{{Session::get('tipoBoleto')}}">
 
         {{-- formularios --}}
         <div class="col-7 me-auto">
-            @for ($i = 1; $i <= (Session::get('cantAdultos') + Session::get('cantMenores') + Session::get('cantBebes')); $i++)
+            @for ($i = 1; $i <= Session::get('cantAdultos') + Session::get('cantMenores') + Session::get('cantBebes'); $i++)
                 <h4>Datos personales - Pasajero Nro {{ $i }}
                     <hr>
                 </h4>
-
                 {{-- nombre y apellido --}}
                 <div class="input-group my-3">
-                    <input type="text" class="form-control mx-2" name="nombrePasajero{{ $i }}"
-                        placeholder="nombre del pasajero {{ $i }}"
-                        aria-label="nombrePasajero{{ $i }}">
                     <input type="text" class="form-control mx-2" name="apellidoPasajero{{ $i }}"
                         placeholder="apellido del pasajero {{ $i }}"
                         aria-label="apellidoPasajero{{ $i }}">
+                    <input type="text" class="form-control mx-2" name="nombrePasajero{{ $i }}"
+                        placeholder="nombre del pasajero {{ $i }}"
+                        aria-label="nombrePasajero{{ $i }}">
                 </div>
 
                 {{-- nro documento, fecha nacimiento, sexo --}}
@@ -57,14 +66,14 @@
                     <input type="text" class="form-control mx-2" name="documentoPasajero{{ $i }}"
                         placeholder="documento del pasajero {{ $i }}"
                         aria-label="documentoPasajero{{ $i }}">
-
+{{-- 
                     <input type="date" class="form-control mx-2" name="fechaNacimientoPasajero{{ $i }}"
                         placeholder="fecha de nacimiento del pasajero{{ $i }}"
                         aria-label="fechaNacimientoPasajero{{ $i }}">
 
                     <input type="text" class="form-control mx-2" name="sexoPasajero{{ $i }}"
                         placeholder="sexo del pasajero {{ $i }}"
-                        aria-label="sexoPasajero{{ $i }}">
+                        aria-label="sexoPasajero{{ $i }}"> --}}
                 </div>
             @endfor
         </div>
@@ -122,7 +131,8 @@
                             Adulto
                         @endif
                     </div>
-                    <div class="col-6 text-end">${{ number_format(Session::get('tarifaAdultos'), 000, '.', '.') }}
+                    <div class="col-6 text-end">
+                        ${{ number_format(Session::get('tarifaAdultos'), 000, '.', '.') }}
                     </div>
                 </div>
 
@@ -173,7 +183,7 @@
             {{-- boton comprar/reservar --}}
             <div class="col-12 mt-3">
                 @if (Session::get('tipoFormulario') == 'compra')
-                    <button class="btn btn-success text-white">
+                    <button type="submit" class="btn btn-success text-white">
                         @if ((Session::get('cantAdultos') > 1) | (Session::get('cantMenores') > 1) | (Session::get('cantBebes') > 1))
                             Comprar Boletos
                         @else
@@ -181,7 +191,7 @@
                         @endif
                     </button>
                 @else
-                    <button class="btn btn-primary text-white">
+                    <button type="submit" class="btn btn-primary text-white">
                         @if ((Session::get('cantAdultos') > 1) | (Session::get('cantMenores') > 1) | (Session::get('cantBebes') > 1))
                             Reservar Boletos
                         @else
@@ -191,6 +201,7 @@
                 @endif
             </div>
         </div>
+        </form>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
