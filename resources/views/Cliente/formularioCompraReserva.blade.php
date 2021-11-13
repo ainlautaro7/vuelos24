@@ -173,7 +173,7 @@
             {{-- boton comprar/reservar --}}
             <div class="col-12 mt-3">
                 @if (Session::get('tipoFormulario') == 'compra')
-                    <button class="btn btn-info text-white">
+                    <button class="btn btn-success text-white">
                         @if ((Session::get('cantAdultos') > 1) | (Session::get('cantMenores') > 1) | (Session::get('cantBebes') > 1))
                             Comprar Boletos
                         @else
@@ -181,7 +181,7 @@
                         @endif
                     </button>
                 @else
-                    <button class="btn btn-info text-white">
+                    <button class="btn btn-primary text-white">
                         @if ((Session::get('cantAdultos') > 1) | (Session::get('cantMenores') > 1) | (Session::get('cantBebes') > 1))
                             Reservar Boletos
                         @else
