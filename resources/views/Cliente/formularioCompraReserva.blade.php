@@ -37,7 +37,7 @@
 
         {{-- formularios --}}
         <div class="col-7 me-auto">
-            @for ($i = 1; $i < Session::get('cantAdultos') + Session::get('cantMenores') + Session::get('cantBebes'); $i++)
+            @for ($i = 1; $i <= (Session::get('cantAdultos') + Session::get('cantMenores') + Session::get('cantBebes')); $i++)
                 <h4>Datos personales - Pasajero Nro {{ $i }}
                     <hr>
                 </h4>
