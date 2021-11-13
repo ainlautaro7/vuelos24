@@ -40,6 +40,9 @@ Route::get('/formulario',[ClienteController::class, 'formularioCompraReservaView
 Route::post('buscarVuelos', [VueloController::class, 'buscarVuelos'])->name('vuelo.buscar');
 Route::post('comprarReservarBoleto', [ClienteController::class, 'comprarReservarBoleto'])->name('cliente.comprarReservarBoleto');
 
+Route::post('comprarBoleto', [ClienteController::class, 'comprarBoleto'])->name('cliente.comprarBoleto');
+Route::post('reserva', [ClienteController::class, 'reservarBoleto'])->name('cliente.reserva');
+
 // ----------------------------RUTAS SISTEMA DE GESTION---------------------------- //
 Route::get('/gestion', [EmpleadoController::class, 'gestionView'])->name('empleado.gestionView')->middleware('auth');
 
