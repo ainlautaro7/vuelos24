@@ -6,19 +6,19 @@
                 <x-cardVueloInfo nroVuelo="{{$vuelo->nroVuelo}}" origen="{{ $vuelo->origen }}" destino="{{ $vuelo->destino }}"
                     fechaVuelo="{{ $vuelo->fechaVuelo }}" horaVuelo="{{ $vuelo->horaVuelo }}" clase="business"
                     tarifa="{{ $vuelo->tarifaBusiness }}" cantAdultos="{{ $form->cantAdultos }}"
-                    cantMenores="{{ $form->cantMenores }}" cantBebes="{{ $form->cantBebes }}" />
+                    cantMenores="{{ $form->cantMenores }}" cantBebes="{{ $form->cantBebes }}"/>
             @endif
             @if ($vuelo->cantPrimeraDisponible > 0)
                 <x-cardVueloInfo nroVuelo="{{$vuelo->nroVuelo}}" origen="{{ $vuelo->origen }}" destino="{{ $vuelo->destino }}"
                     fechaVuelo="{{ $vuelo->fechaVuelo }}" horaVuelo="{{ $vuelo->horaVuelo }}" clase="primera"
                     tarifa="{{ $vuelo->tarifaPrimera }}" cantAdultos="{{ $form->cantAdultos }}"
-                    cantMenores="{{ $form->cantMenores }}" cantBebes="{{ $form->cantBebes }}" />
+                    cantMenores="{{ $form->cantMenores }}" cantBebes="{{ $form->cantBebes }}"/>
             @endif
             @if ($vuelo->cantTuristaDisponible > 0)
                 <x-cardVueloInfo nroVuelo="{{$vuelo->nroVuelo}}" origen="{{ $vuelo->origen }}" destino="{{ $vuelo->destino }}"
                     fechaVuelo="{{ $vuelo->fechaVuelo }}" horaVuelo="{{ $vuelo->horaVuelo }}" clase="turista"
                     tarifa="{{ $vuelo->tarifaTurista }}" cantAdultos="{{ $form->cantAdultos }}"
-                    cantMenores="{{ $form->cantMenores }}" cantBebes="{{ $form->cantBebes }}" />
+                    cantMenores="{{ $form->cantMenores }}" cantBebes="{{ $form->cantBebes }}"/>
             @endif
         @endforeach
     @else

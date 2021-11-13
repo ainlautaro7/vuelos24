@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\cliente;
 use App\Models\User as Usuario;
 use Illuminate\Http\Request;
+use Session;
 
 class ClienteController extends Controller
 {
@@ -23,6 +23,11 @@ class ClienteController extends Controller
     public function listarVuelosView()
     {
         return view('Cliente.listarVuelos');
+    }
+
+    public function formularioCompraReservaView()
+    {
+        return view('cliente.formularioCompraReserva');
     }
 
     // FUNCIONES DEL SISTEMA
@@ -44,7 +49,49 @@ class ClienteController extends Controller
         return $usuario;
     }
 
-    public function mostrarInicio()
+    // funcion que determina si el usuario compra o reserva el boleto
+    // y hace la derivacion a la funcion correspondiente
+    public function comprarReservarBoleto(Request $request)
+    {
+        Session::put('tipoFormulario', $request->tipoFormulario);
+
+        Session::put('nroVuelo', $request->nroVuelo);
+        Session::put('origenVuelo', $request->origenVuelo);
+        Session::put('destinoVuelo', $request->destinoVuelo);
+        Session::put('fechaVuelo', $request->fechaVuelo);
+        Session::put('horaVuelo', $request->horaVuelo);
+
+        Session::put('cantAdultos', $request->cantAdultos);
+        Session::put('cantMenores', $request->cantMenores);
+        Session::put('cantBebes', $request->cantBebes);
+        Session::put('tarifaAdultos', $request->tarifaAdultos);
+        Session::put('tarifaMenores', $request->tarifaMenores);
+        Session::put('tarifaBebes', $request->tarifaBebes);
+
+        Session::put('total', $request->tarifaTotal);
+
+        if ($request->tipoFormulario == "compra") {
+            // return redirect('/formulario');
+            return view('cliente.formularioCompraReserva', compact('request'));
+        }
+        if ($request->tipoFormulario == "reserva") {
+            return redirect('/formulario');
+        }
+    }
+
+    public function comprarBoleto()
+    {
+    }
+
+    public function cancelarCompra()
+    {
+    }
+
+    public function reservarBoleto()
+    {
+    }
+
+    public function cancelarReserva()
     {
     }
 

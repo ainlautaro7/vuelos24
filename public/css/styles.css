@@ -36,6 +36,16 @@ body {
     border-left: solid 1px #c0c0c0;
 }
 
+.form-compra-reserva-boleto-modal input{
+    border: 0;
+    color: #000;
+    background: #fff;
+}
+
+.form-compra-reserva-boleto-modal input:focus-visible{
+    outline: none;
+}
+
 /* inicio.blade.php styles */
 .banner-inicio {
     background-image: url("../../resources/img/banner-inicio.jpg");

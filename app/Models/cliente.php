@@ -14,7 +14,7 @@ class Cliente extends Usuario
     protected $table = 'cliente'; 
     protected $primaryKey = 'codCliente';
 
-    protected $codEmpleado;
+    protected $codCliente;
     protected $idUsuario;
     protected $nombre;
     protected $apellido;
@@ -38,21 +38,4 @@ class Cliente extends Usuario
         'password',
         'tipoUsuario'
     ];
-
-    // FUNCIONES DEL SISTEMA
-    protected function comprarBoleto(){
-
-    }
-
-    protected function cancelarCompra(){
-
-    }
-
-    protected function reservarBoleto(){
-
-    }
-
-    protected function cancelarReserva(){
-        
-    }
 }

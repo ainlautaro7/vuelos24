@@ -5,6 +5,7 @@ use App\Http\Controllers\VueloController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\UsuarioController;
+use App\Models\Cliente;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,9 +34,11 @@ Route::get('cerrarSesion', [UsuarioController::class, 'cerrarSesion'])->name('us
 Route::get('/', [ClienteController::class, 'inicioView'])->name('cliente.inicioView');
 Route::get('/registrarse', [ClienteController::class, 'registrarseView'])->name('cliente.registrarseView')->middleware('guest');
 Route::get('/listarVuelos', [ClienteController::class, 'listarVuelosView'])->name('cliente.listarVuelos');
+Route::get('/formulario',[ClienteController::class, 'formularioCompraReservaView'])->name('cliente.formulario');
 
 // formularios
 Route::post('buscarVuelos', [VueloController::class, 'buscarVuelos'])->name('vuelo.buscar');
+Route::post('comprarReservarBoleto', [ClienteController::class, 'comprarReservarBoleto'])->name('cliente.comprarReservarBoleto');
 
 // ----------------------------RUTAS SISTEMA DE GESTION---------------------------- //
 Route::get('/gestion', [EmpleadoController::class, 'gestionView'])->name('empleado.gestionView')->middleware('auth');

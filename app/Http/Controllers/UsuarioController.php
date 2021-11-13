@@ -71,6 +71,7 @@ class UsuarioController extends Controller
             $cliente->idUsuario = $usuario->idUsuario;
             $cliente->save();
 
+            $cliente->codCliente;
             $cliente->nombre = $usuario->nombre;
             $cliente->apellido = $usuario->apellido;
             $cliente->nroDocumento = $usuario->nroDocumento;
