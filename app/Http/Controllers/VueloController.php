@@ -184,32 +184,55 @@ class VueloController extends Controller
     public function buscarVuelos(Request $request)
     {
         $form = $request;
-
-        $vuelos = vuelo::select(
-            "nroVuelo",
-            "origen",
-            "destino",
-            "fechaVuelo",
-            "horaVuelo",
-            "planVuelo",
-            "estadoVuelo",
-            "cantBusinessDisponible",
-            "tarifaBusiness",
-            "cantPrimeraDisponible",
-            "tarifaPrimera",
-            "cantTuristaDisponible",
-            "tarifaTurista"
-        )
-            ->from("vuelosDisponibles")
-            ->where([
-                ['origen', $request->origen],
-                ['destino', $request->destino],
-                ['fechaVuelo', $request->fechaIda],
-            ])
-            ->get();
+        if ($request->claseBoleto == "todas") {
+            $vuelos = vuelo::select(
+                "nroVuelo",
+                "origen",
+                "origenIATA",
+                "destino",
+                "destinoIATA",
+                "fechaVuelo",
+                "horaVuelo",
+                "planVuelo",
+                "estadoVuelo",
+                "claseBoleto",
+                "cantBoletosDisponible",
+                "tarifaBoleto"
+            )
+                ->from("vuelosDisponibles")
+                ->where([
+                    ['origen', $request->origen],
+                    ['destino', $request->destino],
+                    ['fechaVuelo', $request->fechaIda]
+                ])
+                ->get();
+        } else {
+            $vuelos = vuelo::select(
+                "nroVuelo",
+                "origen",
+                "origenIATA",
+                "destino",
+                "destinoIATA",
+                "fechaVuelo",
+                "horaVuelo",
+                "planVuelo",
+                "estadoVuelo",
+                "claseBoleto",
+                "cantBoletosDisponible",
+                "tarifaBoleto"
+            )
+                ->from("vuelosDisponibles")
+                ->where([
+                    ['origen', $request->origen],
+                    ['destino', $request->destino],
+                    ['fechaVuelo', $request->fechaIda],
+                    ['claseBoleto', $request->claseBoleto]
+                ])
+                ->get();
+        }
 
         return view('Cliente.inicio', compact('vuelos', 'form'));
-        // return $claseBoleto;
+        // return $vuelos;
     }
 
     // vuelos que pueden interesarte
@@ -225,12 +248,9 @@ class VueloController extends Controller
             "horaVuelo",
             "planVuelo",
             "estadoVuelo",
-            "cantBusinessDisponible",
-            "tarifaBusiness",
-            "cantPrimeraDisponible",
-            "tarifaPrimera",
-            "cantTuristaDisponible",
-            "tarifaTurista"
+            "claseBoleto",
+            "cantBoletosDisponible",
+            "tarifaBoleto"
         )
             ->from("vuelosDisponibles")
             ->inRandomOrder()
