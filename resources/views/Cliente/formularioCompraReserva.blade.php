@@ -61,19 +61,11 @@
                         aria-label="nombrePasajero{{ $i }}">
                 </div>
 
-                {{-- nro documento, fecha nacimiento, sexo --}}
+                {{-- nro documento --}}
                 <div class="input-group mt-3 mb-5">
                     <input type="text" class="form-control mx-2" name="documentoPasajero{{ $i }}"
                         placeholder="documento del pasajero {{ $i }}"
                         aria-label="documentoPasajero{{ $i }}">
-{{-- 
-                    <input type="date" class="form-control mx-2" name="fechaNacimientoPasajero{{ $i }}"
-                        placeholder="fecha de nacimiento del pasajero{{ $i }}"
-                        aria-label="fechaNacimientoPasajero{{ $i }}">
-
-                    <input type="text" class="form-control mx-2" name="sexoPasajero{{ $i }}"
-                        placeholder="sexo del pasajero {{ $i }}"
-                        aria-label="sexoPasajero{{ $i }}"> --}}
                 </div>
             @endfor
         </div>
@@ -201,6 +193,12 @@
                 @endif
             </div>
         </div>
+
+        <div class="d-none">
+            {{$cantPasajeros = Session::get('cantAdultos') + Session::get('cantMenores') + Session::get('cantBebes')}}
+        </div>
+        <input type="hidden" name="cantPasajeros" value="{{$cantPasajeros}}">
+
         </form>
     </div>
 

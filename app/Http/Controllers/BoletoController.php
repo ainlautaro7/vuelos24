@@ -48,14 +48,30 @@ class BoletoController extends Controller
         }
     }
 
-    public function cambiarEstadoBoleto($request)
+    public function cambiarEstadoBoleto($request, $i, $estadoBoleto)
     {
-        $boleto = boleto::where('estadoBoleto', '=', "activo")->where('nroVuelo', $request->nroVuelo)->where('claseBoleto', $request->claseBoleto)->first();
+        $i = 2;
+        $boleto = new boleto();
+        $boleto = boleto::where('estadoBoleto', '=', "activo")
+            ->where('nroVuelo', $request->nroVuelo)
+            ->where('claseBoleto', $request->claseBoleto)
+            ->first();
+
+        // $boleto = boleto::find($request->nroBoleto);
+
         $boleto->codCliente = $request->codCliente;
-        $boleto->apellidoPasajero = $request->apellidoPasajero1;
-        $boleto->nombrePasajero = $request->nombrePasajero1;
-        $boleto->documentoPasajero = $request->documentoPasajero1;
-        $boleto->tipoBoleto = $request->tipoBoleto;
+        $boleto->apellidoPasajero = $request->{"apellidoPasajero" . $i};
+        $boleto->nombrePasajero = $request->{"nombrePasajero" . $i};
+        $boleto->documentoPasajero = $request->{"documentoPasajero" . $i};
+        $boleto->estadoBoleto = $estadoBoleto;
+        // reseto
+        // $boleto->codCliente = null;
+        // $boleto->apellidoPasajero = null;
+        // $boleto->nombrePasajero = null;
+        // $boleto->documentoPasajero = null;
+
+        $boleto->save();
+
         return $boleto;
     }
 
@@ -71,7 +87,8 @@ class BoletoController extends Controller
     {
     }
 
-    public function buscarBoletosVuelo($nroVuelo){
+    public function buscarBoletosVuelo($nroVuelo)
+    {
         // SELECT nroVuelo, claseBoleto, tarifaBoleto, count(claseBoleto) as cantidad FROM boleto GROUP BY claseBoleto, nroVuelo ORDER BY nroVuelo, claseBoleto
         // | nroVuelo | claseBoleto | tarifaBoleto | cantidad |
         // |    1     |  business   |    100000    |    10    |
@@ -81,6 +98,6 @@ class BoletoController extends Controller
         // |    2     |  primera    |    50000     |    5     |
         // |    2     |  turista    |    35000     |    15    |
 
-        return DB::select('SELECT nroVuelo, claseBoleto, tarifaBoleto, count(claseBoleto) as cantidad FROM boleto WHERE nroVuelo = "'.$nroVuelo.'" GROUP BY claseBoleto, nroVuelo, tarifaBoleto ORDER BY nroVuelo, claseBoleto');
+        return DB::select('SELECT nroVuelo, claseBoleto, tarifaBoleto, count(claseBoleto) as cantidad FROM boleto WHERE nroVuelo = "' . $nroVuelo . '" GROUP BY claseBoleto, nroVuelo, tarifaBoleto ORDER BY nroVuelo, claseBoleto');
     }
 }

@@ -44,7 +44,7 @@
 
                 <div class="input-group my-3">
                     <input type="number" name="nroDocumento" placeholder="Nro. de Documento"
-                        aria-label="Numero de Documento" class="form-control mx-2" min="5000000" max="50000000" required>
+                        aria-label="Numero de Documento" class="form-control mx-2" required>
                     <input type="date" name="fechaNacimiento" placeholder="Fecha de Nacimiento"
                         aria-label="Fecha de Nacimiento" class="form-control mx-2" required>
                 </div>
@@ -53,7 +53,7 @@
                     <input type="email" name="email" placeholder="Correo Electronico" aria-label="Correo Electronico"
                         class="form-control mx-2" required>
                     <input type="number" name="telefono" placeholder="Teléfono" aria-label="Nro. Telefonos"
-                        class="form-control mx-2" min="1000000" max="999999999999" required>
+                        class="form-control mx-2" required>
                 </div>
 
                 <div class="input-group my-3">

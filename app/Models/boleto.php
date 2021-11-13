@@ -8,6 +8,7 @@ class boleto extends Model
 {
     protected $table = 'boleto';
     protected $primaryKey = 'nroBoleto';
+    protected $primaryKey2 = 'nroVuelo';
 
     protected $nroVuelo;
     protected $nroBoleto;
@@ -37,5 +38,7 @@ class boleto extends Model
         'estadoBoleto',
     ];
 
-    public function cargarDatos(){}
+    public function cargarDatos()
+    {
+    }
 }
