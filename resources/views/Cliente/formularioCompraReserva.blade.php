@@ -32,6 +32,7 @@
     {{-- {{ Session::get('nroVuelo') nroVuelo}} --}}
 
     <div class="container mx-auto my-5 row">
+        <a href="javascript:history.back()" class="btn btn-dark col-1">Volver</a>
         <h1 class="mt-3 mb-5 col-12 text-center">Formulario de {{ Session::get('tipoFormulario') }}</h1>
 
         {{-- formularios --}}
@@ -44,8 +45,8 @@
                 {{-- nombre y apellido --}}
                 <div class="input-group my-3">
                     <input type="text" class="form-control mx-2" name="nombrePasajero{{ $i }}"
-                        placeholder="nombre del pasajero {{ $i }}" aria-label="nombrePasajero{{ $i }}"
-                    >
+                        placeholder="nombre del pasajero {{ $i }}"
+                        aria-label="nombrePasajero{{ $i }}">
                     <input type="text" class="form-control mx-2" name="apellidoPasajero{{ $i }}"
                         placeholder="apellido del pasajero {{ $i }}"
                         aria-label="apellidoPasajero{{ $i }}">
@@ -69,7 +70,7 @@
         </div>
 
         {{-- informacion del vuelo --}}
-        <div class="col-4 ms-auto row">
+        <div class="col-4 ms-auto  row">
             <div class="col-12">
                 <h4 class="text-left">Vuelo con destino a {{ Session::get('destinoVuelo') }}</h4
                     class="text-center">
@@ -114,7 +115,13 @@
 
                 {{-- adultos --}}
                 <div class="col-12 row ">
-                    <div class="col-6">{{ Session::get('cantAdultos') }} Adulto</div>
+                    <div class="col-6">{{ Session::get('cantAdultos') }}
+                        @if (Session::get('cantAdultos') > 1)
+                            Adultos
+                        @else
+                            Adulto
+                        @endif
+                    </div>
                     <div class="col-6 text-end">${{ number_format(Session::get('tarifaAdultos'), 000, '.', '.') }}
                     </div>
                 </div>
@@ -122,7 +129,14 @@
                 {{-- menores --}}
                 @if (Session::get('cantMenores') > 0)
                     <div class="col-12 row">
-                        <div class="col-6">{{ Session::get('cantMenores') }} Menor</div>
+                        <div class="col-6">
+                            {{ Session::get('cantMenores') }}
+                            @if (Session::get('cantMenores') > 1)
+                                Menores
+                            @else
+                                Menor
+                            @endif
+                        </div>
                         <div class="col-6 text-end">
                             ${{ number_format(Session::get('tarifaMenores'), 000, '.', '.') }}
                         </div>
@@ -132,7 +146,13 @@
                 {{-- bebes --}}
                 @if (Session::get('cantBebes') > 0)
                     <div class="col-12 row ">
-                        <div class="col-6">{{ Session::get('cantBebes') }} Bebe</div>
+                        <div class="col-6">{{ Session::get('cantBebes') }}
+                            @if (Session::get('cantBebes') > 1)
+                                Bebes
+                            @else
+                                Bebe
+                            @endif
+                        </div>
                         <div class="col-6 text-end">${{ Session::get('tarifaBebes') }}</div>
                     </div>
                 @endif
