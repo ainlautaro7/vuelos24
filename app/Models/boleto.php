@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class boleto extends Model
 {
     protected $table = 'boleto';
+    protected $primaryKey = 'nroBoleto';
 
     protected $nroVuelo;
     protected $nroBoleto;
