@@ -11,7 +11,7 @@ class cardVueloInfo extends Component
      *
      * @return void
      */
-    public function __construct($nroVuelo, $origen, $destino, $fechaVuelo, $horaVuelo, $clase, $tarifa, $cantAdultos, $cantMenores, $cantBebes)
+    public function __construct($nroVuelo, $origen, $destino, $fechaVuelo, $horaVuelo, $clase, $tarifa, $cantAdultos, $cantMenores, $cantBebes, $tipoBoleto)
     {
         $this->nroVuelo = $nroVuelo;
         $this->origen = $origen;
@@ -23,6 +23,7 @@ class cardVueloInfo extends Component
         $this->cantMenores = $cantMenores;
         $this->cantBebes = $cantBebes;
         $this->tarifa = $tarifa;
+        $this->tipoBoleto = $tipoBoleto;
     }
 
     /**
@@ -42,7 +43,8 @@ class cardVueloInfo extends Component
         $cantMenores = $this->cantMenores;
         $cantBebes = $this->cantBebes;
         $tarifa = $this->tarifa;
+        $tipoBoleto = $this->tipoBoleto;
 
-        return view('components.cardVueloInfo', compact('nroVuelo', 'origen', 'destino', 'fechaVuelo', 'horaVuelo', 'clase', 'tarifa', 'cantAdultos', 'cantMenores', 'cantBebes'));
+        return view('components.cardVueloInfo', compact('tipoBoleto','nroVuelo', 'origen', 'destino', 'fechaVuelo', 'horaVuelo', 'clase', 'tarifa', 'cantAdultos', 'cantMenores', 'cantBebes'));
     }
 }
