@@ -50,7 +50,6 @@ class BoletoController extends Controller
 
     public function cambiarEstadoBoleto($request, $i, $estadoBoleto)
     {
-        $i = 2;
         $boleto = new boleto();
         $boleto = boleto::where('estadoBoleto', '=', "activo")
             ->where('nroVuelo', $request->nroVuelo)
@@ -64,6 +63,7 @@ class BoletoController extends Controller
         $boleto->nombrePasajero = $request->{"nombrePasajero" . $i};
         $boleto->documentoPasajero = $request->{"documentoPasajero" . $i};
         $boleto->estadoBoleto = $estadoBoleto;
+        $boleto->tipoBoleto = $request->tipoBoleto;
         // reseto
         // $boleto->codCliente = null;
         // $boleto->apellidoPasajero = null;
