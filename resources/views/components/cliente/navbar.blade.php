@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar navbar-light bg-light py-3">
+<nav class="navbar navbar-expand-lg navbar navbar-light shadow-sm bg-light py-3 sticky-top">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">Vuelos24</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
