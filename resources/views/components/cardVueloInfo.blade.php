@@ -1,4 +1,4 @@
-<a data-bs-toggle="modal" data-bs-target="#vueloNro{{$nroVuelo}}{{$clase}}" class="card-vuelo-info border row my-3">
+<a data-bs-toggle="modal" data-bs-target="#vueloNro{{$nroVuelo}}{{$clase}}" class="card-vuelo-info border row my-3" style="cursor: pointer">
     <div class="d-none">{{$tarifaMenores=0}}</div>
     <div class="col-9 row">
         <div class="col-12 pt-3 pb-2">
@@ -65,7 +65,8 @@
         @endif
 
         <hr class="mt-3">
-        <div class="col-12">Total: ${{ $total = $tarifaAdultos + $tarifaMenores }}</div>
+        <div class="d-none">{{ $total = $tarifaAdultos + $tarifaMenores }}</div>
+        <div class="col-12">Total: ${{ number_format($total, 000, '.', '.') }}</div>
     </div>
 </a>
 

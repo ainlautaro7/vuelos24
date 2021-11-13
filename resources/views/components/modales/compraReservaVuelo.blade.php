@@ -25,7 +25,7 @@
                             <strong>Cantidad adultos:</strong> {{ $cantAdultos }} <br>
                             <strong>Cantidad menores:</strong> {{ $cantMenores }} <br>
                             <strong>Cantidad Bebes:</strong> {{ $cantBebes }} <br><br>
-                            <strong>Total:</strong> ${{ $total }}
+                            <strong>Total:</strong> ${{ number_format($total, 000, '.', '.') }}
                         </div>
                         <div class="col-6">
                             <strong>Tarifa:</strong> ${{ number_format($tarifaAdultos, 000, '.', '.') }} <br>
