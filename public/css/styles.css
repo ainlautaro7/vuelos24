@@ -1,4 +1,4 @@
-@import '../../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
+@import "../../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
 body {
     overflow-x: hidden;
     list-style: none;
@@ -6,31 +6,34 @@ body {
 
 /* components */
 .container-busqueda-vuelo {
-    background: #fffffff2;
-    border-radius: 0.5rem;
-    box-shadow: #00000024 0px 0px 17px 0px;
+    box-shadow: #00000028 0px 0px 27px 0px;
     width: 100%;
     margin: auto;
     padding: 3%;
-    backdrop-filter: blur(20 px);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(209, 213, 219, 0.3);
+    border: 0;
 }
 
-.container-busqueda-vuelo form .cantPersonas{
+.container-busqueda-vuelo form .cantPersonas {
     width: 100px;
 }
 
-.card-vuelo-info{
+.card-vuelo-info {
     text-decoration: none;
     color: #000;
-    border-radius: .5rem;
+    border-radius: 0.5rem;
     box-shadow: 0 0 16px 0 rgb(0 0 0 / 2.5%);
     /* border: solid rgba(0, 0, 0, 0.24) 1px; */
-    transition: .2s;
+    transition: 0.2s;
 }
-.card-vuelo-info:hover{
+.card-vuelo-info:hover {
     box-shadow: 0 0 16px 0 rgb(0 0 0 / 20%);
 }
-.card-vuelo-info .precio{
+.card-vuelo-info .precio {
     border-left: solid 1px #c0c0c0;
 }
 
