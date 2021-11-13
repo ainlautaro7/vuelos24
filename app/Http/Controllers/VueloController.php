@@ -232,7 +232,7 @@ class VueloController extends Controller
         }
 
         return view('Cliente.inicio', compact('vuelos', 'form'));
-        // return $vuelos;
+        return $vuelos;
     }
 
     // vuelos que pueden interesarte

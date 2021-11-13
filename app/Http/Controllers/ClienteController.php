@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\BoletoController;
 use App\Models\User as Usuario;
 use Illuminate\Http\Request;
 use Session;
@@ -50,11 +51,10 @@ class ClienteController extends Controller
     }
 
     // funcion que determina si el usuario compra o reserva el boleto
-    // y hace la derivacion a la funcion correspondiente
     public function comprarReservarBoleto(Request $request)
     {
         Session::put('claseBoleto', $request->claseBoleto);
-
+        Session::put('tipoBoleto', $request->tipoBoleto);
         Session::put('tipoFormulario', $request->tipoFormulario);
 
         Session::put('nroVuelo', $request->nroVuelo);
@@ -78,19 +78,25 @@ class ClienteController extends Controller
         }
         if ($request->tipoFormulario == "reserva") {
             return redirect('/formulario');
+            // return $request;
         }
     }
 
-    public function comprarBoleto()
+    public function comprarBoleto(Request $request)
     {
+        return $request;
     }
 
     public function cancelarCompra()
     {
     }
 
-    public function reservarBoleto()
+    public function reservarBoleto(Request $request)
     {
+        $gestionarBoleto = new BoletoController();
+        // $gestionarBoleto->cambiarEstadoBoleto($request, 'reservado');
+        return $gestionarBoleto->cambiarEstadoBoleto($request);
+        // return $request;
     }
 
     public function cancelarReserva()
