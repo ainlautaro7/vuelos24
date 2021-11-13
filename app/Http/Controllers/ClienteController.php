@@ -72,7 +72,7 @@ class ClienteController extends Controller
 
         if ($request->tipoFormulario == "compra") {
             // return redirect('/formulario');
-            return view('cliente.formularioCompraReserva', compact('request'));
+            return redirect('/formulario');
         }
         if ($request->tipoFormulario == "reserva") {
             return redirect('/formulario');

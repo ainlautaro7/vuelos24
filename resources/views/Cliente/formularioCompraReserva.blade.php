@@ -27,12 +27,49 @@
 
     <!-- navbar -->
     @include('components.cliente.navbar')
-    {{-- {{ auth()->user()->id }} codCliente --}}
-    <div class="container mx-auto my-5 row">
-        <h1 class="my-3 col-12 text-center">Formulario de {{ Session::get('tipoFormulario') }}</h1>
 
-        <div class="col-8"></div>
-        <div class="col-4 row">
+    {{-- {{ auth()->user()->id }} codCliente --}}
+    {{-- {{ Session::get('nroVuelo') nroVuelo}} --}}
+
+    <div class="container mx-auto my-5 row">
+        <h1 class="mt-3 mb-5 col-12 text-center">Formulario de {{ Session::get('tipoFormulario') }}</h1>
+
+        {{-- formularios --}}
+        <div class="col-7 me-auto">
+            @for ($i = 1; $i < Session::get('cantAdultos') + Session::get('cantMenores') + Session::get('cantBebes'); $i++)
+                <h4>Datos personales - Pasajero Nro {{ $i }}
+                    <hr>
+                </h4>
+
+                {{-- nombre y apellido --}}
+                <div class="input-group my-3">
+                    <input type="text" class="form-control mx-2" name="nombrePasajero{{ $i }}"
+                        placeholder="nombre del pasajero {{ $i }}" aria-label="nombrePasajero{{ $i }}"
+                    >
+                    <input type="text" class="form-control mx-2" name="apellidoPasajero{{ $i }}"
+                        placeholder="apellido del pasajero {{ $i }}"
+                        aria-label="apellidoPasajero{{ $i }}">
+                </div>
+
+                {{-- nro documento, fecha nacimiento, sexo --}}
+                <div class="input-group mt-3 mb-5">
+                    <input type="text" class="form-control mx-2" name="documentoPasajero{{ $i }}"
+                        placeholder="documento del pasajero {{ $i }}"
+                        aria-label="documentoPasajero{{ $i }}">
+
+                    <input type="date" class="form-control mx-2" name="fechaNacimientoPasajero{{ $i }}"
+                        placeholder="fecha de nacimiento del pasajero{{ $i }}"
+                        aria-label="fechaNacimientoPasajero{{ $i }}">
+
+                    <input type="text" class="form-control mx-2" name="sexoPasajero{{ $i }}"
+                        placeholder="sexo del pasajero {{ $i }}"
+                        aria-label="sexoPasajero{{ $i }}">
+                </div>
+            @endfor
+        </div>
+
+        {{-- informacion del vuelo --}}
+        <div class="col-4 ms-auto row">
             <div class="col-12">
                 <h4 class="text-left">Vuelo con destino a {{ Session::get('destinoVuelo') }}</h4
                     class="text-center">
@@ -43,9 +80,30 @@
                 <strong class="col-12">Itinerario
                     <hr class="mt-1">
                 </strong>
-                <div class="col-2">IDA</div>
-                <div class="col-6">{{ Session::get('origenVuelo') }}</div>
-                <div class="col-4">{{ Session::get('fechaVuelo') }}</div>
+
+                {{-- tipo boleto --}}
+                <div class="col-12 row">
+                    <div class="col-6">
+                        Tipo Boleto
+                    </div>
+                    <div class="col-6 text-end">IDA</div>
+                </div>
+
+                {{-- origen del vuelo --}}
+                <div class="col-12 row">
+                    <div class="col-4">Origen</div>
+                    <div class="col-8 text-end">{{ Session::get('origenVuelo') }}</div>
+                </div>
+
+                <div class="col-12 row">
+                    <div class="col-4">Fecha vuelo</div>
+                    <div class="col-8 text-end">{{ Session::get('fechaVuelo') }}</div>
+                </div>
+
+                <div class="col-12 row">
+                    <div class="col-6">Hora vuelo</div>
+                    <div class="col-6 text-end">{{ Session::get('horaVuelo') }}</div>
+                </div>
             </div>
 
             {{-- pasajeros --}}
@@ -53,51 +111,66 @@
                 <strong>Pasajero/s
                     <hr class="mt-1">
                 </strong>
-                <div class="col-6 row ">
 
-                    <div class="col-12">{{ Session::get('cantAdultos') }} Adulto</div>
-                    <div class="col-12">{{ Session::get('cantMenores') }} Menor</div>
-                    <div class="col-12">{{ Session::get('cantBebes') }} Bebe</div>
+                {{-- adultos --}}
+                <div class="col-12 row ">
+                    <div class="col-6">{{ Session::get('cantAdultos') }} Adulto</div>
+                    <div class="col-6 text-end">${{ number_format(Session::get('tarifaAdultos'), 000, '.', '.') }}
+                    </div>
                 </div>
-                <div class="col-6 row ">
-                    <div class="col-12">${{ Session::get('tarifaAdultos') }}</div>
-                    <div class="col-12">${{ Session::get('tarifaMenores') }}</div>
-                    <div class="col-12">${{ Session::get('tarifaBebes') }}</div>
-                </div>
+
+                {{-- menores --}}
+                @if (Session::get('cantMenores') > 0)
+                    <div class="col-12 row">
+                        <div class="col-6">{{ Session::get('cantMenores') }} Menor</div>
+                        <div class="col-6 text-end">
+                            ${{ number_format(Session::get('tarifaMenores'), 000, '.', '.') }}
+                        </div>
+                    </div>
+                @endif
+
+                {{-- bebes --}}
+                @if (Session::get('cantBebes') > 0)
+                    <div class="col-12 row ">
+                        <div class="col-6">{{ Session::get('cantBebes') }} Bebe</div>
+                        <div class="col-6 text-end">${{ Session::get('tarifaBebes') }}</div>
+                    </div>
+                @endif
             </div>
 
             {{-- precio total --}}
             <div class="col-12 row mt-3">
-                <strong>Precio Total</strong>
-                <div class="col-12">
-                    ARS ${{ Session::get('total') }}
+                <div class="col-12 row">
+                    <div class="col-6">
+                        <strong>Precio Total</strong>
+                    </div>
+                    <div class="col-6 text-end">
+                        ${{ number_format(Session::get('total'), 000, '.', '.') }}
+                    </div>
                 </div>
             </div>
+
+            {{-- boton comprar/reservar --}}
             <div class="col-12 mt-3">
-                <button class="btn btn-info text-white">
-                    @if (Session::get('tipoFormulario') == 'comprar')
-                        Comprar Boletos
-                    @else
-                        Reservar Boletos
-                    @endif
-                </button>
+                @if (Session::get('tipoFormulario') == 'compra')
+                    <button class="btn btn-info text-white">
+                        @if ((Session::get('cantAdultos') > 1) | (Session::get('cantMenores') > 1) | (Session::get('cantBebes') > 1))
+                            Comprar Boletos
+                        @else
+                            Comprar Boleto
+                        @endif
+                    </button>
+                @else
+                    <button class="btn btn-info text-white">
+                        @if ((Session::get('cantAdultos') > 1) | (Session::get('cantMenores') > 1) | (Session::get('cantBebes') > 1))
+                            Reservar Boletos
+                        @else
+                            Reservar Boleto
+                        @endif
+                    </button>
+                @endif
             </div>
         </div>
-
-        {{ Session::get('nroVuelo') }}
-
-
-
-        {{ Session::get('horaVuelo') }}
-
-
-
-
-
-
-
-
-
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
