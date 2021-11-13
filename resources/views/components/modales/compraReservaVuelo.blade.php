@@ -12,13 +12,13 @@
                 method="POST">
                 @csrf
                 <input type="hidden" name="nroVuelo" id="nroVuelo" value="{{$nroVuelo}}">
+                <input type="hidden" name="tipoBoleto" id="tipoBoleto" value="{{$tipoBoleto}}">
                 <div class="modal-body">
                     <div class="row mx-1">
                         <div class="col-12 row">
                             <h3 class="p-0 m-0">Información del vuelo
                                 <hr class="p-0 mt-1 mb-3">
                             </h3>
-
                             {{-- origen del vuelo --}}
                             <div class="col-3">
                                 <strong>Origen</strong>
