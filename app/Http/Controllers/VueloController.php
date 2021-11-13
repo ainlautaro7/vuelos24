@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ciudad;
 use App\Models\servicio;
 use App\Models\vuelo;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -158,7 +159,7 @@ class VueloController extends Controller
 
         $vuelo->save();
 
-        return redirect('/gestion/administrarVuelos')->with('message', "Vuelo Nro ". $request->nroVuelo ." reprogramado con exito!");
+        return redirect('/gestion/administrarVuelos')->with('message', "Vuelo Nro " . $request->nroVuelo . " reprogramado con exito!");
     }
 
     public function buscarVuelo($nroVuelo)
@@ -183,7 +184,7 @@ class VueloController extends Controller
     public function buscarVuelos(Request $request)
     {
         $form = $request;
-        
+
         $vuelos = vuelo::select(
             "nroVuelo",
             "origen",
@@ -207,8 +208,36 @@ class VueloController extends Controller
             ])
             ->get();
 
-        return view('Cliente.inicio', compact('vuelos','form'));
+        return view('Cliente.inicio', compact('vuelos', 'form'));
         // return $claseBoleto;
+    }
+
+    // vuelos que pueden interesarte
+    public static function vuelosInteresantes()
+    {
+        $vuelos = vuelo::select(
+            "nroVuelo",
+            "origen",
+            "origenIATA",
+            "destino",
+            "destinoIATA",
+            "fechaVuelo",
+            "horaVuelo",
+            "planVuelo",
+            "estadoVuelo",
+            "cantBusinessDisponible",
+            "tarifaBusiness",
+            "cantPrimeraDisponible",
+            "tarifaPrimera",
+            "cantTuristaDisponible",
+            "tarifaTurista"
+        )
+            ->from("vuelosDisponibles")
+            ->inRandomOrder()
+            ->limit(4)
+            ->get();
+
+        return $vuelos;
     }
 
     public function destinosMasVisitados()
