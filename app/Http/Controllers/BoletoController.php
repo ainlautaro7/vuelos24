@@ -48,8 +48,15 @@ class BoletoController extends Controller
         }
     }
 
-    public function cambiarEstadoBoleto()
+    public function cambiarEstadoBoleto($request)
     {
+        $boleto = boleto::where('estadoBoleto', '=', "activo")->where('nroVuelo', $request->nroVuelo)->where('claseBoleto', $request->claseBoleto)->first();
+        $boleto->codCliente = $request->codCliente;
+        $boleto->apellidoPasajero = $request->apellidoPasajero1;
+        $boleto->nombrePasajero = $request->nombrePasajero1;
+        $boleto->documentoPasajero = $request->documentoPasajero1;
+        $boleto->tipoBoleto = $request->tipoBoleto;
+        return $boleto;
     }
 
     public function cambiarPasajeros()
