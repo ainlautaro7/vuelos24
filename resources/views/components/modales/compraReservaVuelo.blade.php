@@ -18,8 +18,8 @@
 
                     @if (Auth::guest())
                         <div class="alert alert-warning" role="alert">
-                            Debe de <a href="">iniciar sesión</a> para comprar o reservar un boleto.
-                            <a href="">Registrarse</a>
+                            Debe de <a href="{{ url('/login') }}">iniciar sesión</a> para comprar o reservar un boleto.
+                            <a href="{{url('/registrarse')}}">Registrarse</a>
                         </div>
                     @endif
 
