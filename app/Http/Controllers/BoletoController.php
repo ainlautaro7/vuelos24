@@ -56,14 +56,13 @@ class BoletoController extends Controller
             ->where('claseBoleto', $request->claseBoleto)
             ->first();
 
-        // $boleto = boleto::find($request->nroBoleto);
-
         $boleto->codCliente = $request->codCliente;
         $boleto->apellidoPasajero = $request->{"apellidoPasajero" . $i};
         $boleto->nombrePasajero = $request->{"nombrePasajero" . $i};
         $boleto->documentoPasajero = $request->{"documentoPasajero" . $i};
         $boleto->estadoBoleto = $estadoBoleto;
         $boleto->tipoBoleto = $request->tipoBoleto;
+
         // reseto
         // $boleto->codCliente = null;
         // $boleto->apellidoPasajero = null;

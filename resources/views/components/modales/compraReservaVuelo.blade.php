@@ -11,9 +11,18 @@
             <form class="form-compra-reserva-boleto-modal" action="{{ route('cliente.comprarReservarBoleto') }}"
                 method="POST">
                 @csrf
-                <input type="hidden" name="nroVuelo" id="nroVuelo" value="{{$nroVuelo}}">
-                <input type="hidden" name="tipoBoleto" id="tipoBoleto" value="{{$tipoBoleto}}">
+
+                <input type="hidden" name="nroVuelo" id="nroVuelo" value="{{ $nroVuelo }}">
+                <input type="hidden" name="tipoBoleto" id="tipoBoleto" value="{{ $tipoBoleto }}">
                 <div class="modal-body">
+
+                    @if (Auth::guest())
+                        <div class="alert alert-warning" role="alert">
+                            Debe de <a href="">iniciar sesión</a> para comprar o reservar un boleto.
+                            <a href="">Registrarse</a>
+                        </div>
+                    @endif
+
                     <div class="row mx-1">
                         <div class="col-12 row">
                             <h3 class="p-0 m-0">Información del vuelo
@@ -132,11 +141,11 @@
 
                     {{-- compra --}}
                     <button type="submit" name="tipoFormulario" value="compra" class="btn btn-success mx-auto"
-                        style="width: 20%;">Comprar</button>
+                        style="width: 20%;" @if (Auth::guest()) disabled @endif>Comprar</button>
 
                     {{-- reserva --}}
                     <button type="submit" name="tipoFormulario" value="reserva" class="btn btn-primary mx-auto"
-                        style="width: 20%;">Reservar</button>
+                        style="width: 20%;" @if (Auth::guest())disabled @endif>Reservar</button>
                 </div>
             </form>
         </div>

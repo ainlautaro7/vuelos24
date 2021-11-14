@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\BoletoController;
 use App\Models\User as Usuario;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Session;
 
@@ -53,6 +54,7 @@ class ClienteController extends Controller
     // funcion que determina si el usuario compra o reserva el boleto
     public function comprarReservarBoleto(Request $request)
     {
+
         Session::put('claseBoleto', $request->claseBoleto);
         Session::put('tipoBoleto', $request->tipoBoleto);
         Session::put('tipoFormulario', $request->tipoFormulario);
@@ -95,10 +97,8 @@ class ClienteController extends Controller
     {
         $gestionarBoleto = new BoletoController();
         for ($i = 1; $i <= $request->cantPasajeros; $i++) {
-            $gestionarBoleto->cambiarEstadoBoleto($request,1,'reservado');
+            $gestionarBoleto->cambiarEstadoBoleto($request, 1, 'reservado');
         }
-        // return $gestionarBoleto->cambiarEstadoBoleto($request, 1, 'reservado');
-        // return $request->{"nombrePasajero".$i};
     }
 
     public function cancelarReserva()

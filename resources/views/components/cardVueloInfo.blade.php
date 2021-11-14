@@ -1,4 +1,4 @@
-<a data-bs-toggle="modal" data-bs-target="#vueloNro{{$nroVuelo}}{{$clase}}" class="card-vuelo-info border row my-3" style="cursor: pointer">
+<a class="card-vuelo-info border row my-3" data-bs-toggle="modal" data-bs-target="#vueloNro{{$nroVuelo}}{{$clase}}" style="cursor: pointer">
     <div class="d-none">{{$tarifaMenores=0}}</div>
     <div class="col-9 row">
         <div class="col-12 pt-3 pb-2">
