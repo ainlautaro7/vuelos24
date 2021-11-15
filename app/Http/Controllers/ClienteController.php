@@ -91,21 +91,19 @@ class ClienteController extends Controller
         }
     }
 
-    public function cancelarCompra()
-    {
-    }
-
     public function reservarBoleto(Request $request)
     {
         $gestionarBoleto = new BoletoController();
-        // for ($i = 1; $i <= $request->cantPasajeros; $i++) {
-        //     $gestionarBoleto->cambiarEstadoBoleto($request, 1, 'reservado');
-        // }
-
-        return $gestionarBoleto->cambiarEstadoBoleto($request, 1, 'reservado');
+        for ($i = 1; $i <= $request->cantPasajeros; $i++) {
+            $gestionarBoleto->cambiarEstadoBoleto($request, 1, 'reservado');
+        }
     }
 
     public function cancelarReserva()
+    {
+    }
+
+    public function cancelarCompra()
     {
     }
 
