@@ -86,14 +86,9 @@ class ClienteController extends Controller
     public function comprarBoleto()
     {
         $gestionarBoleto = new BoletoController();
-        $cantPasajeros = Session::get('cantAdultos') + Session::get('cantMenores') + Session::get('cantBebes');
-
-        // for ($i = 1; $i <= $cantPasajeros; $i++) {
-        //     $gestionarBoleto->cambiarEstadoBoleto('comprado');
-        // }
-        // return Session::get('cantAdultos');
-        // return $gestionarBoleto->cambiarEstadoBoleto($cantPasajeros, 'comprado');
-        return "hola";
+        for ($i = 1; $i <= $cantPasajeros; $i++) {
+            $gestionarBoleto->cambiarEstadoBoleto('comprado');
+        }
     }
 
     public function cancelarCompra()
@@ -103,9 +98,11 @@ class ClienteController extends Controller
     public function reservarBoleto(Request $request)
     {
         $gestionarBoleto = new BoletoController();
-        for ($i = 1; $i <= $request->cantPasajeros; $i++) {
-            $gestionarBoleto->cambiarEstadoBoleto($request, 1, 'reservado');
-        }
+        // for ($i = 1; $i <= $request->cantPasajeros; $i++) {
+        //     $gestionarBoleto->cambiarEstadoBoleto($request, 1, 'reservado');
+        // }
+
+        return $gestionarBoleto->cambiarEstadoBoleto($request, 1, 'reservado');
     }
 
     public function cancelarReserva()
