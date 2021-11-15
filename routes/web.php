@@ -34,13 +34,15 @@ Route::get('cerrarSesion', [UsuarioController::class, 'cerrarSesion'])->name('us
 Route::get('/', [ClienteController::class, 'inicioView'])->name('cliente.inicioView');
 Route::get('/registrarse', [ClienteController::class, 'registrarseView'])->name('cliente.registrarseView')->middleware('guest');
 Route::get('/listarVuelos', [ClienteController::class, 'listarVuelosView'])->name('cliente.listarVuelos');
+
+// formulario de compra reserva
 Route::get('/formulario',[ClienteController::class, 'formularioCompraReservaView'])->name('cliente.formulario');
 
 // formularios
 Route::post('buscarVuelos', [VueloController::class, 'buscarVuelos'])->name('vuelo.buscar');
 Route::post('comprarReservarBoleto', [ClienteController::class, 'comprarReservarBoleto'])->name('cliente.comprarReservarBoleto');
 
-Route::post('comprarBoleto', [ClienteController::class, 'comprarBoleto'])->name('cliente.comprarBoleto');
+Route::get('comprarBoleto', [ClienteController::class, 'comprarBoleto'])->name('cliente.comprarBoleto');
 Route::post('reserva', [ClienteController::class, 'reservarBoleto'])->name('cliente.reserva');
 
 // ----------------------------RUTAS SISTEMA DE GESTION---------------------------- //

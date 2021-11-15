@@ -8,6 +8,7 @@ MercadoPago\SDK::setAccessToken(config('services.mercadopago.token'));
 $preference = new MercadoPago\Preference();
 @endphp
 
+{{-- SCRIPT QUE DETECTA SI EL FORMULARIO ES DE COMPRA O RESERVA --}}
 @if (Session::get('tipoFormulario') == 'compra')
     {{-- <form action="{{ route('cliente.comprarBoleto') }}" method="POST" class="row"> --}}
     <div class="row">
@@ -34,7 +35,7 @@ $preference = new MercadoPago\Preference();
         <div class="input-group my-3">
             <input type="text" class="form-control mx-2" name="apellidoPasajero{{ $i }}"
                 placeholder="apellido del pasajero {{ $i }}"
-                aria-label="apellidoPasajero{{ $i }}">
+                aria-label="apellidoPasajero{{ $i }}    ">
             <input type="text" class="form-control mx-2" name="nombrePasajero{{ $i }}"
                 placeholder="nombre del pasajero {{ $i }}" aria-label="nombrePasajero{{ $i }}">
         </div>
@@ -152,13 +153,6 @@ $preference = new MercadoPago\Preference();
     {{-- boton comprar/reservar --}}
     <div class="col-12 mt-3">
         @if (Session::get('tipoFormulario') == 'compra')
-            {{-- <button type="submit" class="btn btn-success text-white" name="comprarBoleto" value="comprar">
-                    @if ((Session::get('cantAdultos') > 1) | (Session::get('cantMenores') > 1) | (Session::get('cantBebes') > 1))
-                        Comprar Boletos
-                    @else
-                        Comprar Boleto
-                    @endif
-                </button> --}}
             <div class="cho-container">
             </div>
         @else
@@ -192,7 +186,7 @@ for ($i = 0; $i < Session::get('cantAdultos'); $i++) {
     $item = new MercadoPago\Item();
     $item->title = 'Boleto clase ' . Session::get('claseBoleto');
     $item->quantity = 1;
-    $item->unit_price = Session::get('tarifaAdultos')/Session::get('cantAdultos');
+    $item->unit_price = Session::get('tarifaAdultos') / Session::get('cantAdultos');
     $boletos[$contador] = $item;
     $contador++;
 }
@@ -202,7 +196,7 @@ for ($i = 0; $i < Session::get('cantMenores'); $i++) {
     $item = new MercadoPago\Item();
     $item->title = 'Boleto clase ' . Session::get('claseBoleto');
     $item->quantity = 1;
-    $item->unit_price = Session::get('tarifaMenores')/Session::get('cantMenores');
+    $item->unit_price = Session::get('tarifaMenores') / Session::get('cantMenores');
     $boletos[$contador] = $item;
     $contador++;
 }
@@ -212,11 +206,24 @@ for ($i = 0; $i < Session::get('cantBebes'); $i++) {
     $item = new MercadoPago\Item();
     $item->title = 'Boleto clase ' . Session::get('claseBoleto');
     $item->quantity = 1;
-    $item->unit_price = Session::get('tarifaBebes')/Session::get('cantBebes');
+    $item->unit_price = Session::get('tarifaBebes') / Session::get('cantBebes');
     $boletos[$contador] = $item;
     $contador++;
 }
 
+// que ocurre segun el pago se acredito o no
+$preference = new MercadoPago\Preference();
+$preference->back_urls = [
+    // pagina con los vuelos del cliente
+    'success' => 'http://localhost/vuelos24/public/comprarBoleto',
+
+    // al formulario de pago
+    'failure' => 'http://www.tu-sitio/failure',
+
+    // pagina con los vuelos del cliente
+    'pending' => 'http://www.tu-sitio/pending',
+];
+$preference->auto_return = 'approved';
 
 $preference->items = $boletos;
 $preference->save();
@@ -225,7 +232,6 @@ $preference->save();
 {{-- MERCADO PAGO --}}
 {{-- SDK MercadoPago.js V2 --}}
 <script src="https://sdk.mercadopago.com/js/v2"></script>
-
 
 <script>
     // Add the SDK credentials

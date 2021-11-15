@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\boleto;
 use Illuminate\Support\Facades\DB;
+use Session;
 
 class BoletoController extends Controller
 {
@@ -54,20 +55,34 @@ class BoletoController extends Controller
         }
     }
 
-    public function cambiarEstadoBoleto($request, $i, $estadoBoleto)
+    public function cambiarEstadoBoleto($cantPasajeros, $estadoBoleto)
     {
-        $boleto = new boleto();
-        $boleto = boleto::where('estadoBoleto', '=', "activo")
-            ->where('nroVuelo', $request->nroVuelo)
-            ->where('claseBoleto', $request->claseBoleto)
-            ->first();
+        $cantPasajeros = Session::get('cantAdultos') + Session::get('cantMenores') + Session::get('cantBebes');
+        $boletos = [];
 
-        $boleto->codCliente = $request->codCliente;
-        $boleto->apellidoPasajero = $request->{"apellidoPasajero" . $i};
-        $boleto->nombrePasajero = $request->{"nombrePasajero" . $i};
-        $boleto->documentoPasajero = $request->{"documentoPasajero" . $i};
-        $boleto->estadoBoleto = $estadoBoleto;
-        $boleto->tipoBoleto = $request->tipoBoleto;
+        for ($i = 1; $i <= $cantPasajeros; $i++) {
+            $boleto = new boleto();
+            $boleto = boleto::where('estadoBoleto', '=', "activo")
+                ->where('nroVuelo', Session::get('nroVuelo'))
+                ->where('claseBoleto', Session::get('claseBoleto'))
+                ->first();
+
+            $boleto->codCliente = Session::get('codCliente');
+            $boleto->apellidoPasajero = null;
+            $boleto->nombrePasajero = null;
+            $boleto->documentoPasajero = null;
+            $boleto->estadoBoleto = $estadoBoleto;
+            $boleto->tipoBoleto = Session::get('tipoBoelto');
+
+            $boletos[$i] = $boleto;
+        }
+
+        // $boleto->codCliente = $request->codCliente;
+        // $boleto->apellidoPasajero = $request->{"apellidoPasajero" . $i};
+        // $boleto->nombrePasajero = $request->{"nombrePasajero" . $i};
+        // $boleto->documentoPasajero = $request->{"documentoPasajero" . $i};
+        // $boleto->estadoBoleto = $estadoBoleto;
+        // $boleto->tipoBoleto = $request->tipoBoleto;
 
         // reseto
         // $boleto->codCliente = null;
@@ -79,7 +94,7 @@ class BoletoController extends Controller
 
         // $boleto->save(); FUNCIONA, SE COMENTO PARA REALIZAR PRUEBAS
 
-        return $boleto;
+        return Session::get('apellidoPasajero1');
     }
 
     public function cambiarPasajeros()

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\BoletoController;
 use App\Models\User as Usuario;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Session;
 
@@ -84,12 +83,17 @@ class ClienteController extends Controller
         }
     }
 
-    public function comprarBoleto(Request $request)
+    public function comprarBoleto()
     {
         $gestionarBoleto = new BoletoController();
-        for ($i = 1; $i <= $request->cantPasajeros; $i++) {
-            $gestionarBoleto->cambiarEstadoBoleto($request, 1, 'comprado');
-        }
+        $cantPasajeros = Session::get('cantAdultos') + Session::get('cantMenores') + Session::get('cantBebes');
+
+        // for ($i = 1; $i <= $cantPasajeros; $i++) {
+        //     $gestionarBoleto->cambiarEstadoBoleto('comprado');
+        // }
+        // return Session::get('cantAdultos');
+        // return $gestionarBoleto->cambiarEstadoBoleto($cantPasajeros, 'comprado');
+        return "hola";
     }
 
     public function cancelarCompra()
