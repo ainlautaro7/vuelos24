@@ -83,10 +83,10 @@ class ClienteController extends Controller
         }
     }
 
-    public function comprarBoleto()
+    public function comprarBoleto(Request $request)
     {
         $gestionarBoleto = new BoletoController();
-        for ($i = 1; $i <= $cantPasajeros; $i++) {
+        for ($i = 1; $i <= $request->cantPasajeros; $i++) {
             $gestionarBoleto->cambiarEstadoBoleto('comprado');
         }
     }
