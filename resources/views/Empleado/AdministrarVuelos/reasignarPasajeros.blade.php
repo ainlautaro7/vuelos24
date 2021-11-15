@@ -38,7 +38,7 @@
 
             <a href="{{ url('/gestion/administrarVuelos') }}" class="btn btn-dark my-3 text-white mx-2 d-start">Volver</a>
 
-            <h1 class="text-center">REASIGNAR PASAJEROS - VUELO NRO 1</h1>
+            <h1 class="text-center">REASIGNAR PASAJEROS {{ $vuelo->nroVuelo }}</h1>
 
             <form class="container mt-5" action="">
 
@@ -49,14 +49,12 @@
                         </h4>
                         <div class="input-group my-3">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-info text-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Seleccionar una clase
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Primera</a></li>
-                                    <li><a class="dropdown-item" href="#">Business</a></li>
-                                    <li><a class="dropdown-item" href="#">Turista</a></li>
-                                </ul>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Seleccionar una clase</option>
+                                    <option value="1">Primera</option>
+                                    <option value="2">Business</option>
+                                    <option value="3">Turista</option>
+                                </select>
                             </div>
                         </div>
                     </div>

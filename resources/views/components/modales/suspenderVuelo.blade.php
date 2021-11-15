@@ -25,7 +25,7 @@
       <div class="modal-body">
         <form action="" method="POST">
           <a href="{{url('/gestion/administrarVuelos/modificarVuelo', $vuelo->nroVuelo)}}"><button type="button" class="btn btn-success btn-lg">Modificar Vuelo</button></a>
-          <a href="{{url('/gestion/administrarVuelos/reasignarPasajeros')}}"><button type="button" class="btn btn-info text-white btn-lg">Reasignar Pasajeros</button></a>
+          <a href="{{url('/gestion/administrarVuelos/reasignarPasajeros', $vuelo->nroVuelo)}}"><button type="button" class="btn btn-info text-white btn-lg">Reasignar Pasajeros</button></a>
         </form>
       </div>
     </div>

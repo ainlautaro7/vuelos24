@@ -55,7 +55,7 @@ Route::get('/gestion/reportes', [EmpleadoController::class, 'reportesView'])->na
 Route::get('/gestion/administrarVuelos', [VueloController::class, 'administrarVuelosView'])->name('vuelo.administrarVuelos')->middleware('auth');
 Route::get('/gestion/administrarVuelos/nuevoVuelo', [VueloController::class, 'altaVueloView'])->name('vuelo.altaVuelo')->middleware('auth');
 Route::get('/gestion/administrarVuelos/modificarVuelo/{vuelo}', [VueloController::class, 'modificarVueloView'])->name('vuelo.modificarVuelo')->middleware('auth');
-Route::get('/gestion/administrarVuelos/reasignarPasajeros', [VueloController::class, 'reasignarPasajerosView'])->name('vuelo.reasignarPasajeros')->middleware('auth');
+Route::get('/gestion/administrarVuelos/reasignarPasajeros/{vuelo}', [VueloController::class, 'reasignarPasajerosView'])->name('vuelo.reasignarPasajeros')->middleware('auth');
 
 // administrar empleado
 Route::get('/gestion/administrarEmpleados', [EmpleadoController::class, 'administrarEmpleadosView'])->name('empleado.administrarEmpleados');
