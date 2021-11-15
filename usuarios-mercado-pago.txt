@@ -1,0 +1,27 @@
+// codigo que genera usuarios de prueba
+curl -X POST \
+-H "Content-Type: application/json" \
+-H 'Authorization: Bearer TEST-8168865839783105-022118-e46f9ecb5faf9dcec225cd3fa42a7b29-145384285' \
+"https://api.mercadopago.com/users/test_user" \
+-d '{"site_id":"MLA"}'
+
+
+// usuarios generados
+
+// vendedor
+{
+	"id":1019298670,
+	"nickname":"TESTNR6WWG4O",
+	"password":"qatest2498",
+	"site_status":"active",
+	"email":"test_user_21302128@testuser.com"
+}
+
+// comprador
+{
+	"id":1019294117,
+	"nickname":"TESTIZOMFPT0",
+	"password":"qatest4346",
+	"site_status":"active",
+	"email":"test_user_6185014@testuser.com"
+}
