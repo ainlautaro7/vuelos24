@@ -186,6 +186,8 @@ $preference = new MercadoPago\Preference();
 
 @php
 $contador = 0;
+
+// creo los items de los adultos
 for ($i = 0; $i < Session::get('cantAdultos'); $i++) {
     $item = new MercadoPago\Item();
     $item->title = 'Boleto clase ' . Session::get('claseBoleto');
@@ -195,11 +197,22 @@ for ($i = 0; $i < Session::get('cantAdultos'); $i++) {
     $contador++;
 }
 
+// creo los items de los menores si los hay
 for ($i = 0; $i < Session::get('cantMenores'); $i++) {
     $item = new MercadoPago\Item();
     $item->title = 'Boleto clase ' . Session::get('claseBoleto');
     $item->quantity = 1;
     $item->unit_price = Session::get('tarifaMenores')/Session::get('cantMenores');
+    $boletos[$contador] = $item;
+    $contador++;
+}
+
+// creo los items de los bebes si los hay
+for ($i = 0; $i < Session::get('cantBebes'); $i++) {
+    $item = new MercadoPago\Item();
+    $item->title = 'Boleto clase ' . Session::get('claseBoleto');
+    $item->quantity = 1;
+    $item->unit_price = Session::get('tarifaBebes')/Session::get('cantBebes');
     $boletos[$contador] = $item;
     $contador++;
 }
