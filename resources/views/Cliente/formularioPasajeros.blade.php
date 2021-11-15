@@ -1,5 +1,16 @@
+@php
+// Mercado Pago SDK
+require base_path('/vendor/autoload.php');
+// Add Your credentials
+MercadoPago\SDK::setAccessToken(config('services.mercadopago.token'));
+
+// Create a preference object
+$preference = new MercadoPago\Preference();
+@endphp
+
 @if (Session::get('tipoFormulario') == 'compra')
-    <form action="{{ route('cliente.comprarBoleto') }}" method="POST" class="row">
+    {{-- <form action="{{ route('cliente.comprarBoleto') }}" method="POST" class="row"> --}}
+    <div class="row">
     @else
         <form action="{{ route('cliente.reserva') }}" method="POST" class="row">
 @endif
@@ -141,13 +152,15 @@
     {{-- boton comprar/reservar --}}
     <div class="col-12 mt-3">
         @if (Session::get('tipoFormulario') == 'compra')
-            <button type="submit" class="btn btn-success text-white" name="comprarBoleto" value="comprar">
-                @if ((Session::get('cantAdultos') > 1) | (Session::get('cantMenores') > 1) | (Session::get('cantBebes') > 1))
-                    Comprar Boletos
-                @else
-                    Comprar Boleto
-                @endif
-            </button>
+            {{-- <button type="submit" class="btn btn-success text-white" name="comprarBoleto" value="comprar">
+                    @if ((Session::get('cantAdultos') > 1) | (Session::get('cantMenores') > 1) | (Session::get('cantBebes') > 1))
+                        Comprar Boletos
+                    @else
+                        Comprar Boleto
+                    @endif
+                </button> --}}
+            <div class="cho-container">
+            </div>
         @else
             <button type="submit" class="btn btn-primary text-white">
                 @if ((Session::get('cantAdultos') > 1) | (Session::get('cantMenores') > 1) | (Session::get('cantBebes') > 1))
@@ -165,4 +178,56 @@
 </div>
 <input type="hidden" name="cantPasajeros" value="{{ $cantPasajeros }}">
 
-</form>
+@if (Session::get('tipoFormulario') == 'compra')
+    </div>
+@else
+    </form>
+@endif
+
+@php
+$contador = 0;
+for ($i = 0; $i < Session::get('cantAdultos'); $i++) {
+    $item = new MercadoPago\Item();
+    $item->title = 'Boleto clase ' . Session::get('claseBoleto');
+    $item->quantity = 1;
+    $item->unit_price = Session::get('tarifaAdultos')/Session::get('cantAdultos');
+    $boletos[$contador] = $item;
+    $contador++;
+}
+
+for ($i = 0; $i < Session::get('cantMenores'); $i++) {
+    $item = new MercadoPago\Item();
+    $item->title = 'Boleto clase ' . Session::get('claseBoleto');
+    $item->quantity = 1;
+    $item->unit_price = Session::get('tarifaMenores')/Session::get('cantMenores');
+    $boletos[$contador] = $item;
+    $contador++;
+}
+
+
+$preference->items = $boletos;
+$preference->save();
+@endphp
+
+{{-- MERCADO PAGO --}}
+{{-- SDK MercadoPago.js V2 --}}
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+
+
+<script>
+    // Add the SDK credentials
+    const mp = new MercadoPago("{{ config('services.mercadopago.key') }}", {
+        locale: 'en-US'
+    });
+
+    // Initialize the checkout
+    mp.checkout({
+        preference: {
+            id: '{{ $preference->id }}'
+        },
+        render: {
+            container: '.cho-container', // Indicates the name of the class where the payment button will be displayed
+            label: 'Pagar', // Changes the button label (optional)
+        }
+    });
+</script>
