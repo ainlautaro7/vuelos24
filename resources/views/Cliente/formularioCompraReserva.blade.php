@@ -31,8 +31,8 @@
     <div class="container mx-auto my-5">
         <a href="javascript:history.back()" class="btn btn-dark">Volver</a>
 
-        {{-- @include('cliente.formularioPasajeros') --}}
-        @include('cliente.formularioCobro')
+        @include('cliente.formularioPasajeros')
+        {{-- @include('cliente.formularioCobro') --}}
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
