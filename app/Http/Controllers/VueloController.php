@@ -184,6 +184,8 @@ class VueloController extends Controller
     public function buscarVuelos(Request $request)
     {
         $form = $request;
+        $cantPasajeros = $request->cantAdultos + $request->cantMenores + $request->cantBebes;
+
         if ($request->claseBoleto == "todas") {
             $vuelos = vuelo::select(
                 "nroVuelo",
@@ -203,7 +205,8 @@ class VueloController extends Controller
                 ->where([
                     ['origen', $request->origen],
                     ['destino', $request->destino],
-                    ['fechaVuelo', $request->fechaIda]
+                    ['fechaVuelo', $request->fechaIda],
+                    ['cantBoletosDisponible', '>=' ,$cantPasajeros]
                 ])
                 ->get();
         } else {
@@ -226,13 +229,14 @@ class VueloController extends Controller
                     ['origen', $request->origen],
                     ['destino', $request->destino],
                     ['fechaVuelo', $request->fechaIda],
-                    ['claseBoleto', $request->claseBoleto]
+                    ['claseBoleto', $request->claseBoleto],
+                    ['cantBoletosDisponible', '>=' ,$cantPasajeros]
                 ])
                 ->get();
         }
 
         return view('Cliente.inicio', compact('vuelos', 'form'));
-        return $vuelos;
+        // return $vuelos;
     }
 
     // vuelos que pueden interesarte
