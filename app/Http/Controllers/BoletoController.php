@@ -16,6 +16,8 @@ class BoletoController extends Controller
     public function crearBoleto($nroVuelo, $plazasPrimera, $tarifaPrimera, $plazasBusiness, $tarifaBusiness, $plazasTurista, $tarifaTurista)
     {
         $boletoNro = 1;
+
+        // bucle que genera los boletos de primera clase
         for ($i = 1; $i <= $plazasPrimera; $i++) {
             $boleto = new boleto();
             $boleto->nroVuelo = $nroVuelo;
@@ -26,6 +28,8 @@ class BoletoController extends Controller
             $boleto->save();
             $boletoNro++;
         }
+
+        // bucle que genera los boletos de clase business
         for ($i = 1; $i <= $plazasBusiness; $i++) {
             $boleto = new boleto();
             $boleto->nroVuelo = $nroVuelo;
@@ -36,6 +40,8 @@ class BoletoController extends Controller
             $boleto->save();
             $boletoNro++;
         }
+
+        // bucle que genera los boletos de clase turista
         for ($i = 1; $i <= $plazasTurista; $i++) {
             $boleto = new boleto();
             $boleto->nroVuelo = $nroVuelo;
@@ -68,8 +74,10 @@ class BoletoController extends Controller
         // $boleto->apellidoPasajero = null;
         // $boleto->nombrePasajero = null;
         // $boleto->documentoPasajero = null;
+        // $boleto->estadoBoleto = 'activo';
+        // $boleto->tipoBoleto = null;
 
-        $boleto->save();
+        // $boleto->save(); FUNCIONA, SE COMENTO PARA REALIZAR PRUEBAS
 
         return $boleto;
     }
