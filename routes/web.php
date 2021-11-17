@@ -6,6 +6,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\UsuarioController;
 use App\Models\Cliente;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,8 +43,10 @@ Route::get('/formulario',[ClienteController::class, 'formularioCompraReservaView
 Route::post('buscarVuelos', [VueloController::class, 'buscarVuelos'])->name('vuelo.buscar');
 Route::post('comprarReservarBoleto', [ClienteController::class, 'comprarReservarBoleto'])->name('cliente.comprarReservarBoleto');
 
-Route::get('comprarBoleto', [ClienteController::class, 'comprarBoleto'])->name('cliente.comprarBoleto');
+// Route::post('comprarBoleto', [ClienteController::class, 'comprarBoleto'])->name('cliente.comprarBoleto');
 Route::post('reserva', [ClienteController::class, 'reservarBoleto'])->name('cliente.reserva');
+
+Route::POST('/process_payment', [PaymentController::class, 'process_payment'])->name('cliente.process_payment');
 
 // ----------------------------RUTAS SISTEMA DE GESTION---------------------------- //
 Route::get('/gestion', [EmpleadoController::class, 'gestionView'])->name('empleado.gestionView')->middleware('auth');

@@ -7,6 +7,9 @@ use App\Models\User as Usuario;
 use Illuminate\Http\Request;
 use Session;
 
+use MercadoPago\SDK as MercadoPago;
+use MercadoPago\Payment as MercadoPagoPayment;
+
 class ClienteController extends Controller
 {
 
@@ -85,17 +88,47 @@ class ClienteController extends Controller
 
     public function comprarBoleto(Request $request)
     {
-        $gestionarBoleto = new BoletoController();
-        for ($i = 1; $i <= $request->cantPasajeros; $i++) {
-            $gestionarBoleto->cambiarEstadoBoleto('comprado');
-        }
+        // $gestionarBoleto = new BoletoController();
+        // for ($i = 1; $i <= $request->cantPasajeros; $i++) {
+        //     // $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'comprado');
+        // }
+
+        // return $request->{"apellidoPasajero" . 1};
+        require base_path('/vendor/autoload.php');
+
+        MercadoPago::setAccessToken(config('services.mercadopago.token'));
+
+        $payment = new MercadoPagoPayment();
+        $payment->transaction_amount = $request->transactionAmount;
+        $payment->token = $request->token;
+        $payment->description = $request->description;
+        $payment->installments = $request->installments;
+        $payment->payment_method_id = $request->paymentMethodId;
+        $payment->issuer_id = $request->issuer;
+
+        $payer = new MercadoPago\Payer();
+        $payer->email = $request->email;
+        $payer->identification = [
+            'type' => $request->docType,
+            'number' => $request->docNumber,
+        ];
+        $payment->payer = $payer;
+
+        $payment->save();
+
+        $response = [
+            'status' => $payment->status,
+            'status_detail' => $payment->status_detail,
+            'id' => $payment->id,
+        ];
+        echo json_encode($response);
     }
 
     public function reservarBoleto(Request $request)
     {
         $gestionarBoleto = new BoletoController();
         for ($i = 1; $i <= $request->cantPasajeros; $i++) {
-            $gestionarBoleto->cambiarEstadoBoleto($request, 1, 'reservado');
+            $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'reservado');
         }
     }
 
