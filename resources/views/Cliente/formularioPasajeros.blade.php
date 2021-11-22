@@ -1,15 +1,6 @@
 {{-- SCRIPT QUE DETECTA SI EL FORMULARIO ES DE COMPRA O RESERVA --}}
 <form action="{{ route('cliente.reserva') }}" method="POST" class="row">
 @csrf
-    @if (isset($_GET['collection_id']))
-        <h1>{{ Session::get('nroVuelo') }}</h1>
-        <h1>{{ old('nombrePasajero1') }}</h1>
-
-        <script>
-            var nombre = document.getElementById('nombrePasajero1');
-            console.log(nombre);
-        </script>
-    @endif
 
     <h1 class="mt-3 mb-5 col-12 text-center">Formulario de {{ Session::get('tipoFormulario') }}</h1>
 

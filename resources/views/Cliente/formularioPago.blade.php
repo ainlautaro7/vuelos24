@@ -82,15 +82,50 @@
             </div>
 
             <!-- Formulario -->
-            <form action="{{ route('cliente.comprarBoleto') }}" id="formulario-tarjeta" class="formulario-tarjeta active mt-4">
+            <form action="{{ route('cliente.comprarBoleto') }}" method="POST" id="formulario-tarjeta"
+                class="formulario-tarjeta active mt-4">
+
                 @csrf
+
+                {{-- inicio datos de pasajeros --}}
+                <input type="hidden" name="nroVuelo" value="{{ Session::get('nroVuelo') }}">
+                <input type="hidden" name="codCliente" value="{{ auth()->user()->id }}">
+                <input type="hidden" name="claseBoleto" value="{{ Session::get('claseBoleto') }}">
+                <input type="hidden" name="tipoBoleto" value="{{ Session::get('tipoBoleto') }}">
+                <input type="hidden" name="tipoTransaccion" value="{{ Session::get('tipoFormulario') }}">
+
+                @for ($i = 1; $i <= Session::get('cantAdultos') + Session::get('cantMenores') + Session::get('cantBebes'); $i++)
+
+                    {{-- nombre y apellido --}}
+                    <div class="input-group my-3 d-none">
+                        {{ $apellidoPasajero = 'apellidoPasajero' . $i }}
+                        {{ $nombrePasajero = 'nombrePasajero' . $i }}
+                        {{ $documentoPasajero = 'documentoPasajero' . $i }}
+
+                        <input type="text" class="form-control mx-2" name="apellidoPasajero{{ $i }}"
+                            placeholder="apellido del pasajero {{ $i }}"
+                            aria-label="apellidoPasajero{{ $i }}"
+                            value="{{ $request->$apellidoPasajero }}">
+
+                        <input type="text" class="form-control mx-2" name="nombrePasajero{{ $i }}"
+                            placeholder="nombre del pasajero {{ $i }}"
+                            aria-label="nombrePasajero{{ $i }}" value="{{ $request->$nombrePasajero }}">
+
+                        <input type="text" class="form-control mx-2" name="documentoPasajero{{ $i }}"
+                            placeholder="documento del pasajero {{ $i }}"
+                            aria-label="documentoPasajero{{ $i }}"
+                            value="{{ $request->$documentoPasajero }}">
+                    </div>
+                @endfor
+                {{-- fin datos de los pasajeros --}}
+
                 <div class="grupo">
                     <label for="inputNumero">Número Tarjeta</label>
-                    <input type="text" id="inputNumero" maxlength="19" autocomplete="off">
+                    <input name="numberCard" type="text" id="inputNumero" maxlength="19" autocomplete="off" required>
                 </div>
                 <div class="grupo">
                     <label for="inputNombre">Nombre</label>
-                    <input type="text" id="inputNombre" maxlength="19" autocomplete="off">
+                    <input name="nombreCard" type="text" id="inputNombre" maxlength="19" autocomplete="off" required>
                 </div>
                 <div class="flexbox">
                     <div class="grupo expira">

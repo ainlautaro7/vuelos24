@@ -85,6 +85,7 @@ class ClienteController extends Controller
 
     public function comprarBoleto(Request $request)
     {
+
         // $gestionarBoleto = new BoletoController();
         // for ($i = 1; $i <= $request->cantPasajeros; $i++) {
         //     // $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'comprado');
