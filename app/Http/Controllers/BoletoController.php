@@ -68,7 +68,13 @@ class BoletoController extends Controller
         $boleto->nombrePasajero = $request->{"nombrePasajero" . $i};
         $boleto->documentoPasajero = $request->{"documentoPasajero" . $i};
         $boleto->estadoBoleto = $estadoBoleto;
-        $boleto->tipoBoleto = $request->tipoBoleto;
+
+        if ($estadoBoleto == "compra") {
+            $boleto->tipoBoleto = "compra";
+        }else{
+            $boleto->tipoBoleto = "reservado";
+        }
+        
 
         // reseto
         // $boleto->codCliente = null;
@@ -79,8 +85,6 @@ class BoletoController extends Controller
         // $boleto->tipoBoleto = null;
 
         // $boleto->save(); FUNCIONA, SE COMENTO PARA REALIZAR PRUEBAS
-
-        return $boleto;
     }
 
     public function cambiarPasajeros()

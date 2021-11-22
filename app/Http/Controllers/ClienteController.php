@@ -7,9 +7,6 @@ use App\Models\User as Usuario;
 use Illuminate\Http\Request;
 use Session;
 
-use MercadoPago\SDK as MercadoPago;
-use MercadoPago\Payment;
-
 class ClienteController extends Controller
 {
 
@@ -88,50 +85,22 @@ class ClienteController extends Controller
 
     public function comprarBoleto(Request $request)
     {
-        MercadoPago::setAccessToken(config('services.mercadopago.token'));
-
         // $gestionarBoleto = new BoletoController();
         // for ($i = 1; $i <= $request->cantPasajeros; $i++) {
         //     // $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'comprado');
         // }
 
-        // return $request->{"apellidoPasajero" . 1};
-        // require base_path('/vendor/autoload.php');
-        // $payment = new Payment();
-        // $payment->transaction_amount = $_GET['transactionAmount'];
-        // $payment->token = $_GET['token'];
-        // $payment->description = $_GET['description'];
-        // $payment->installments = $_GET['installments'];
-        // $payment->payment_method_id = $_GET['paymentMethodId'];
-        // $payment->issuer_id = $_GET['issuer'];
-
-        // $payer = new Payer();
-        // $payer->email = $_GET['email'];
-        // $payer->identification = array(
-        //     "type" => $_GET['docType'],
-        //     "number" => $_GET['docNumber']
-        // );
-        // $payment->payer = $payer;
-
-        // $payment->save();
-
-        // $response = array(
-        //     'status' => $payment->status,
-        //     'status_detail' => $payment->status_detail,
-        //     'id' => $payment->id
-        // );
-        // echo json_encode($response);
-
-        // return $request;
-        return $request->all();
+        return $request;
     }
 
     public function reservarBoleto(Request $request)
-    {
+    {   
+        $tipoTransaccion = $request->tipoTransaccion;
         $gestionarBoleto = new BoletoController();
-        for ($i = 1; $i <= $request->cantPasajeros; $i++) {
-            $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'reservado');
-        }
+        // for ($i = 1; $i <= $request->cantPasajeros; $i++) {
+        //     $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'reservado');
+        // }
+        return view('cliente.formularioPago', compact('request'));
     }
 
     public function cancelarReserva()
