@@ -75,7 +75,7 @@
                         <h4 class="mx-2 my-4">Pasajeros del vuelo en la clase seleccionada
                             <hr>
                         </h4>
-                        <div name="pasajeros" id="pasajeros" onChange="obtenerVuelos();">
+                        <div name="pasajeros" id="pasajeros">
                             {{-- <div class="input-group my-3">
                                 <div class="form-check my-3 mx-2">
                                     <input type="checkbox" id="servicio1" name="servicio1" class="form-check-input">

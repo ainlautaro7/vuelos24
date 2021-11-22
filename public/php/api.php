@@ -26,7 +26,8 @@ switch ($opcion) {
         if (isset($_GET["claseBoleto"])) {
             $claseBoleto = $_GET["claseBoleto"];
             $nroVuelo = $_GET["nroVuelo"];
-            $sql = "SELECT nombrePasajero, apellidoPasajero FROM boleto WHERE nroVuelo = '" . $nroVuelo . "' AND claseBoleto = '" . $claseBoleto . "' AND nombrePasajero IS NOT null";
+            $estadoBoleto = "activo";
+            $sql = "SELECT nombrePasajero, apellidoPasajero FROM boleto WHERE nroVuelo = '" . $nroVuelo . "' AND claseBoleto = '" . $claseBoleto . "' AND estadoBoleto != '".$estadoBoleto."'";
         } else {
             $sql = NULL;
         }
