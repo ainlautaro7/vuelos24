@@ -51,14 +51,18 @@ class VueloController extends Controller
     }
 
     // VISTA REASIGNAR PASAJEROS
-    public function reasignarPasajerosView()
+    public function reasignarPasajerosView($vuelo)
     {
+
+        $vuelo = $this->buscarVuelo($vuelo);
+
         // verifico que el usuario que inicio sesion sea empleado
         if (auth()->user()->tipoUsuario !== "empleado") {
             return redirect('/');
         }
 
-        return view('Empleado.AdministrarVuelos.reasignarPasajeros');
+        return view('Empleado.AdministrarVuelos.reasignarPasajeros', compact('vuelo'));
+        // return $vuelo;
     }
 
     // VISTA MODIFICAR VUELOS

@@ -16,7 +16,12 @@
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 
     <!-- JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+
+    {{-- script ajax --}}
+    <script src="{{ asset('js/ajax.js') }}"></script>
 
     <!-- Estilos correspondientes al navbar -->
     <style>
@@ -24,6 +29,7 @@
             color: #fff;
             background-color: #0d6efd;
         }
+
     </style>
 </head>
 
@@ -36,11 +42,16 @@
 
         <div class="container mx-auto mt-5">
 
-            <a href="{{ url('/gestion/administrarVuelos') }}" class="btn btn-dark my-3 text-white mx-2 d-start">Volver</a>
+            <a href="{{ url('/gestion/administrarVuelos') }}"
+                class="btn btn-dark my-3 text-white mx-2 d-start">Volver</a>
 
             <h1 class="text-center">REASIGNAR PASAJEROS {{ $vuelo->nroVuelo }}</h1>
 
             <form class="container mt-5" action="">
+                <input type="hidden" id="nroVuelo" name="nroVuelo" value="{{ $vuelo->nroVuelo }}">
+                <input type="hidden" id="origenVuelo" name="origenVuelo" value="{{ $vuelo->origen }}">
+                <input type="hidden" id="destinoVuelo" name="destinoVuelo" value="{{ $vuelo->destino }}">
+
 
                 <div class="row">
                     <div class="col-6">
@@ -49,11 +60,12 @@
                         </h4>
                         <div class="input-group my-3">
                             <div class="btn-group">
-                                <select class="form-select" aria-label="Default select example">
+                                <select class="form-select" name="claseBoleto" id="claseBoleto"
+                                    onChange="obtenerPasajeros();">
                                     <option selected>Seleccionar una clase</option>
-                                    <option value="1">Primera</option>
-                                    <option value="2">Business</option>
-                                    <option value="3">Turista</option>
+                                    <option value="primera">Primera</option>
+                                    <option value="business">Business</option>
+                                    <option value="turista">Turista</option>
                                 </select>
                             </div>
                         </div>
@@ -63,15 +75,17 @@
                         <h4 class="mx-2 my-4">Pasajeros del vuelo en la clase seleccionada
                             <hr>
                         </h4>
-                        <div class="input-group my-3">
-                            <div class="form-check my-3 mx-2">
-                                <input type="checkbox" id="servicio1" name="servicio1" class="form-check-input">
-                                <label class="form-check-label" for="flexCheckDefault">Servicio 1</label>
-                            </div>
-                            <div class="form-check my-3 mx-2">
-                                <input type="checkbox" id="servicio1" name="servicio1" class="form-check-input">
-                                <label class="form-check-label" for="flexCheckDefault">Servicio 1</label>
-                            </div>
+                        <div name="pasajeros" id="pasajeros" onChange="obtenerVuelos();">
+                            {{-- <div class="input-group my-3">
+                                <div class="form-check my-3 mx-2">
+                                    <input type="checkbox" id="servicio1" name="servicio1" class="form-check-input">
+                                    <label class="form-check-label" for="flexCheckDefault">Servicio 1</label>
+                                </div>
+                                <div class="form-check my-3 mx-2">
+                                    <input type="checkbox" id="servicio1" name="servicio1" class="form-check-input">
+                                    <label class="form-check-label" for="flexCheckDefault">Servicio 1</label>
+                                </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -81,17 +95,18 @@
                 </h4>
 
                 <div class="input-group my-3">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-info text-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Seleccionar un vuelo
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Primera</a></li>
-                                    <li><a class="dropdown-item" href="#">Business</a></li>
-                                    <li><a class="dropdown-item" href="#">Turista</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-info text-white dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Seleccionar un vuelo
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Primera</a></li>
+                            <li><a class="dropdown-item" href="#">Business</a></li>
+                            <li><a class="dropdown-item" href="#">Turista</a></li>
+                        </ul>
+                    </div>
+                </div>
 
                 <button class="btn btn-success float-end my-3 text-white mx-2">Reasignar Pasajeros</button>
             </form>
