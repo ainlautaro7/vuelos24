@@ -74,13 +74,18 @@ class BoletoController extends Controller
             // $boleto->tipoBoleto = "ida";
 
             // el boleto esta para comprar
-        } else {
+        }
+
+        if ($estadoBoleto == "comprado") {
             $documentoPasajero = $request->{"documentoPasajero" . $i};
-            $boleto = boleto::where('estadoBoleto', '=', "reservado")
-                ->where('nroVuelo', $request->nroVuelo)
+
+            $boleto = boleto::where('nroVuelo', $request->nroVuelo)
                 ->where('documentoPasajero', $documentoPasajero)
+                ->where('claseBoleto', "=", $request->claseBoleto)
+                ->where('estadoBoleto', "=", "reservado")
                 ->first();
-            $boleto->estadoBoleto = "comprado";
+                
+            $boleto->estadoBoleto = $estadoBoleto;
         }
 
         // reseto desde consola mysql

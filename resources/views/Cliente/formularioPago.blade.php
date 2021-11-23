@@ -93,6 +93,7 @@
                 <input type="hidden" name="claseBoleto" value="{{ Session::get('claseBoleto') }}">
                 <input type="hidden" name="tipoBoleto" value="{{ Session::get('tipoBoleto') }}">
                 <input type="hidden" name="tipoTransaccion" value="{{ Session::get('tipoFormulario') }}">
+                <input type="hidden" name="cantPasajeros" value="{{ Session::get('cantPasajeros') }}">
 
                 @for ($i = 1; $i <= Session::get('cantAdultos') + Session::get('cantMenores') + Session::get('cantBebes'); $i++)
 

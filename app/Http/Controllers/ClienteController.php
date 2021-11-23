@@ -89,6 +89,7 @@ class ClienteController extends Controller
         $gestionarBoleto = new BoletoController();
         for ($i = 1; $i <= $request->cantPasajeros; $i++) {
             $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'comprado');
+            
         }
 
         // return $request;
@@ -98,6 +99,7 @@ class ClienteController extends Controller
     public function reservarBoleto(Request $request)
     {   
         $gestionarBoleto = new BoletoController();
+        Session::put('cantPasajeros', $request->cantPasajeros);
         for ($i = 1; $i <= $request->cantPasajeros; $i++) {
             $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'reservado');
         }
