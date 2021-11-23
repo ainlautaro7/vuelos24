@@ -187,6 +187,7 @@
                     <img class="img-cardVuelo" src="{{ asset('/img/' . $i . '.jpg') }}">
                     <div class="cardVuelo-overlay">
                         <h4 class="title title-overlay-center">Explora {{ $vuelo->destino }}</h4>
+                        <div class="text-white p-2 text-capitalize">{{$vuelo->claseBoleto}}</div>
                     </div>
                 </div>
                 <div class="card__info">
@@ -204,7 +205,7 @@
                             <small>{{ $vuelo->fechaVuelo }}</small>
                         </div>
                         <div class="price-wrap"><var class="price"><span class="currency">$</span>
-                                {{ $vuelo->tarifaTurista }}</var>
+                                {{ $vuelo->tarifaBoleto }}</var>
                         </div>
                     </div>
                 </div> <!-- card__pricelist // -->

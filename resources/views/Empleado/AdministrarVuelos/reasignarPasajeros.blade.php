@@ -86,12 +86,13 @@
 
                 <div class="input-group my-3">
                     <div class="btn-group">
-                        <select class="form-select" name="vuelos" id="vuelos">
-                        </select>
+                        <div name="vuelos" id="vuelos">
+
+                        </div>
                     </div>
                 </div>
 
-                <button class="btn btn-success float-end my-3 text-white mx-2">Reasignar Pasajeros</button>
+                {{-- <button class="btn btn-success float-end my-3 text-white mx-2">Reasignar Pasajeros</button> --}}
             </form>
 
         </div>

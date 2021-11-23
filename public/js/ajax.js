@@ -32,8 +32,8 @@ function obtenerPasajeros() {
 
                 for (var i = 0; i < obj.length; i++) {
                     pasajeros += "<div class='form-check my-3 mx-2'>" +
-                        "<input type='checkbox' onChange='obtenerVuelos()' name='pasajero" + i + "' id='pasajero" + i + "' value = '" + obj[i].nombrePasajero+" "+obj[i].apellidoPasajero + "'>" +
-                        "<label class='ps-2 form-check-label' for='pasajero" + i + "'>" + obj[i].nombrePasajero +" "+obj[i].apellidoPasajero+"</label>" +
+                        "<input type='checkbox' onChange='obtenerVuelos()' name='pasajero" + i + "' id='pasajero" + i + "' value = '" + obj[i].nombrePasajero + " " + obj[i].apellidoPasajero + "'>" +
+                        "<label class='ps-2 form-check-label' for='pasajero" + i + "'>" + obj[i].nombrePasajero + " " + obj[i].apellidoPasajero + "</label>" +
                         "</div>";
                 }
                 filtro2.innerHTML = pasajeros;
@@ -52,27 +52,41 @@ function obtenerVuelos() {
     var nroPasajeros = checkboxes.length;
 
     if (nroPasajeros > 0) {
-    peticion.open("GET", "http://localhost/vuelos24/public/php/api.php?opcion=2&nroPasajeros=" + nroPasajeros + "&claseBoleto=" + claseBoleto + "&nroVuelo=" + nroVuelo + "&origenVuelo=" + origenVuelo + "&destinoVuelo=" + destinoVuelo, true);
-    peticion.onreadystatechange = cargarResultados;
-    peticion.send(null);
+        peticion.open("GET", "http://localhost/vuelos24/public/php/api.php?opcion=2&nroPasajeros=" + nroPasajeros + "&claseBoleto=" + claseBoleto + "&nroVuelo=" + nroVuelo + "&origenVuelo=" + origenVuelo + "&destinoVuelo=" + destinoVuelo, true);
+        peticion.onreadystatechange = cargarResultados;
+        peticion.send(null);
 
-    function cargarResultados() {
-        var filtro3 = document.getElementById("vuelos");
-        if (peticion.readyState == 4) {
-            if (peticion.status == 200) { //Se proceso la peticion
-                obj = JSON.parse(peticion.responseText); //.responseText;
-                // console.log(peticion.responseText)
+        function cargarResultados() {
+            var filtro3 = document.getElementById("vuelos");
+            if (peticion.readyState == 4) {
+                if (peticion.status == 200) { //Se proceso la peticion
+                    obj = JSON.parse(peticion.responseText); //.responseText;
+                    // console.log(peticion.responseText)
 
-                // campos
-                vuelos = "<option selected>Seleccione un vuelo</option>";
+                    // campos
+                    vuelos = "";
 
-                for (var i = 0; i < obj.length; i++) {
-                    vuelos += "<option value='"+ obj[i].nroVuelo +"'>" + obj[i].nroVuelo +" "+ obj[i].fechaVuelo +" "+ obj[i].horaVuelo + "</option>";
+                    for (var i = 0; i < obj.length; i++) {
+
+                        vuelos += "<div class='card' style='width: 18rem;'>" +
+                            "<div class='card-body'>" +
+
+                            "<input type='hidden' id='vuelo" + (i + 1) + "' name='vuelo" + (i + 1) + "' value='" + obj[i].nroVuelo + "'>" +
+                            "<input type='hidden' id='fechaVuelo" + (i + 1) + "' name='fechaVuelo" + (i + 1) + "' value='" + obj[i].fechaVuelo + "'>" +
+                            "<input type='hidden' id='horaVuelo" + (i + 1) + "' name='horaVuelo" + (i + 1) + "' value='" + obj[i].horaVuelo + "'>" +
+
+                            "<h5 class='card-title text-center'>Vuelo Nro " + obj[i].nroVuelo + "</h5>" +
+                            "<hr>"+
+                            "<p>Fecha del Vuelo: " + obj[i].fechaVuelo + "</p>" +
+                            "<p>Hora del Vuelo: " + obj[i].horaVuelo + "</p>" +
+                            "<a type='submit' class='btn btn-primary'>Reasignar pasajeros a este vuelo</a>" +
+                            "</div>" +
+                            "</div>";
+                    }
+                    filtro3.innerHTML = vuelos;
                 }
-                filtro3.innerHTML = vuelos;
             }
         }
-    }
     } else {
         var filtro3 = document.getElementById("vuelos");
         vuelos = "";
