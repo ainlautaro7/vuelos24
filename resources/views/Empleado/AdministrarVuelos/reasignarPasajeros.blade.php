@@ -20,7 +20,7 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
 
-    {{-- script ajax --}}
+    <!-- script ajax -->
     <script src="{{ asset('js/ajax.js') }}"></script>
 
     <!-- Estilos correspondientes al navbar -->
@@ -76,16 +76,6 @@
                             <hr>
                         </h4>
                         <div name="pasajeros" id="pasajeros">
-                            {{-- <div class="input-group my-3">
-                                <div class="form-check my-3 mx-2">
-                                    <input type="checkbox" id="servicio1" name="servicio1" class="form-check-input">
-                                    <label class="form-check-label" for="flexCheckDefault">Servicio 1</label>
-                                </div>
-                                <div class="form-check my-3 mx-2">
-                                    <input type="checkbox" id="servicio1" name="servicio1" class="form-check-input">
-                                    <label class="form-check-label" for="flexCheckDefault">Servicio 1</label>
-                                </div>
-                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -96,15 +86,8 @@
 
                 <div class="input-group my-3">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-info text-white dropdown-toggle" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Seleccionar un vuelo
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Primera</a></li>
-                            <li><a class="dropdown-item" href="#">Business</a></li>
-                            <li><a class="dropdown-item" href="#">Turista</a></li>
-                        </ul>
+                        <select class="form-select" name="vuelos" id="vuelos">
+                        </select>
                     </div>
                 </div>
 
