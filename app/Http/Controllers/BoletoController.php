@@ -58,33 +58,35 @@ class BoletoController extends Controller
     public function cambiarEstadoBoleto($request, $i, $estadoBoleto)
     {
         $boleto = new boleto();
-        $boleto = boleto::where('estadoBoleto', '=', "activo")
-            ->where('nroVuelo', Session::get('nroVuelo'))
-            ->where('claseBoleto', Session::get('claseBoleto'))
-            ->first();
 
-        $boleto->codCliente = $request->codCliente;
-        $boleto->apellidoPasajero = $request->{"apellidoPasajero" . $i};
-        $boleto->nombrePasajero = $request->{"nombrePasajero" . $i};
-        $boleto->documentoPasajero = $request->{"documentoPasajero" . $i};
-        $boleto->estadoBoleto = $estadoBoleto;
+        // boleto esta para reservar
+        if ($estadoBoleto == "reservado") {
+            $boleto = boleto::where('nroVuelo', $request->nroVuelo)
+                ->where('claseBoleto', $request->claseBoleto)
+                ->where('estadoBoleto', "=", "activo")
+                ->first();
 
-        if ($estadoBoleto == "compra") {
-            $boleto->tipoBoleto = "compra";
-        }else{
-            $boleto->tipoBoleto = "reservado";
+            $boleto->codCliente = $request->codCliente;
+            $boleto->apellidoPasajero = $request->{"apellidoPasajero" . $i};
+            $boleto->nombrePasajero = $request->{"nombrePasajero" . $i};
+            $boleto->documentoPasajero = $request->{"documentoPasajero" . $i};
+            $boleto->estadoBoleto = $estadoBoleto;
+            // $boleto->tipoBoleto = "ida";
+
+            // el boleto esta para comprar
+        } else {
+            $documentoPasajero = $request->{"documentoPasajero" . $i};
+            $boleto = boleto::where('estadoBoleto', '=', "reservado")
+                ->where('nroVuelo', $request->nroVuelo)
+                ->where('documentoPasajero', $documentoPasajero)
+                ->first();
+            $boleto->estadoBoleto = "comprado";
         }
-        
 
-        // reseto
-        // $boleto->codCliente = null;
-        // $boleto->apellidoPasajero = null;
-        // $boleto->nombrePasajero = null;
-        // $boleto->documentoPasajero = null;
-        // $boleto->estadoBoleto = 'activo';
-        // $boleto->tipoBoleto = null;
+        // reseto desde consola mysql
+        // UPDATE boleto set codCliente = null, apellidoPasajero = null, nombrePasajero = null, documentoPasajero = null, tipoBoleto = null, estadoBoleto = "activo"
 
-        // $boleto->save(); FUNCIONA, SE COMENTO PARA REALIZAR PRUEBAS
+        $boleto->save();
     }
 
     public function cambiarPasajeros()
@@ -97,6 +99,11 @@ class BoletoController extends Controller
 
     public function notificarClienteModificacionVuelo()
     {
+    }
+
+    public function buscarBoletoPasajero($nroVuelo, $documentoPasajero)
+    {
+        return DB::select('SELECT * FROM boleto WHERE nroVuelo = "' . $nroVuelo . '" AND documentoPasajero = "' . $documentoPasajero . '"');
     }
 
     public function buscarBoletosVuelo($nroVuelo)
