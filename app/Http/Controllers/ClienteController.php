@@ -86,22 +86,27 @@ class ClienteController extends Controller
     public function comprarBoleto(Request $request)
     {
 
-        // $gestionarBoleto = new BoletoController();
-        // for ($i = 1; $i <= $request->cantPasajeros; $i++) {
-        //     // $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'comprado');
-        // }
+        $gestionarBoleto = new BoletoController();
+        for ($i = 1; $i <= $request->cantPasajeros; $i++) {
+            $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'comprado');
+        }
 
-        return $request;
+        // return $request;
+        // return $gestionarBoleto->cambiarEstadoBoleto($request, 1, 'comprado');
     }
 
     public function reservarBoleto(Request $request)
     {   
-        $tipoTransaccion = $request->tipoTransaccion;
         $gestionarBoleto = new BoletoController();
-        // for ($i = 1; $i <= $request->cantPasajeros; $i++) {
-        //     $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'reservado');
-        // }
-        return view('cliente.formularioPago', compact('request'));
+        for ($i = 1; $i <= $request->cantPasajeros; $i++) {
+            $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'reservado');
+        }
+
+        if ($request->tipoTransaccion == "compra") {
+            return view('cliente.formularioPago', compact('request'));
+        }
+
+        // return $gestionarBoleto->cambiarEstadoBoleto($request, 1, 'reservado');
     }
 
     public function cancelarReserva()
