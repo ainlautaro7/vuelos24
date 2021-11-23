@@ -71,7 +71,7 @@ class BoletoController extends Controller
             $boleto->nombrePasajero = $request->{"nombrePasajero" . $i};
             $boleto->documentoPasajero = $request->{"documentoPasajero" . $i};
             $boleto->estadoBoleto = $estadoBoleto;
-            // $boleto->tipoBoleto = "ida";
+            $boleto->tipoBoleto = "ida";
 
             // el boleto esta para comprar
         }
