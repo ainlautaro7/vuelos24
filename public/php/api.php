@@ -32,7 +32,16 @@ switch ($opcion) {
             $sql = NULL;
         }
         break;
-    case 2:
+    case 2: //obtener vuelos disponibles segun la clase, origen y destino
+        if (isset($_GET["claseBoleto"]) & $_GET["nroPasajeros"] > 0) {
+            $claseBoleto = $_GET["claseBoleto"];
+            $nroPasajeros = $_GET["nroPasajeros"];
+            $origenVuelo = $_GET["origenVuelo"];
+            $destinoVuelo = $_GET["destinoVuelo"];
+            $sql = "SELECT nroVuelo, fechaVuelo, horaVuelo FROM vuelosdisponibles WHERE origen = '" . $origenVuelo . "' AND destino = '" . $destinoVuelo . "' AND claseBoleto = '".$claseBoleto."' AND cantBoletosDisponible >= '".$nroPasajeros."'";
+        } else {
+            $sql = NULL;
+        }
         break;
     default:
         $sql = NULL;
