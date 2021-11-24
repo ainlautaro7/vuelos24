@@ -151,8 +151,9 @@ class VueloController extends Controller
         return redirect('/gestion/administrarVuelos');
     }
 
-    public function reasignarPasajero()
+    public function reasignarPasajeros(Request $request)
     {
+        return $request;
     }
 
     public function modificarVuelo(Request $request)
