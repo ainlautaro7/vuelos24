@@ -31,6 +31,16 @@ class ClienteController extends Controller
         return view('cliente.formularioCompraReserva');
     }
 
+    public function perfilView(){
+        $gestionarBoleto = new BoletoController();
+        $boletos = $gestionarBoleto->buscarBoletoPasajero(0, auth()->user()->id);
+
+        Session::put('boletos', $boletos);
+
+        return view('cliente.perfil', compact('boletos'));
+        return $boletos;
+    }
+
     // FUNCIONES DEL SISTEMA
     public function registroCliente(Request $request)
     {
@@ -92,8 +102,7 @@ class ClienteController extends Controller
             
         }
 
-        // return $request;
-        // return $gestionarBoleto->cambiarEstadoBoleto($request, 1, 'comprado');
+        return redirect('/perfil');
     }
 
     public function reservarBoleto(Request $request)
@@ -108,7 +117,7 @@ class ClienteController extends Controller
             return view('cliente.formularioPago', compact('request'));
         }
 
-        // return $gestionarBoleto->cambiarEstadoBoleto($request, 1, 'reservado');
+        return redirect('/perfil');
     }
 
     public function cancelarReserva()
