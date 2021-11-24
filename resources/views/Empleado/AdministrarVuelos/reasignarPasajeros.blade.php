@@ -47,8 +47,10 @@
 
             <h1 class="text-center">REASIGNAR PASAJEROS {{ $vuelo->nroVuelo }}</h1>
 
-            <form class="container mt-5" action="">
-                <input type="hidden" id="nroVuelo" name="nroVuelo" value="{{ $vuelo->nroVuelo }}">
+            <form class="container mt-5" action="{{route('vuelo.reasignarPasajeros')}}" method="POST">
+                @method('PUT')
+                @csrf
+                <input type="hidden" id="nroVueloActual" name="nroVueloActual" value="{{ $vuelo->nroVuelo }}">
                 <input type="hidden" id="origenVuelo" name="origenVuelo" value="{{ $vuelo->origen }}">
                 <input type="hidden" id="destinoVuelo" name="destinoVuelo" value="{{ $vuelo->destino }}">
 
@@ -92,7 +94,9 @@
                     </div>
                 </div>
 
-                {{-- <button class="btn btn-success float-end my-3 text-white mx-2">Reasignar Pasajeros</button> --}}
+                <input type="hidden" name="cantPasajeros" id="cantPasajeros" value="">
+
+                <button class="btn btn-success float-end my-3 text-white mx-2">Reasignar Pasajeros</button>
             </form>
 
         </div>
