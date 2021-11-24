@@ -88,14 +88,24 @@ class BoletoController extends Controller
             $boleto->estadoBoleto = $estadoBoleto;
         }
 
+        if ($estadoBoleto == "activo") {
+            $boleto = boleto::where('nroVuelo', $request->nroVuelo)
+                ->where('claseBoleto', $request->claseBoleto)
+                ->where('estadoBoleto', "=", "activo")
+                ->first();
+
+            $boleto->codCliente = null;
+            $boleto->apellidoPasajero = null;
+            $boleto->nombrePasajero = null;
+            $boleto->documentoPasajero = null;
+            $boleto->estadoBoleto = $estadoBoleto;
+            $boleto->tipoBoleto = null;
+        }
+
         // reseto desde consola mysql
         // UPDATE boleto set codCliente = null, apellidoPasajero = null, nombrePasajero = null, documentoPasajero = null, tipoBoleto = null, estadoBoleto = "activo"
 
         $boleto->save();
-    }
-
-    public function cambiarPasajeros()
-    {
     }
 
     public function notificarClienteNuevoVuelo()
