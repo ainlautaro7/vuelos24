@@ -32,10 +32,15 @@ function obtenerPasajeros() {
 
                 for (var i = 0; i < obj.length; i++) {
                     pasajeros += "<div class='form-check my-3 mx-2'>" +
-                        "<input type='checkbox' onChange='obtenerVuelos()' name='nombrePasajero" + i + "' id='nombrePasajero" + i + "' value = '" + obj[i].nombrePasajero + " " + obj[i].apellidoPasajero + "'>" +
-                        "<input type='hidden' name='documentoPasajero" + i + "' id='documentoPasajero" + i + "' value = '" + obj[i].documentoPasajero +"'>" +
-                        "<label class='ps-2 form-check-label' for='nombrePasajero" + i + "'>" + obj[i].nombrePasajero + " " + obj[i].apellidoPasajero + "</label>" +
-                        "<label class='ps-2 form-check-label' for='documentoPasajero" + i + "'>" + obj[i].documentoPasajero + "</label>" +
+                        "<input type='checkbox' onChange='obtenerVuelos()' name='nroPasajero" + (i + 1) + "' id='nroPasajero" + (i + 1) + "' value = nroPasajero'" + i +"'>" +
+                        "<input type='hidden' name='nombrePasajero" + (i + 1) + "' id='nombrePasajero" + (i + 1) +  "' value = '" + obj[i].nombrePasajero +"'>" +
+                        "<input type='hidden' name='documentoPasajero" + (i + 1) + "' id='documentoPasajero" + (i + 1) +  "' value = '" + obj[i].documentoPasajero +"'>" +
+                        "<input type='hidden' name='apellidoPasajero" + (i + 1) + "' id='apellidoPasajero" + (i + 1) + "' value = '" + obj[i].apellidoPasajero +"'>" +
+                        "<input type='hidden' name='codCliente" + (i + 1) + "' id='codCliente" + (i + 1) + "' value = '" + obj[i].codCliente +"'>" +
+                        "<input type='hidden' name='tipoBoleto" + (i + 1) + "' id='tipoBoleto" + (i + 1) + "' value = '" + obj[i].tipoBoleto +"'>" +
+                        "<input type='hidden' name='estadoBoleto" + (i + 1) + "' id='estadoBoleto" + (i + 1) + "' value = '" + obj[i].estadoBoleto +"'>" +
+                        "<label class='ps-2 form-check-label' for='nombrePasajero" + (i + 1) + "'>" + obj[i].nombrePasajero + " " + obj[i].apellidoPasajero + "</label>" +
+                        "<label class='ps-2 form-check-label' for='documentoPasajero" + (i + 1) + "'>" + obj[i].documentoPasajero + "</label>" +
                         "</div>";
                 }
                 filtro2.innerHTML = pasajeros;
@@ -77,8 +82,6 @@ function obtenerVuelos() {
                             "<div class='card-body'>" +
 
                             "<input type='hidden' id='vuelo" + (i + 1) + "' name='vuelo" + (i + 1) + "' value='" + obj[i].nroVuelo + "'>" +
-                            "<input type='hidden' id='fechaVuelo" + (i + 1) + "' name='fechaVuelo" + (i + 1) + "' value='" + obj[i].fechaVuelo + "'>" +
-                            "<input type='hidden' id='horaVuelo" + (i + 1) + "' name='horaVuelo" + (i + 1) + "' value='" + obj[i].horaVuelo + "'>" +
 
                             "<h5 class='card-title text-center'>Vuelo Nro " + obj[i].nroVuelo + "</h5>" +
                             "<hr>"+
