@@ -69,3 +69,4 @@ Route::post('altaVuelo', [VueloController::class, 'altaVuelo'])->name('vuelo.alt
 Route::post('modificarVuelo', [VueloController::class, 'modificarVuelo'])->name('vuelo.modificar');
 Route::put('iniciarVuelo', [VueloController::class, 'iniciarVuelo'])->name('vuelo.iniciar');
 Route::put('finalizarVuelo', [VueloController::class, 'finalizarVuelo'])->name('vuelo.finalizar');
+Route::put('reasignarPasajeros', [VueloController::class, 'reasignarPasajeros'])->name('vuelo.reasignarPasajeros');
