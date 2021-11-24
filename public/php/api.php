@@ -27,7 +27,7 @@ switch ($opcion) {
             $claseBoleto = $_GET["claseBoleto"];
             $nroVuelo = $_GET["nroVuelo"];
             $estadoBoleto = "activo";
-            $sql = "SELECT nombrePasajero, apellidoPasajero FROM boleto WHERE nroVuelo = '" . $nroVuelo . "' AND claseBoleto = '" . $claseBoleto . "' AND estadoBoleto != '".$estadoBoleto."'";
+            $sql = "SELECT nombrePasajero, apellidoPasajero, documentoPasajero FROM boleto WHERE nroVuelo = '" . $nroVuelo . "' AND claseBoleto = '" . $claseBoleto . "' AND estadoBoleto != '".$estadoBoleto."'";
         } else {
             $sql = NULL;
         }
@@ -38,6 +38,7 @@ switch ($opcion) {
             $nroPasajeros = $_GET["nroPasajeros"];
             $origenVuelo = $_GET["origenVuelo"];
             $destinoVuelo = $_GET["destinoVuelo"];
+            $nroVuelo = $_GET["nroVuelo"];
             $sql = "SELECT nroVuelo, fechaVuelo, horaVuelo FROM vuelosdisponibles WHERE origen = '" . $origenVuelo . "' AND destino = '" . $destinoVuelo . "' AND claseBoleto = '".$claseBoleto."' AND cantBoletosDisponible >= '".$nroPasajeros."'";
         } else {
             $sql = NULL;
