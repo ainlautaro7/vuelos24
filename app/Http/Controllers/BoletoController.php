@@ -116,9 +116,13 @@ class BoletoController extends Controller
     {
     }
 
-    public function buscarBoletoPasajero($nroVuelo, $documentoPasajero)
+    public function buscarBoletoPasajero($nroVuelo, $codCliente)
     {
-        return DB::select('SELECT * FROM boleto WHERE nroVuelo = "' . $nroVuelo . '" AND documentoPasajero = "' . $documentoPasajero . '"');
+        if($nroVuelo != 0){
+            return DB::select('SELECT * FROM boleto WHERE nroVuelo = "' . $nroVuelo . '" AND documentoPasajero = "' . $documentoPasajero . '"');
+        }else{
+            return DB::select('SELECT * FROM boletosCliente WHERE codCliente = "' . $codCliente . '" ORDER BY fechaTransaccion DESC');
+        }
     }
 
     public function buscarBoletosVuelo($nroVuelo)
