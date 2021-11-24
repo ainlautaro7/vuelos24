@@ -35,6 +35,7 @@ Route::get('cerrarSesion', [UsuarioController::class, 'cerrarSesion'])->name('us
 Route::get('/', [ClienteController::class, 'inicioView'])->name('cliente.inicioView');
 Route::get('/registrarse', [ClienteController::class, 'registrarseView'])->name('cliente.registrarseView')->middleware('guest');
 Route::get('/listarVuelos', [ClienteController::class, 'listarVuelosView'])->name('cliente.listarVuelos');
+Route::get('/perfil', [ClienteController::class, 'perfilView'])->name('cliente.perfil');
 
 // formulario de compra reserva
 Route::get('/formulario',[ClienteController::class, 'formularioCompraReservaView'])->name('cliente.formulario');
