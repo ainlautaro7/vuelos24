@@ -6,7 +6,7 @@
 
     {{-- datos pre-cargados --}}
     <input type="hidden" name="nroVuelo" value="{{ Session::get('nroVuelo') }}">
-    <input type="hidden" name="codCliente" value="{{ auth()->user()->id }}">
+    <input type="hidden" name="codCliente" value="{{DB::table('cliente')->where('idUsuario', 5)->value('codCliente')}}">
     <input type="hidden" name="claseBoleto" value="{{ Session::get('claseBoleto') }}">
     <input type="hidden" name="tipoBoleto" value="{{ Session::get('tipoBoleto') }}">
     <input type="hidden" name="tipoTransaccion" value="{{ Session::get('tipoFormulario') }}">
