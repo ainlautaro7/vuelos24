@@ -14,7 +14,7 @@ function obtenerPasajeros() {
 
     var peticion = ObtenerXHR();
     var claseBoleto = document.getElementById("claseBoleto").value;
-    var nroVuelo = document.getElementById("nroVueloActual").value;
+    var nroVuelo = document.getElementById("nroVuelo").value;
 
     peticion.open("GET", "http://localhost/vuelos24/public/php/api.php?opcion=1&claseBoleto=" + claseBoleto + "&nroVuelo=" + nroVuelo, true);
     peticion.onreadystatechange = cargarResultados;
@@ -29,10 +29,12 @@ function obtenerPasajeros() {
 
                 // campos
                 pasajeros = "";
+                total = obj.length;
 
                 for (var i = 0; i < obj.length; i++) {
                     pasajeros += "<div class='form-check my-3 mx-2'>" +
                         "<input type='checkbox' onChange='obtenerVuelos()' name='documentoPasajero" + (i + 1) + "' id='documentoPasajero" + (i + 1) + "' value = "+obj[i].documentoPasajero+">" +
+                        //"<input type='checkbox' onChange='obtenerVuelos()' name='documentoPasajero[]' id='documentoPasajero[]' value = "+obj[i].documentoPasajero+">" +
                         "<input type='hidden' name='nombrePasajero" + (i + 1) + "' id='nombrePasajero" + (i + 1) + "' value = '" + obj[i].nombrePasajero + "'>" +
                         // "<input type='hidden' name='documentoPasajero" + (i + 1) + "' id='documentoPasajero" + (i + 1) + "' value = '" + obj[i].documentoPasajero + "'>" +
                         "<input type='hidden' name='apellidoPasajero" + (i + 1) + "' id='apellidoPasajero" + (i + 1) + "' value = '" + obj[i].apellidoPasajero + "'>" +
@@ -43,6 +45,7 @@ function obtenerPasajeros() {
                         "<label class='ps-2 form-check-label' for='documentoPasajero" + (i + 1) + "'>" + obj[i].documentoPasajero + "</label>" +
                         "</div>";
                 }
+                document.getElementById("cantPasajerosTotal").value = total;
                 filtro2.innerHTML = pasajeros;
                 var filtro3 = document.getElementById("vuelos");
                 vuelos = "";
@@ -58,10 +61,11 @@ function obtenerVuelos() {
     var claseBoleto = document.getElementById("claseBoleto").value;
     var origenVuelo = document.getElementById("origenVuelo").value;
     var destinoVuelo = document.getElementById("destinoVuelo").value;
-    var nroVuelo = document.getElementById("nroVueloActual").value;
+    var nroVuelo = document.getElementById("nroVuelo").value;
     var nroPasajeros = document.querySelectorAll('input[type=checkbox]:checked').length;
 
     document.getElementById('cantPasajeros').value = nroPasajeros;
+
 
     if (nroPasajeros > 0) {
         peticion.open("GET", "http://localhost/vuelos24/public/php/api.php?opcion=2&nroPasajeros=" + nroPasajeros + "&claseBoleto=" + claseBoleto + "&nroVuelo=" + nroVuelo + "&origenVuelo=" + origenVuelo + "&destinoVuelo=" + destinoVuelo + "&nroVuelo=" + nroVuelo, true);

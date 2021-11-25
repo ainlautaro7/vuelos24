@@ -153,6 +153,15 @@ class VueloController extends Controller
 
     public function reasignarPasajeros(Request $request)
     {
+        $gestionarBoleto = new BoletoController();
+        $prueba = new BoletoController();
+        for ($i=1; $i <= $request->cantPasajerosTotal ; $i++) {  
+            if ($request->{"documentoPasajero" . $i} == ""){
+            } else {
+                $prueba->cambiarEstadoBoleto($request, $i, 'resetear');
+                $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'mover');
+            }
+        }
         return $request;
     }
 

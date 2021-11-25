@@ -102,6 +102,34 @@ class BoletoController extends Controller
             $boleto->tipoBoleto = null;
         }
 
+        if ($estadoBoleto == "resetear") {
+            $boleto = boleto::where('nroVuelo', $request->nroVuelo)
+                ->where('claseBoleto', $request->claseBoleto)
+                ->where('documentoPasajero', $request->{"documentoPasajero" . $i})
+                ->first();
+
+            $boleto->codCliente = null;
+            $boleto->apellidoPasajero = null;
+            $boleto->nombrePasajero = null;
+            $boleto->documentoPasajero = null;
+            $boleto->estadoBoleto = $request->{"estadoBoleto" . $i};
+            $boleto->tipoBoleto = null;
+        }
+
+        if ($estadoBoleto == "mover") {
+            $boleto = boleto::where('nroVuelo', $request->nroVueloSeleccionado)
+                ->where('claseBoleto', $request->claseBoleto)
+                ->where('estadoBoleto', "=", "activo")
+                ->first();
+
+            $boleto->codCliente = $request->{"codCliente" . $i};
+            $boleto->apellidoPasajero = $request->{"apellidoPasajero" . $i};
+            $boleto->nombrePasajero = $request->{"nombrePasajero" . $i};
+            $boleto->documentoPasajero = $request->{"documentoPasajero" . $i};
+            $boleto->estadoBoleto = $request->{"estadoBoleto" . $i};
+            $boleto->tipoBoleto = $request->{"tipoBoleto" . $i};
+        }
+
         // reseto desde consola mysql
         // UPDATE boleto set codCliente = null, apellidoPasajero = null, nombrePasajero = null, documentoPasajero = null, tipoBoleto = null, estadoBoleto = "activo"
 
