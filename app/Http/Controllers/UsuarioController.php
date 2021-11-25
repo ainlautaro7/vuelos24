@@ -16,7 +16,7 @@ class UsuarioController extends Controller
         return view('login');
     }
 
-    // FUNCIONES DEL SISTEMA
+    // LOGEARSE
     public function login()
     {
 
@@ -25,34 +25,32 @@ class UsuarioController extends Controller
                 'message' => 'El usuario o password son incorrectos, intente de nuevo',
             ]);
         }
+        
 
         if (auth()->user()->tipoUsuario == "cliente") {
             return redirect()->to('/');
         } elseif (auth()->user()->tipoUsuario == "empleado") {
             return redirect()->to('/gestion');
         }
-
-        // return auth()->attempt(request(['usuario','password']));
-    }
-
-    public function cerrarSesion()
-    {
-        auth()->logout();
-        return redirect()->to('/');
     }
 
     // REGISTRAR USUARIO
     public function altaUsuario(Request $request)
     {
-        if ($request->tipoUsuario == "empleado") {
-            if (!ctype_alpha($request->apellido) | !ctype_alpha($request->nombre)) {
-                return back()->withErrors([
-                    'errorNombre' => 'Ingrese un nombre valido',
-                    'errorApellido' => 'Ingrese un apellido valido',
-                ]);
-            }
+        $errores = \Validator::make($request->all(), [
+            'nombre'    => 'required|string',
+            'apellido'    => 'required|string',
+            'nroDocumento'    => 'required|numeric|unique:usuario',
+            'fechaNacimiento'    => 'required|date',
+            'email'    => 'required|email|unique:usuario',
+            'usuario'    => 'required|string|unique:usuario',
+            'password'    => 'required',
+        ]);
+
+        if ($errores->fails()) {
+            return redirect()->back()->withInput()->withErrors($errores->errors());
         }
-        
+
         $usuario = new Usuario();
         $usuario->nombre = $request->nombre;
         $usuario->apellido = $request->apellido;
@@ -63,12 +61,16 @@ class UsuarioController extends Controller
         $usuario->usuario = $request->usuario;
         $usuario->password = bcrypt($request->password);
         $usuario->tipoUsuario = $request->tipoUsuario;
+
+        // se guarda el usuario en la bd
         $usuario->save();
 
         // si es cliente
         if ($usuario->tipoUsuario == "cliente") {
             $cliente = new Cliente();
             $cliente->idUsuario = $usuario->idUsuario;
+
+            // se guarda el cliente en la bd
             $cliente->save();
 
             $cliente->codCliente;
@@ -92,6 +94,8 @@ class UsuarioController extends Controller
         } else if ($usuario->tipoUsuario == "empleado") {
             $empleado = new empleado();
             $empleado->idUsuario = $usuario->idUsuario;
+
+            // se guarda el empleado en la bd
             $empleado->save();
 
             $empleado->nombre = $usuario->nombre;
@@ -105,9 +109,16 @@ class UsuarioController extends Controller
             $empleado->tipoUsuario = $usuario->tipoUsuario;
 
             // autorizacion
-            // auth()->login($empleado);
+            auth()->login($empleado);
 
             return redirect()->to('/gestion/administrarEmpleados');
         }
+    }
+
+    // Cerrar la sesion
+    public function cerrarSesion()
+    {
+        auth()->logout();
+        return redirect()->to('/');
     }
 }

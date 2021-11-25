@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\boleto;
 use Illuminate\Support\Facades\DB;
-use Session;
 
 class BoletoController extends Controller
 {

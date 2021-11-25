@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\BoletoController;
 use App\Models\User as Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Session;
 
 class ClienteController extends Controller
@@ -33,7 +34,8 @@ class ClienteController extends Controller
 
     public function perfilView(){
         $gestionarBoleto = new BoletoController();
-        $boletos = $gestionarBoleto->buscarBoletoPasajero(0, auth()->user()->id);
+        $codCliente = $this->codigoCliente(auth()->user()->id);
+        $boletos = $gestionarBoleto->buscarBoletoPasajero(0, $codCliente);
 
         Session::put('boletos', $boletos);
 
@@ -97,18 +99,23 @@ class ClienteController extends Controller
     {
 
         $gestionarBoleto = new BoletoController();
+
+        // iteriacion que registra los boletos comprados
         for ($i = 1; $i <= $request->cantPasajeros; $i++) {
             $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'comprado');
             
         }
 
         return redirect('/perfil');
+        // return $request;
     }
 
     public function reservarBoleto(Request $request)
     {   
         $gestionarBoleto = new BoletoController();
         Session::put('cantPasajeros', $request->cantPasajeros);
+
+        // iteriacion que registra los boletos reservados
         for ($i = 1; $i <= $request->cantPasajeros; $i++) {
             $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'reservado');
         }
@@ -118,6 +125,7 @@ class ClienteController extends Controller
         }
 
         return redirect('/perfil');
+        // return $request;
     }
 
     public function cancelarReserva()
@@ -126,6 +134,10 @@ class ClienteController extends Controller
 
     public function cancelarCompra()
     {
+    }
+
+    public function codigoCliente($idUsuario){
+        return DB::table('cliente')->where('idUsuario', $idUsuario)->value('codCliente');
     }
 
     public function setPasswordAttribute($password)
