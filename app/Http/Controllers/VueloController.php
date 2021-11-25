@@ -154,7 +154,7 @@ class VueloController extends Controller
     public function reasignarPasajeros(Request $request)
     {
         $gestionarBoleto = new BoletoController();
-        $prueba = new BoletoController();
+        $prueba = new BoletoController();   //Esta este porque tuve problemas y con 2 variables me salió
         for ($i=1; $i <= $request->cantPasajerosTotal ; $i++) {  
             if ($request->{"documentoPasajero" . $i} == ""){
             } else {
@@ -162,7 +162,7 @@ class VueloController extends Controller
                 $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'mover');
             }
         }
-        return $request;
+        return redirect('/gestion/administrarVuelos')->with('message', "Los pasajeros seleccionados del vuelo Nro " . $request->nroVuelo . " fueron reasignados al vuelo Nro " . $request->nroVueloSeleccionado . " exitosamente!!");
     }
 
     public function modificarVuelo(Request $request)
