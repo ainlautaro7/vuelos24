@@ -111,7 +111,7 @@ class BoletoController extends Controller
             $boleto->apellidoPasajero = null;
             $boleto->nombrePasajero = null;
             $boleto->documentoPasajero = null;
-            $boleto->estadoBoleto = $request->{"estadoBoleto" . $i};
+            $boleto->estadoBoleto = "activo";
             $boleto->tipoBoleto = null;
         }
 

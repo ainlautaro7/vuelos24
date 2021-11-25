@@ -162,7 +162,7 @@ class VueloController extends Controller
                 $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'mover');
             }
         }
-        return redirect('/gestion/administrarVuelos')->with('message', "Los pasajeros seleccionados del vuelo Nro " . $request->nroVuelo . " fueron reasignados al vuelo Nro " . $request->nroVueloSeleccionado . " exitosamente!!");
+        return redirect('/gestion/administrarVuelos')->with('message', "El/los pasajero/s seleccionado/s del vuelo Nro " . $request->nroVuelo . " fue/ron reasignado/s al vuelo Nro " . $request->nroVueloSeleccionado . " exitosamente!!");
     }
 
     public function modificarVuelo(Request $request)
