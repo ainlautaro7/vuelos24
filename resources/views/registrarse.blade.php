@@ -30,37 +30,45 @@
             <h1>vuelos 24</h1>
             <h3>Registrarse</h3>
 
-            <form class="container mt-5" action="{{ route('usuario.alta') }}" method="POST">
+            <form class="container mt-4" action="{{ route('usuario.alta') }}" method="POST">
+
+                @if ($errors->count())
+                    <div class="alert alert-warning text-start mt-2" role="alert">
+                        @foreach ($errors->all() as $error)
+                            <div>{{ $error }}</div>
+                        @endforeach
+                    </div>
+                @endif
+
                 @csrf
                 <input type="hidden" name="tipoUsuario" value="cliente" class="form-control mx-2">
 
                 <div class="input-group my-3">
-                    <input type="text" name="nombre" placeholder="Nombre" aria-label="Nombre" class="form-control mx-2"
-                        required>
+                    <input type="text" name="nombre" placeholder="Nombre" aria-label="Nombre" class="form-control mx-2" value="{{old('nombre')}}">
 
                     <input type="text" name="apellido" placeholder="Apellido" aria-label="Apellido"
-                        class="form-control mx-2" required>
+                        class="form-control mx-2" value="{{old('apellido')}}">
                 </div>
 
                 <div class="input-group my-3">
                     <input type="number" name="nroDocumento" placeholder="Nro. de Documento"
-                        aria-label="Numero de Documento" class="form-control mx-2" required>
+                        aria-label="Numero de Documento" class="form-control mx-2" value="{{old('nroDocumento')}}">
                     <input type="date" name="fechaNacimiento" placeholder="Fecha de Nacimiento"
-                        aria-label="Fecha de Nacimiento" class="form-control mx-2" required>
+                        aria-label="Fecha de Nacimiento" class="form-control mx-2" value="{{old('fechaNacimiento', date('d-m-Y')) }}">
                 </div>
 
                 <div class="input-group my-3">
                     <input type="email" name="email" placeholder="Correo Electronico" aria-label="Correo Electronico"
-                        class="form-control mx-2" required>
+                        class="form-control mx-2" value="{{old('email')}}">
                     <input type="number" name="telefono" placeholder="Teléfono" aria-label="Nro. Telefonos"
-                        class="form-control mx-2" required>
+                        class="form-control mx-2" value="{{old('telefono')}}">
                 </div>
 
                 <div class="input-group my-3">
                     <input type="user" name="usuario" placeholder="Nombre de Usuario" aria-label="Nombre de Usuario"
-                        class="form-control mx-2" required>
+                        class="form-control mx-2" value="{{old('usuario')}}">
                     <input type="password" name="password" placeholder="Password" aria-label="Password"
-                        class="form-control mx-2" required>
+                        class="form-control mx-2">
                 </div>
 
                 <input type="submit" class="btn btn-info my-3 text-white" value="REGISTRARSE">
@@ -70,13 +78,14 @@
         </div>
     </section>
 
-        <script>
-            $(function() {
-                $("input[type=number]").on("invalid", function() {
-                    this.setCustomValidity("El teléfono debe tener una longitud de entre 7 y 11 digitos (numéricos)");
-                });
+    <script>
+        $(function() {
+            $("input[type=number]").on("invalid", function() {
+                this.setCustomValidity(
+                    "El teléfono debe tener una longitud de entre 7 y 11 digitos (numéricos)");
             });
-        </script>
+        });
+    </script>
 </body>
 
 </html>
