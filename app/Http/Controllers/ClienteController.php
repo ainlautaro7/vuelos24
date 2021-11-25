@@ -132,7 +132,7 @@ class ClienteController extends Controller
     }
 
     public function codigoCliente($idUsuario){
-        return DB::table('cliente')->where('idUsuario', 5)->value('codCliente');
+        return DB::table('cliente')->where('idUsuario', $idUsuario)->value('codCliente');
     }
 
     public function setPasswordAttribute($password)
