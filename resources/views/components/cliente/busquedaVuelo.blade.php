@@ -7,7 +7,7 @@
         <!-- ida o ida y vuelta -->
         <div class="input-group my-2">
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="tipoBoleto" id="idaVuelta" value="idaVuelta" onchange="javascript:showContent()">
+                <input class="form-check-input" type="radio" name="tipoBoleto" id="idaVuelta" value="idaVuelta" onchange="javascript:showContent()" disabled>
                 <label class="form-check-label" for="idaVuelta">
                     Ida y vuelta
                 </label>
