@@ -137,27 +137,21 @@ class VueloController extends Controller
 
     public function iniciarVuelo(Request $request)
     {
-        $vuelo = vuelo::findOrFail($request->nroVuelo);
-        $vuelo->estadoVuelo = $request->estadoVuelo;
-
-        $vuelo->save();
+        DB::select('UPDATE vuelo SET estadoVuelo = "en vuelo" WHERE nroVuelo = "' . $request->nroVuelo . '"');
         return redirect('/gestion/administrarVuelos');
     }
 
     public function finalizarVuelo(Request $request)
     {
-        $vuelo = vuelo::findOrFail($request->nroVuelo);
-        $vuelo->estadoVuelo = $request->estadoVuelo;
-
-        $vuelo->save();
+        DB::select('UPDATE vuelo SET estadoVuelo = "realizado" WHERE nroVuelo = "' . $request->nroVuelo . '"');
         return redirect('/gestion/administrarVuelos');
     }
 
     public function reasignarPasajeros(Request $request)
     {
         $gestionarBoleto = new BoletoController();
-        for ($i=1; $i <= $request->cantPasajerosTotal ; $i++) {  
-            if ($request->{"documentoPasajero" . $i} == ""){
+        for ($i = 1; $i <= $request->cantPasajerosTotal; $i++) {
+            if ($request->{"documentoPasajero" . $i} == "") {
             } else {
                 $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'resetear');
                 $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'mover');
@@ -165,7 +159,7 @@ class VueloController extends Controller
         }
         $contador = $gestionarBoleto->contarNoActivos($request->nroVuelo);
         if ($contador == 0) {
-            DB::select('UPDATE vuelo SET estadoVuelo = "suspendido" WHERE nroVuelo = "'.$request->nroVuelo.'"');
+            DB::select('UPDATE vuelo SET estadoVuelo = "suspendido" WHERE nroVuelo = "' . $request->nroVuelo . '"');
             return redirect('/gestion/administrarVuelos')->with('message', "El/los ultimo/s pasajero/s del vuelo Nro " . $request->nroVuelo . " fue/ron reasignado/s al vuelo Nro " . $request->nroVueloSeleccionado . " exitosamente, el vuelo Nro " . $request->nroVuelo . " ha sido suspendido");
         } else {
             return redirect('/gestion/administrarVuelos')->with('message', "El/los pasajero/s seleccionado/s del vuelo Nro " . $request->nroVuelo . " fue/ron reasignado/s al vuelo Nro " . $request->nroVueloSeleccionado . " exitosamente!!");
@@ -174,13 +168,12 @@ class VueloController extends Controller
 
     public function modificarVuelo(Request $request)
     {
-        $vuelo = vuelo::findOrFail($request->nroVuelo);
-        $vuelo->fechaVuelo = $request->fechaVuelo;
-        $vuelo->horaVuelo = $request->horaVuelo;
-
-        $vuelo->save();
-
+        $nroVuelo = $request->nroVuelo;
+        $fechaVuelo = $request->fechaVuelo;
+        $horaVuelo = $request->horaVuelo;
+        DB::select('UPDATE vuelo SET fechaVuelo = "' . $fechaVuelo . '", horaVuelo = "' . $horaVuelo . '" WHERE nroVuelo = "' . $nroVuelo . '"');
         return redirect('/gestion/administrarVuelos')->with('message', "Vuelo Nro " . $request->nroVuelo . " reprogramado con exito!");
+        // return $request;
     }
 
     public function buscarVuelo($nroVuelo)
@@ -227,7 +220,7 @@ class VueloController extends Controller
                     ['origen', $request->origen],
                     ['destino', $request->destino],
                     ['fechaVuelo', $request->fechaIda],
-                    ['cantBoletosDisponible', '>=' ,$cantPasajeros]
+                    ['cantBoletosDisponible', '>=', $cantPasajeros]
                 ])
                 ->get();
         } else {
@@ -251,7 +244,7 @@ class VueloController extends Controller
                     ['destino', $request->destino],
                     ['fechaVuelo', $request->fechaIda],
                     ['claseBoleto', $request->claseBoleto],
-                    ['cantBoletosDisponible', '>=' ,$cantPasajeros]
+                    ['cantBoletosDisponible', '>=', $cantPasajeros]
                 ])
                 ->get();
         }

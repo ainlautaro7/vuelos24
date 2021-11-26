@@ -124,8 +124,8 @@
     <script>
         var table = $('#vuelos').DataTable({
             "lengthMenu": [
-                [5, 10, 25, 50],
-                [5, 10, 25, 50], "All"
+                [10, 25, 50],
+                [10, 25, 50], "All"
             ]
         });
         // #myInput is a <input type="text"> element
