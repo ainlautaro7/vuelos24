@@ -60,7 +60,6 @@ Route::get('/gestion/administrarVuelos', [VueloController::class, 'administrarVu
 Route::get('/gestion/administrarVuelos/nuevoVuelo', [VueloController::class, 'altaVueloView'])->name('vuelo.altaVuelo')->middleware('auth');
 Route::get('/gestion/administrarVuelos/modificarVuelo/{vuelo}', [VueloController::class, 'modificarVueloView'])->name('vuelo.modificarVuelo')->middleware('auth');
 Route::get('/gestion/administrarVuelos/reasignarPasajeros/{vuelo}', [VueloController::class, 'reasignarPasajerosView'])->name('vuelo.reasignarPasajeros')->middleware('auth');
-Route::put('/gestion/administrarVuelos', [VueloController::class, 'administrarVuelosView'])->name('vuelo.administrarVuelosUnaVezSuspendido')->middleware('auth'); //Lo puse yo
 
 // administrar empleado
 Route::get('/gestion/administrarEmpleados', [EmpleadoController::class, 'administrarEmpleadosView'])->name('empleado.administrarEmpleados');
@@ -72,4 +71,3 @@ Route::post('modificarVuelo', [VueloController::class, 'modificarVuelo'])->name(
 Route::put('iniciarVuelo', [VueloController::class, 'iniciarVuelo'])->name('vuelo.iniciar');
 Route::put('finalizarVuelo', [VueloController::class, 'finalizarVuelo'])->name('vuelo.finalizar');
 Route::put('reasignarPasajeros', [VueloController::class, 'reasignarPasajeros'])->name('vuelo.reasignarPasajeros');
-Route::put('suspenderVuelo', [VueloController::class, 'suspenderVuelo'])->name('vuelo.suspenderVuelo'); //Lo puse yo

@@ -157,43 +157,18 @@ class VueloController extends Controller
         for ($i=1; $i <= $request->cantPasajerosTotal ; $i++) {  
             if ($request->{"documentoPasajero" . $i} == ""){
             } else {
-                //$prueba->cambiarEstadoBoleto($request, $i, 'resetear');
                 $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'resetear');
                 $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'mover');
             }
         }
         $contador = $gestionarBoleto->contarNoActivos($request->nroVuelo);
         if ($contador == 0) {
-            //{{route('vuelo.reasignarPasajeros')}};
-            //$vuelo = vuelo::findOrFail($request->nroVuelo);
-            //$vuelo->estadoVuelo = "suspendido";
-            //$vuelo->save();
-            //return redirect('vuelo.administrarVuelosUnaVezSuspendido');
-            $vuelo = vuelo::find($request->nroVuelo);
-            $vuelo->estadoVuelo = "suspendido";
             DB::select('UPDATE vuelo SET estadoVuelo = "suspendido" WHERE nroVuelo = "'.$request->nroVuelo.'"');
             return redirect('/gestion/administrarVuelos')->with('message', "El/los ultimo/s pasajero/s del vuelo Nro " . $request->nroVuelo . " fue/ron reasignado/s al vuelo Nro " . $request->nroVueloSeleccionado . " exitosamente, el vuelo Nro " . $request->nroVuelo . " ha sido suspendido");
         } else {
             return redirect('/gestion/administrarVuelos')->with('message', "El/los pasajero/s seleccionado/s del vuelo Nro " . $request->nroVuelo . " fue/ron reasignado/s al vuelo Nro " . $request->nroVueloSeleccionado . " exitosamente!!");
         }
-        //return redirect('/gestion/administrarVuelos')->with('message', "El/los pasajero/s seleccionado/s del vuelo Nro " . $request->nroVuelo . " fue/ron reasignado/s al vuelo Nro " . $request->nroVueloSeleccionado . " exitosamente!!");*/
-        /*$vuelos = vuelo::findOrFail($request->nroVuelo);
-        $mensaje = "El/los pasajero/s seleccionado/s del vuelo Nro " . $request->nroVuelo . " fue/ron reasignado/s al vuelo Nro " . $request->nroVueloSeleccionado . " exitosamente!!";
-        return redirect('administrarVuelos', compact ('vuelos', 'mensaje'));*/
-        /*$contador = $gestionarBoleto->contarNoActivos($request->nroVuelo);
-        if ($contador == 0) {
-            DB::select('UPDATE vuelo SET estadoVuelo = "suspendido" WHERE nroVuelo = "'.$request->nroVuelo.'"');
-            return "vuelo suspendido";
-        } else {
-            return "hola";
-        }*/
-
     }
-
-    /*public function suspenderVuelo(Request $request){
-        
-        return redirect('/gestion/administrarVuelos')->with('message', "El/los ultimo/s pasajero/s del vuelo Nro " . $request->nroVuelo . " fue/ron reasignado/s al vuelo Nro " . $request->nroVueloSeleccionado . " exitosamente, el vuelo Nro " . $request->nroVuelo . "ha sido suspendido");
-    }*/
 
     public function modificarVuelo(Request $request)
     {
