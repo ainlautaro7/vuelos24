@@ -54,7 +54,7 @@
                     <input type="number" name="nroDocumento" placeholder="Nro. de Documento"
                         aria-label="Numero de Documento" class="form-control mx-2" value="{{old('nroDocumento')}}">
                     <input type="date" name="fechaNacimiento" placeholder="Fecha de Nacimiento"
-                        aria-label="Fecha de Nacimiento" class="form-control mx-2" value="{{old('fechaNacimiento', date('d-m-Y')) }}">
+                        aria-label="Fecha de Nacimiento" class="form-control mx-2" max="2003-11-26" value="{{old('fechaNacimiento', date('d-m-Y')) }}">
                 </div>
 
                 <div class="input-group my-3">
