@@ -62,13 +62,14 @@ function obtenerVuelos() {
     var origenVuelo = document.getElementById("origenVuelo").value;
     var destinoVuelo = document.getElementById("destinoVuelo").value;
     var nroVuelo = document.getElementById("nroVuelo").value;
+    var fechaVuelo = document.getElementById("fechaVuelo").value;
     var nroPasajeros = document.querySelectorAll('input[type=checkbox]:checked').length;
 
     document.getElementById('cantPasajeros').value = nroPasajeros;
 
 
     if (nroPasajeros > 0) {
-        peticion.open("GET", "http://localhost/vuelos24/public/php/api.php?opcion=2&nroPasajeros=" + nroPasajeros + "&claseBoleto=" + claseBoleto + "&nroVuelo=" + nroVuelo + "&origenVuelo=" + origenVuelo + "&destinoVuelo=" + destinoVuelo + "&nroVuelo=" + nroVuelo, true);
+        peticion.open("GET", "http://localhost/vuelos24/public/php/api.php?opcion=2&nroPasajeros=" + nroPasajeros + "&claseBoleto=" + claseBoleto + "&nroVuelo=" + nroVuelo + "&origenVuelo=" + origenVuelo + "&destinoVuelo=" + destinoVuelo + "&nroVuelo=" + nroVuelo + "&fechaVuelo=" + fechaVuelo, true);
         peticion.onreadystatechange = cargarResultados;
         peticion.send(null);
 
