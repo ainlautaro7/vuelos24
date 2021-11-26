@@ -162,7 +162,8 @@ class VueloController extends Controller
             DB::select('UPDATE vuelo SET estadoVuelo = "suspendido" WHERE nroVuelo = "' . $request->nroVuelo . '"');
             return redirect('/gestion/administrarVuelos')->with('message', "El/los ultimo/s pasajero/s del vuelo Nro " . $request->nroVuelo . " fue/ron reasignado/s al vuelo Nro " . $request->nroVueloSeleccionado . " exitosamente, el vuelo Nro " . $request->nroVuelo . " ha sido suspendido");
         } else {
-            return redirect('/gestion/administrarVuelos')->with('message', "El/los pasajero/s seleccionado/s del vuelo Nro " . $request->nroVuelo . " fue/ron reasignado/s al vuelo Nro " . $request->nroVueloSeleccionado . " exitosamente!!");
+            //return redirect('/gestion/administrarVuelos')->with('message', "El/los pasajero/s seleccionado/s del vuelo Nro " . $request->nroVuelo . " fue/ron reasignado/s al vuelo Nro " . $request->nroVueloSeleccionado . " exitosamente!!");
+            return redirect()->back()->with('message', "El/los pasajero/s seleccionado/s del vuelo Nro " . $request->nroVuelo . " fue/ron reasignado/s al vuelo Nro " . $request->nroVueloSeleccionado . " exitosamente!!");
         }
     }
 

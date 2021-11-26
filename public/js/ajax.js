@@ -52,6 +52,7 @@ function obtenerPasajeros() {
                 filtro3.innerHTML = vuelos;
             }
         }
+        document.getElementById("btnReasignar").disabled = true;
     }
 
 }
@@ -75,6 +76,7 @@ function obtenerVuelos() {
 
         function cargarResultados() {
             var filtro3 = document.getElementById("vuelos");
+            
             if (peticion.readyState == 4) {
                 if (peticion.status == 200) { //Se proceso la peticion
                     obj = JSON.parse(peticion.responseText); //.responseText;
@@ -88,7 +90,7 @@ function obtenerVuelos() {
                         vuelos += "<label class='form-check-label mx-2' for='nroVueloSeleccionado" + (i + 1) + "'>" +
                             "<div class='card' style='width: 18rem;'>" +
                             "<div class='card-body'>" +
-                            "<input class='form-check-input' type='radio' name='nroVueloSeleccionado' id='nroVueloSeleccionado" + (i + 1) + "' value='" + obj[i].nroVuelo + "'></input>" +
+                            "<input class='form-check-input' type='radio' onChange='chequeado()' name='nroVueloSeleccionado' id='nroVueloSeleccionado" + (i + 1) + "' value='" + obj[i].nroVuelo + "'></input>" +
                             "<h5 class='card-title text-center'>Vuelo Nro " + obj[i].nroVuelo + "</h5>" +
                             "<hr>" +
                             "<p>Fecha del Vuelo: " + obj[i].fechaVuelo + "</p>" +
@@ -105,5 +107,10 @@ function obtenerVuelos() {
         var filtro3 = document.getElementById("vuelos");
         vuelos = "";
         filtro3.innerHTML = vuelos;
+        document.getElementById("btnReasignar").disabled = true;
     }
+}
+
+function chequeado() {
+    document.getElementById("btnReasignar").disabled = false;
 }

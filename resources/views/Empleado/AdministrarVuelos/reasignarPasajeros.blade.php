@@ -104,7 +104,7 @@
                 <input type="hidden" name="cantPasajeros" id="cantPasajeros" value="">
                 <input type="hidden" name="cantPasajerosTotal" id="cantPasajerosTotal" value="">
 
-                <button class="btn btn-success float-end my-3 text-white mx-2" disabled>Reasignar Pasajeros</button>
+                <button class="btn btn-success float-end my-3 text-white mx-2" id="btnReasignar" disabled>Reasignar Pasajeros</button>
             </form>
 
         </div>
