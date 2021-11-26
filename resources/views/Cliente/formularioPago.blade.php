@@ -27,6 +27,12 @@
         <h1 class="mt-5 col-12 text-center" style="font-weight: normal;">Formulario de Pago</h1>
         <div class="contenedor col-8 me-auto">
 
+            @isset($error)
+                <div class="alert alert-warning text-start mt-2" role="alert">
+                    <div>{{ $error }} <br> <a href="{{route('cliente.perfil')}}">Ver boleto </a></div>
+                </div>
+            @endisset
+
             <!-- Tarjeta -->
             <section class="tarjeta" id="tarjeta">
                 <div class="delantera">
@@ -89,7 +95,8 @@
 
                 {{-- inicio datos de pasajeros --}}
                 <input type="hidden" name="nroVuelo" value="{{ Session::get('nroVuelo') }}">
-                <input type="hidden" name="codCliente" value="{{DB::table('cliente')->where('idUsuario', auth()->user()->id)->value('codCliente')}}">
+                <input type="hidden" name="codCliente"
+                    value="{{ DB::table('cliente')->where('idUsuario', auth()->user()->id)->value('codCliente') }}">
                 <input type="hidden" name="claseBoleto" value="{{ Session::get('claseBoleto') }}">
                 <input type="hidden" name="tipoBoleto" value="{{ Session::get('tipoBoleto') }}">
                 <input type="hidden" name="tipoTransaccion" value="{{ Session::get('tipoFormulario') }}">
@@ -122,7 +129,8 @@
 
                 <div class="grupo">
                     <label for="inputNumero">Número Tarjeta</label>
-                    <input name="numberCard" type="text" id="inputNumero" maxlength="19" autocomplete="off" required>
+                    <input name="numberCard" type="text" id="inputNumero" minlength="19" maxlength="19"
+                        autocomplete="off" required>
                 </div>
                 <div class="grupo">
                     <label for="inputNombre">Nombre</label>
@@ -133,13 +141,13 @@
                         <label for="selectMes">Expiracion</label>
                         <div class="flexbox">
                             <div class="grupo-select">
-                                <select name="mes" id="selectMes">
+                                <select name="mes" id="selectMes" required>
                                     <option disabled selected>Mes</option>
                                 </select>
                                 <i class="fas fa-angle-down"></i>
                             </div>
                             <div class="grupo-select">
-                                <select name="year" id="selectYear">
+                                <select name="year" id="selectYear" required>
                                     <option disabled selected>Año</option>
                                 </select>
                                 <i class="fas fa-angle-down"></i>
@@ -149,10 +157,10 @@
 
                     <div class="grupo ccv">
                         <label for="inputCCV">CCV</label>
-                        <input type="text" id="inputCCV" maxlength="3">
+                        <input type="text" name="cvvCard" id="inputCCV" minlength="3" maxlength="3" required>
                     </div>
                 </div>
-                <button type="submit" class="btn-enviar">Pagar</button>
+                <button class="btn-enviar">Pagar</button>
             </form>
         </div>
 

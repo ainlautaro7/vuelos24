@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -45,6 +46,13 @@
     <h1 class="text-center mt-5">Mis Vuelos</h1>
 
     <div class="container mx-auto mt-5">
+
+        @isset($message)
+            <div class="alert alert-success text-start mt-2" role="alert">
+                <div>{{ $message }}</div>
+            </div>
+        @endisset
+
         <table id="boletos" class="table table-striped" style="width:100%">
             <thead>
                 <tr>

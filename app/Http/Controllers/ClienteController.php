@@ -32,7 +32,8 @@ class ClienteController extends Controller
         return view('cliente.formularioCompraReserva');
     }
 
-    public function perfilView(){
+    public function perfilView()
+    {
         $gestionarBoleto = new BoletoController();
         $codCliente = $this->codigoCliente(auth()->user()->id);
         $boletos = $gestionarBoleto->buscarBoletoPasajero(0, $codCliente);
@@ -98,20 +99,39 @@ class ClienteController extends Controller
     public function comprarBoleto(Request $request)
     {
 
+        // contemplando errores
+        switch ($request->nombreCard) {
+            case "FUND":
+                return view('cliente.formularioPago', compact('request'))->with('error', 'Pago rechazado por monto insuficiente, el boleto quedo resarvado');
+                break;
+            case "SECU":
+                return view('cliente.formularioPago', compact('request'))->with('error', 'Pago rechazado por codigo de seguridad invalido, el boleto quedo resarvado');
+                break;
+            // case "EXPI":
+            //     return view('cliente.formularioPago', compact('request'))->with('error', 'Pago rechazado por problema con la fecha de expiración, el boleto quedo resarvado');
+            //     break;
+            default:
+                if ($request->year == "2021") {
+                    if ($request->mes == "10") {
+                        return view('cliente.formularioPago', compact('request'))->with('error', 'Pago rechazado por problema con la fecha de expiración, el boleto quedo resarvado');
+                    }
+                }
+                break;
+        }
+
         $gestionarBoleto = new BoletoController();
 
         // iteriacion que registra los boletos comprados
         for ($i = 1; $i <= $request->cantPasajeros; $i++) {
             $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'comprado');
-            
         }
 
-        return redirect('/perfil');
+        return redirect('/perfil')->with('message', 'boleto comprado con exito!');
         // return $request;
     }
 
     public function reservarBoleto(Request $request)
-    {   
+    {
         $gestionarBoleto = new BoletoController();
         Session::put('cantPasajeros', $request->cantPasajeros);
 
@@ -136,7 +156,8 @@ class ClienteController extends Controller
     {
     }
 
-    public function codigoCliente($idUsuario){
+    public function codigoCliente($idUsuario)
+    {
         return DB::table('cliente')->where('idUsuario', $idUsuario)->value('codCliente');
     }
 

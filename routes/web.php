@@ -45,6 +45,8 @@ Route::post('buscarVuelos', [VueloController::class, 'buscarVuelos'])->name('vue
 Route::post('comprarReservarBoleto', [ClienteController::class, 'comprarReservarBoleto'])->name('cliente.comprarReservarBoleto');
 
 Route::post('comprarBoleto', [ClienteController::class, 'comprarBoleto'])->name('cliente.comprarBoleto');
+Route::get('comprarBoleto', [ClienteController::class, 'comprarBoleto'])->name('cliente.comprarBoleto');
+
 Route::post('reserva', [ClienteController::class, 'reservarBoleto'])->name('cliente.reserva');
 
 // Route::POST('/cpm', [PaymentController::class, 'process_payment'])->name('cliente.comprarBoleto');
