@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ciudad;
 use App\Models\servicio;
 use App\Models\vuelo;
+use Carbon\Carbon;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +20,7 @@ class VueloController extends Controller
         if (auth()->user()->tipoUsuario !== "empleado") {
             return redirect('/');
         }
+        $now = Carbon::now();
 
         $vuelos = vuelo::select(
             "vuelo.nroVuelo",
@@ -34,7 +36,7 @@ class VueloController extends Controller
             ->join("ciudad as d", "vuelo.idCiudadDestino", "=", "d.idCiudad")
             ->get();
 
-        return view('Empleado.administrarVuelos', compact('vuelos'));
+        return view('Empleado.administrarVuelos', compact('vuelos', 'now'));
     }
 
     // VISTA ALTA VUELO

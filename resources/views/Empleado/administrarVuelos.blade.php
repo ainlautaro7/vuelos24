@@ -86,7 +86,7 @@
                             <td>{{ $vuelo->estadoVuelo }}</td>
                             <td class="text-center">
                                 <button data-bs-toggle="modal" data-bs-target="#iniciar{{ $vuelo->nroVuelo }}"
-                                    type="button" class="btn btn-success text-white" title="Iniciar vuelo" @if (($vuelo->estadoVuelo == 'en vuelo') | ($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'suspendido'))
+                                    type="button" class="btn btn-success text-white" title="Iniciar vuelo" @if (($vuelo->estadoVuelo == 'en vuelo') | ($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'suspendido') | ($now->format('Y-m-d') < $vuelo->fechaVuelo))
                                     disabled
                     @endif>
                     <i class="fas fa-plane-departure"></i>
