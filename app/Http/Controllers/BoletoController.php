@@ -135,6 +135,10 @@ class BoletoController extends Controller
         $boleto->save();
     }
 
+    public function contarNoActivos($nroVuelo){
+        return DB::table('boleto')->where('nroVuelo', $nroVuelo)->where('estadoBoleto',"!=", "activo")->count();    
+    }
+
     public function notificarClienteNuevoVuelo()
     {
     }
