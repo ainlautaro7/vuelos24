@@ -107,9 +107,6 @@ class ClienteController extends Controller
             case "SECU":
                 return view('cliente.formularioPago', compact('request'))->with('error', 'Pago rechazado por codigo de seguridad invalido, el boleto quedo resarvado');
                 break;
-            // case "EXPI":
-            //     return view('cliente.formularioPago', compact('request'))->with('error', 'Pago rechazado por problema con la fecha de expiración, el boleto quedo resarvado');
-            //     break;
             default:
                 if ($request->year == "2021") {
                     if ($request->mes == "10") {

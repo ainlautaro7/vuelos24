@@ -43,6 +43,7 @@ class UsuarioController extends Controller
             'nroDocumento'    => 'required|numeric|unique:usuario',
             'fechaNacimiento'    => 'required|date',
             'email'    => 'required|email|unique:usuario',
+            'telefono'    => 'required|string|min:7|max:11',
             'usuario'    => 'required|string|unique:usuario',
             'password'    => 'required',
         ]);
