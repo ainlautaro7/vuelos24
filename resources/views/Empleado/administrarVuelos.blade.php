@@ -86,19 +86,19 @@
                             <td>{{ $vuelo->estadoVuelo }}</td>
                             <td class="text-center">
                                 <button data-bs-toggle="modal" data-bs-target="#iniciar{{ $vuelo->nroVuelo }}"
-                                    type="button" class="btn btn-success text-white" title="Iniciar vuelo" @if (($vuelo->estadoVuelo == 'en vuelo') | ($vuelo->estadoVuelo == 'realizado'))
+                                    type="button" class="btn btn-success text-white" title="Iniciar vuelo" @if (($vuelo->estadoVuelo == 'en vuelo') | ($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'suspendido'))
                                     disabled
                     @endif>
                     <i class="fas fa-plane-departure"></i>
                     </button>
                     <button data-bs-toggle="modal" data-bs-target="#finalizar{{ $vuelo->nroVuelo }}" type="button"
-                        class="btn btn-info text-white" title="Finalizar vuelo" @if (($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'activo'))
+                        class="btn btn-info text-white" title="Finalizar vuelo" @if (($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'activo') | ($vuelo->estadoVuelo == 'suspendido'))
                         disabled
                         @endif>
                         <i class="fas fa-plane-arrival"></i>
                     </button>
                     <button data-bs-toggle="modal" data-bs-target="#suspender{{ $vuelo->nroVuelo }}" type="button"
-                        class="btn btn-danger" title="Suspender vuelo" @if (($vuelo->estadoVuelo == 'en vuelo') | ($vuelo->estadoVuelo == 'realizado'))
+                        class="btn btn-danger" title="Suspender vuelo" @if (($vuelo->estadoVuelo == 'en vuelo') | ($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'suspendido'))
                         disabled
                         @endif>
                         <i class="fas fa-plane-slash"></i>
