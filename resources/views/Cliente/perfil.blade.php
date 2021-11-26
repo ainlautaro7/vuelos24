@@ -73,7 +73,7 @@
                 @foreach ($boletos as $boleto)
                     <tr>
                         @if ($boleto->estadoBoleto == 'reservado')
-                            <form action="{{ route('cliente.comprarBoleto') }}" method="POST">
+                            <form action="{{ route('cliente.reserva') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="nroVuelo" value="{{ $boleto->nroVuelo }}">
                                 <input type="hidden" name="codCliente"
@@ -81,6 +81,7 @@
                                 <input type="hidden" name="cantPasajeros" value="1">
                                 <input type="hidden" name="tipoTransaccion" value="compra">
                                 <input type="hidden" name="tipoBoleto" value="{{ $boleto->tipoBoleto }}">
+                                <input type="hidden" name="url" value="perfil">
                         @endif
                         <th><input readonly size="" type="text" value="{{ $boleto->origenVuelo }}" disabled></th>
                         <th><input readonly size="" type="text" value="{{ $boleto->destinoVuelo }}" disabled></th>

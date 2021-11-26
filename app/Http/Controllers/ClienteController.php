@@ -132,6 +132,11 @@ class ClienteController extends Controller
 
     public function reservarBoleto(Request $request)
     {
+
+        if ($request->url == "perfil") {
+            return view('cliente.formularioPago', compact('request'));
+        }
+
         $gestionarBoleto = new BoletoController();
         Session::put('cantPasajeros', $request->cantPasajeros);
 
