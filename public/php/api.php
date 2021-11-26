@@ -39,7 +39,8 @@ switch ($opcion) {
             $origenVuelo = $_GET["origenVuelo"];
             $destinoVuelo = $_GET["destinoVuelo"];
             $nroVuelo = $_GET["nroVuelo"];
-            $sql = "SELECT nroVuelo, fechaVuelo, horaVuelo FROM vuelosdisponibles WHERE origen = '" . $origenVuelo . "' AND destino = '" . $destinoVuelo . "' AND claseBoleto = '".$claseBoleto."' AND cantBoletosDisponible >= '".$nroPasajeros."' AND nroVuelo <> '".$nroVuelo."'";
+            $fechaVuelo = $_GET["fechaVuelo"];
+            $sql = "SELECT nroVuelo, fechaVuelo, horaVuelo FROM vuelosdisponibles WHERE origen = '" . $origenVuelo . "' AND destino = '" . $destinoVuelo . "' AND claseBoleto = '".$claseBoleto."' AND cantBoletosDisponible >= '".$nroPasajeros."' AND nroVuelo <> '".$nroVuelo."' AND fechaVuelo > '".$fechaVuelo."'";
         } else {
             $sql = NULL;
         }

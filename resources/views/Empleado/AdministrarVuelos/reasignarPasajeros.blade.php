@@ -53,6 +53,7 @@
                 <input type="hidden" id="nroVuelo" name="nroVuelo" value="{{ $vuelo->nroVuelo }}">
                 <input type="hidden" id="origenVuelo" name="origenVuelo" value="{{ $vuelo->origen }}">
                 <input type="hidden" id="destinoVuelo" name="destinoVuelo" value="{{ $vuelo->destino }}">
+                <input type="hidden" id="fechaVuelo" name="fechaVuelo" value="{{ $vuelo->fechaVuelo }}">
 
                 @if (session()->has('message'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -103,7 +104,7 @@
                 <input type="hidden" name="cantPasajeros" id="cantPasajeros" value="">
                 <input type="hidden" name="cantPasajerosTotal" id="cantPasajerosTotal" value="">
 
-                <button class="btn btn-success float-end my-3 text-white mx-2">Reasignar Pasajeros</button>
+                <button class="btn btn-success float-end my-3 text-white mx-2" disabled>Reasignar Pasajeros</button>
             </form>
 
         </div>
