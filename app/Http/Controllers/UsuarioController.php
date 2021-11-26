@@ -38,13 +38,13 @@ class UsuarioController extends Controller
     public function altaUsuario(Request $request)
     {
         $errores = \Validator::make($request->all(), [
-            'nombre'    => 'required|string',
-            'apellido'    => 'required|string',
+            'nombre'    => 'required|string|alpha',
+            'apellido'    => 'required|string|alpha',
             'nroDocumento'    => 'required|numeric|unique:usuario',
             'fechaNacimiento'    => 'required|date',
             'email'    => 'required|email|unique:usuario',
             'telefono'    => 'required|string|min:7|max:11',
-            'usuario'    => 'required|string|unique:usuario',
+            'usuario'    => 'required|string|alpha_dash|unique:usuario',
             'password'    => 'required',
         ]);
 
