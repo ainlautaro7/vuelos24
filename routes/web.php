@@ -7,6 +7,7 @@ use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\UsuarioController;
 use App\Models\Cliente;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\MailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,3 +74,9 @@ Route::post('modificarVuelo', [VueloController::class, 'modificarVuelo'])->name(
 Route::put('iniciarVuelo', [VueloController::class, 'iniciarVuelo'])->name('vuelo.iniciar');
 Route::put('finalizarVuelo', [VueloController::class, 'finalizarVuelo'])->name('vuelo.finalizar');
 Route::put('reasignarPasajeros', [VueloController::class, 'reasignarPasajeros'])->name('vuelo.reasignarPasajeros');
+
+//Pruebo email
+Route::get('/enviar', [MailController::class, 'sendEmail']);
+
+//PDF'S
+Route::get('/compraReservaPdf', [ClienteController::class, 'pdfCompraReserva'])->name('PDFs.compraReserva');
