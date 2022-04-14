@@ -153,7 +153,6 @@ class ClienteController extends Controller
         if ($request->tipoTransaccion == "compra") {
             return view('cliente.formularioPago', compact('request'));
         }
-
         return redirect('/perfil')->with('message', 'boleto reservado con exito! Descargue su comprobante');
     }
 
