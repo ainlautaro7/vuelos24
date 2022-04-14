@@ -116,60 +116,45 @@ class ClienteController extends Controller
                 }
                 break;
         }
-        /*
-        $gestionarBoleto = new BoletoController();
+        //$gestionarBoleto = new BoletoController();
 
         // iteriacion que registra los boletos comprados
-        for ($i = 1; $i <= $request->cantPasajeros; $i++) {
+        /*for ($i = 1; $i <= $request->cantPasajeros; $i++) {
             $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'comprado');
-        }
+        }*/
 
-        //Aca tengo que enviar el correo electrónico
-        
-
-        return redirect('/perfil')->with('message', 'boleto comprado con exito!');
-        // return $request;*/
-        $cliente = new ClienteController();
-        $dato = 'compra';
-        return $cliente->pdfCompraReserva($request, $dato);
+        return redirect('/perfil')->with('message', 'boleto comprado con exito! Descargue su comprobante');
     }
 
-    public function pdfCompraReserva(Request $request, $dato){  //Agregué $dato porque no me tomaba el if con $request->tipoFormulario == "reserva"
+    public function pdfCompraReserva(Request $request){  
         $pdf = Pdf::loadView('PDFs.compraReserva',['request'=>$request]);
-        if ($dato == "reserva") {
+        if ($request->estadoBoleto == 'reservado') {
             return $pdf->download('comprobanteReserva.pdf');
         }
-        if ($dato == "compra") {
+        else {
             return $pdf->download('comprobanteCompra.pdf');
         }
     }
 
     public function reservarBoleto(Request $request)
     {
-        /*
         if ($request->url == "perfil") {
             return view('cliente.formularioPago', compact('request'));
         }
         
-        $gestionarBoleto = new BoletoController();
+        //$gestionarBoleto = new BoletoController();
         Session::put('cantPasajeros', $request->cantPasajeros);
 
         // iteriacion que registra los boletos reservados
-        for ($i = 1; $i <= $request->cantPasajeros; $i++) {
+        /*for ($i = 1; $i <= $request->cantPasajeros; $i++) {
             $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'reservado');
-        }
+        }*/
 
         if ($request->tipoTransaccion == "compra") {
             return view('cliente.formularioPago', compact('request'));
         }
 
-        return redirect('/perfil')->with('message', 'boleto reservado con exito!');
-        // return $request;*/
-        $cliente = new ClienteController();
-        $dato = 'reserva';
-        return $cliente->pdfCompraReserva($request, $dato);
-        //return redirect('/perfil')->with('message', 'boleto reservado con exito!');
-        //return $pdf->stream();
+        return redirect('/perfil')->with('message', 'boleto reservado con exito! Descargue su comprobante');
     }
 
     public function cancelarReserva()

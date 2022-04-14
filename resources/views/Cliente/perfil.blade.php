@@ -101,11 +101,24 @@
                         <th>
                             @if ($boleto->estadoBoleto == 'reservado')
                                 <button type="submit" class="btn btn-success btn-sm">Comprar boleto</button>
+                                </form>
                             @endif
-                        </th>
-                        @if ($boleto->estadoBoleto == 'reservado')
+                            <form action="{{ route('PDFs.compraReserva') }}" method="get">
+                                <input type="hidden" name="nroVuelo" value="{{ $boleto->nroVuelo }}">
+                                <input type="hidden" name="tipoBoleto" value="{{ $boleto->tipoBoleto }}">
+                                <input type="hidden" name="origenVuelo" value="{{ $boleto->origenVuelo }}">
+                                <input type="hidden" name="destinoVuelo" value="{{ $boleto->destinoVuelo }}">
+                                <input type="hidden" name="fechaVuelo" value="{{ $boleto->fechaVuelo }}">                            
+                                <input type="hidden" name="horaVuelo" value="{{ $boleto->horaVuelo }}">
+                                <input type="hidden" name="apellidoPasajero" value="{{ $boleto->apellidoPasajero }}">
+                                <input type="hidden" name="nombrePasajero" value="{{ $boleto->nombrePasajero }}">
+                                <input type="hidden" name="documentoPasajero" value="{{ $boleto->documentoPasajero }}">
+                                <input type="hidden" name="claseBoleto" value="{{ $boleto->claseBoleto }}">
+                                <input type="hidden" name="tarifaBoleto" value="{{ $boleto->tarifaBoleto }}">
+                                <input type="hidden" name="estadoBoleto" value="{{ $boleto->estadoBoleto }}">
+                                <button class="btn btn-link">Descargar Comprobante</button>
                             </form>
-                        @endif
+                        </th>
                     </tr>
                 @endforeach
             </tbody>

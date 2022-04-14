@@ -44,54 +44,58 @@ table{
 </head>
 <body>
     <header>Vuelos24</header><hr>
-    <h3>Comprobante de {{ Session::get('tipoFormulario') }} de boletos</h3>
+
+    @if ($request->estadoBoleto == 'reservado')
+        <h3>Comprobante de reserva del boleto</h3>
+    @else
+        <h3>Comprobante de compra del boleto</h3>
+    @endif
+
     <p><u><b>Datos del vuelo:</b></u></p>
     <table>
         <tr>
             <td> <b> Número de vuelo </b> </td>
-            <td> {{ Session::get('nroVuelo') }} </td>
+            <td> {{ $request->nroVuelo }} </td>
         </tr>
         <tr>
             <td> <b> Origen </b> </td>
-            <td> {{ Session::get('origenVuelo') }} </td>
+            <td> {{ $request->origenVuelo }} </td>
         </tr>
         <tr>
             <td> <b> Destino </b> </td>
-            <td> {{ Session::get('destinoVuelo') }} </td>
+            <td> {{ $request->destinoVuelo }} </td>
         </tr>
         <tr>
             <td> <b> Tipo boleto </b> </td>
-            <td> {{ Session::get('tipoBoleto') }} </td>
+            <td> {{ $request->tipoBoleto }} </td>
+        </tr>
+        <tr>
+            <td> <b> Clase boleto </b> </td>
+            <td> {{ $request->claseBoleto }} </td>
         </tr>
         <tr>
             <td> <b> Fecha </b> </td>
-            <td> {{ Session::get('fechaVuelo') }} </td>
+            <td> {{ $request->fechaVuelo }} </td>
         </tr>
         <tr>
             <td> <b> Hora </b> </td>
-            <td> {{ Session::get('horaVuelo') }} </td>
+            <td> {{ $request->horaVuelo }} </td>
         </tr>
     </table><br>
-    <p><u><b>Pasajeros:</b></u></p>
+    <p><u><b>Datos del pasajero:</b></u></p>
     <table>
         <tr>
             <th> Nombre </th>
             <th> Apellido </th>
             <th> Documento </th>
         </tr>
-        @for ($i = 1; $i <= Session::get('cantAdultos') + Session::get('cantMenores') + Session::get('cantBebes'); $i++)   
-        <div>     
-            {{ $apellidoPasajero = 'apellidoPasajero' . $i }}
-            {{ $nombrePasajero = 'nombrePasajero' . $i }}
-            {{ $documentoPasajero = 'documentoPasajero' . $i }}
-        </div>
+          
         <tr>
-            <td> {{ $request->$nombrePasajero }} </td>
-            <td> {{ $request->$apellidoPasajero }} </td>
-            <td> {{ $request->$documentoPasajero }} </td>
+            <td> {{ $request->nombrePasajero }} </td>
+            <td> {{ $request->apellidoPasajero }} </td>
+            <td> {{ $request->documentoPasajero }} </td>
         </tr>
-        @endfor
     </table><br>
-    <h2>Precio final: ${{ number_format(Session::get('total'), 000, '.', '.') }}</h2>
+    <h2>Tarifa: ${{ number_format($request->tarifaBoleto, 000, '.', '.') }}</h2>
 </body>
 </html>
