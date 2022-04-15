@@ -46,6 +46,15 @@
     <h1 class="text-center mt-5">Mis Vuelos</h1>
 
     <div class="container mx-auto mt-5">
+
+        {!! session()->forget('cantAdultos') !!}
+        {!! session()->forget('tarifaAdultos') !!}
+        {!! session()->forget('cantMenores') !!}
+        {!! session()->forget('tarifaMenores') !!}
+        {!! session()->forget('cantBebes') !!}
+        {!! session()->forget('tarifaBebes') !!}
+        {!! session()->forget('total') !!}
+        {!! session()->forget('url') !!}
         
         @if (session()->has('message'))
             <div class="alert alert-success text-start mt-2" role="alert">
@@ -84,21 +93,16 @@
                                 <input type="hidden" name="tipoBoleto" value="{{ $boleto->tipoBoleto }}">
                                 <input type="hidden" name="url" value="perfil">
                         @endif
-                        <th><input readonly size="" type="text" value="{{ $boleto->origenVuelo }}" disabled></th>
-                        <th><input readonly size="" type="text" value="{{ $boleto->destinoVuelo }}" disabled></th>
-                        <th><input readonly size="" type="text" value="{{ $boleto->fechaVuelo }}" disabled></th>
-                        <th><input readonly size="" type="text" value="{{ $boleto->horaVuelo }}" disabled></th>
-                        <th><input readonly size="" type="text" name="apellidoPasajero1"
-                                value="{{ $boleto->apellidoPasajero }}"></th>
-                        <th><input readonly size="" type="text" name="nombrePasajero1"
-                                value="{{ $boleto->nombrePasajero }}">
-                        </th>
-                        <th><input readonly size="" type="text" name="documentoPasajero1"
-                                value="{{ $boleto->documentoPasajero }}"></th>
-                        <th><input readonly size="" type="text" name="claseBoleto"
-                                value="{{ $boleto->claseBoleto }}"></th>
-                        <th>{{ $boleto->tarifaBoleto }}</th>
-                        <th>{{ $boleto->estadoBoleto }}</th>
+                        <th><input readonly size="" type="text" name="origenVuelo" value="{{ $boleto->origenVuelo }}" ></th>
+                        <th><input readonly size="" type="text" name="destinoVuelo" value="{{ $boleto->destinoVuelo }}" ></th>
+                        <th><input readonly size="" type="text" name="fechaVuelo" value="{{ $boleto->fechaVuelo }}" ></th>
+                        <th><input readonly size="" type="text" name="horaVuelo" value="{{ $boleto->horaVuelo }}" ></th>
+                        <th><input readonly size="" type="text" name="apellidoPasajero1" value="{{ $boleto->apellidoPasajero }}"></th>
+                        <th><input readonly size="" type="text" name="nombrePasajero1" value="{{ $boleto->nombrePasajero }}"> </th>
+                        <th><input readonly size="" type="text" name="documentoPasajero1" value="{{ $boleto->documentoPasajero }}"></th>
+                        <th><input readonly size="" type="text" name="claseBoleto" value="{{ $boleto->claseBoleto }}"></th>
+                        <th><input readonly size="" type="text" name="tarifaBoleto" value="{{ $boleto->tarifaBoleto }}"></th>
+                        <th><input readonly size="" type="text" name="estadoBoleto" value="{{ $boleto->estadoBoleto }}"></th>
                         <th>
                             @if ($boleto->estadoBoleto == 'reservado')
                                 <button type="submit" class="btn btn-success btn-sm">Comprar boleto</button>

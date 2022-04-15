@@ -133,6 +133,7 @@ class BoletoController extends Controller
         // UPDATE boleto set codCliente = null, apellidoPasajero = null, nombrePasajero = null, documentoPasajero = null, tipoBoleto = null, estadoBoleto = "activo"
 
         $boleto->save();
+        //return $boleto;
     }
 
     public function contarNoActivos($nroVuelo){
@@ -149,11 +150,12 @@ class BoletoController extends Controller
 
     public function buscarBoletoPasajero($nroVuelo, $codCliente)
     {
-        if($nroVuelo != 0){
+        /*if($nroVuelo != 0){
             return DB::select('SELECT * FROM boleto WHERE nroVuelo = "' . $nroVuelo . '" AND documentoPasajero = "' . $documentoPasajero . '"');
         }else{
             return DB::select('SELECT * FROM boletosCliente WHERE codCliente = "' . $codCliente . '" ORDER BY fechaTransaccion DESC');
-        }
+        }*/
+        return DB::select('SELECT * FROM boletosCliente WHERE codCliente = "' . $codCliente . '" ORDER BY fechaTransaccion DESC');
     }
 
     public function buscarBoletosVuelo($nroVuelo)

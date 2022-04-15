@@ -102,6 +102,12 @@
                 <input type="hidden" name="tipoTransaccion" value="{{ Session::get('tipoFormulario') }}">
                 <input type="hidden" name="cantPasajeros" value="{{ Session::get('cantPasajeros') }}">
 
+                @if (Session::get('url') == 'perfil')
+                    <input type="hidden" name="apellidoPasajero1" value="{{ Session::get('apellidoPasajero1') }}">
+                    <input type="hidden" name="nombrePasajero1" value="{{ Session::get('nombrePasajero1') }}">
+                    <input type="hidden" name="documentoPasajero1" value="{{ Session::get('documentoPasajero1') }}">
+                @else
+
                 @for ($i = 1; $i <= Session::get('cantAdultos') + Session::get('cantMenores') + Session::get('cantBebes'); $i++)
 
                     {{-- nombre y apellido --}}
@@ -125,6 +131,8 @@
                             value="{{ $request->$documentoPasajero }}">
                     </div>
                 @endfor
+                
+                @endif
                 {{-- fin datos de los pasajeros --}}
 
                 <div class="grupo">
@@ -203,6 +211,33 @@
             </div>
 
             {{-- pasajeros --}}
+
+        @if (Session::get('url') == 'perfil')
+
+            <div class="col-12 row mt-3">
+                <strong>Pasajero
+                    <hr class="mt-1">
+                </strong>
+                <div class="col-12 row ">
+                    <div class="col-6">
+                        {{ Session::get('nombrePasajero1') }} {{Session::get('apellidoPasajero1')}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 row mt-3">
+                <div class="col-12 row">
+                    <div class="col-6">
+                        <strong>Tarifa a pagar</strong>
+                    </div>
+                    <div class="col-6 text-end">
+                        ${{ number_format(Session::get('tarifaBoleto'), 000, '.', '.') }}
+                    </div>
+                </div>
+            </div>
+
+        @else
+
             <div class="col-12 row mt-3">
                 <strong>Pasajero/s
                     <hr class="mt-1">
@@ -265,12 +300,16 @@
                     </div>
                 </div>
             </div>
+
+            
+
         </div>
 
         <div class="d-none">
             {{ $cantPasajeros = Session::get('cantAdultos') + Session::get('cantMenores') + Session::get('cantBebes') }}
         </div>
         <input type="hidden" name="cantPasajeros" value="{{ $cantPasajeros }}">
+        @endif
     </div>
 
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>

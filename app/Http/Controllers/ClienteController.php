@@ -37,7 +37,7 @@ class ClienteController extends Controller
         Session::put('boletos', $boletos);
 
         return view('cliente.perfil', compact('boletos'));
-        return $boletos;
+        //return $boletos;
     }
 
     // FUNCIONES DEL SISTEMA
@@ -108,12 +108,12 @@ class ClienteController extends Controller
                 }
                 break;
         }
-        //$gestionarBoleto = new BoletoController();
+        $gestionarBoleto = new BoletoController();
 
         // iteriacion que registra los boletos comprados
-        /*for ($i = 1; $i <= $request->cantPasajeros; $i++) {
+        for ($i = 1; $i <= $request->cantPasajeros; $i++) {
             $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'comprado');
-        }*/
+        }
 
         return redirect('/perfil')->with('message', 'boleto comprado con exito! Descargue su comprobante');
     }
@@ -131,21 +131,38 @@ class ClienteController extends Controller
     public function reservarBoleto(Request $request)
     {
         if ($request->url == "perfil") {
+            //return $request;
+            Session::put('nroVuelo', $request->nroVuelo); 
+            Session::put('codCliente', $request->codCliente); 
+            Session::put('cantPasajeros', $request->cantPasajeros); 
+            Session::put('tipoBoleto', $request->tipoBoleto);
+            Session::put('url', $request->url); 
+            Session::put('origenVuelo', $request->origenVuelo); 
+            Session::put('destinoVuelo', $request->destinoVuelo); 
+            Session::put('fechaVuelo', $request->fechaVuelo); 
+            Session::put('horaVuelo', $request->horaVuelo); 
+            Session::put('apellidoPasajero1', $request->apellidoPasajero1);
+            Session::put('nombrePasajero1', $request->nombrePasajero1);
+            Session::put('documentoPasajero1', $request->documentoPasajero1);
+            Session::put('claseBoleto', $request->claseBoleto); 
+            Session::put('tarifaBoleto', $request->tarifaBoleto);
+            Session::put('estadoBoleto', $request->estadoBoleto);
             return view('cliente.formularioPago', compact('request'));
         }
         
-        //$gestionarBoleto = new BoletoController();
+        $gestionarBoleto = new BoletoController();
         Session::put('cantPasajeros', $request->cantPasajeros);
-
+        Session::put('url', 'normal');
         // iteriacion que registra los boletos reservados
-        /*for ($i = 1; $i <= $request->cantPasajeros; $i++) {
+        for ($i = 1; $i <= $request->cantPasajeros; $i++) {
             $gestionarBoleto->cambiarEstadoBoleto($request, $i, 'reservado');
-        }*/
+        }
 
         if ($request->tipoTransaccion == "compra") {
             return view('cliente.formularioPago', compact('request'));
         }
         return redirect('/perfil')->with('message', 'boleto reservado con exito! Descargue su comprobante');
+        //return $gestionarBoleto;
     }
 
     public function codigoCliente($idUsuario){
