@@ -11,14 +11,12 @@ class UsuarioController extends Controller
 {
 
     // FUNCIONES DE LAS VISTAS
-    public function loginView()
-    {
+    public function loginView(){
         return view('login');
     }
 
     // LOGEARSE
-    public function login()
-    {
+    public function login(){
 
         if (auth()->attempt(request(['usuario', 'password'])) == false) {
             return back()->withErrors([
@@ -35,8 +33,7 @@ class UsuarioController extends Controller
     }
 
     // REGISTRAR USUARIO
-    public function altaUsuario(Request $request)
-    {
+    public function altaUsuario(Request $request){
         $errores = \Validator::make($request->all(), [
             'nombre'    => 'required|string|alpha',
             'apellido'    => 'required|string|alpha',
@@ -117,8 +114,7 @@ class UsuarioController extends Controller
     }
 
     // Cerrar la sesion
-    public function cerrarSesion()
-    {
+    public function cerrarSesion(){
         auth()->logout();
         return redirect()->to('/');
     }
