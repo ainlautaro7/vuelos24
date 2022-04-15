@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\servicio;
 use App\Models\serviciosVuelo;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
 
 class ServiciosVueloController extends Controller
 {
-    public function registrarServicioVuelo($nroVuelo, $servicio)
-    {
+
+    public function registrarServicioVuelo($nroVuelo, $servicio){
         $servicioVuelo = new serviciosVuelo();
 
         $servicioVuelo->nroVuelo = $nroVuelo;
@@ -18,8 +15,7 @@ class ServiciosVueloController extends Controller
         $servicioVuelo->save();
     }
 
-    public function buscarServiciosVuelo($nroVuelo)
-    {
+    public function buscarServiciosVuelo($nroVuelo){
         // return DB::table('serviciosVuelo')->where('nroVuelo', $nroVuelo)->get();
 
         return serviciosVuelo::select(
