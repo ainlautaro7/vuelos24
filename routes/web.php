@@ -5,8 +5,6 @@ use App\Http\Controllers\VueloController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\UsuarioController;
-use App\Models\Cliente;
-use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\MailController;
 
 /*
