@@ -9,9 +9,9 @@
                 {{-- <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle"> --}}
             </a>
             <ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
-                <li><a class="dropdown-item" href="#">Mi perfil</a></li>
+                <!-- <li><a class="dropdown-item" href="#">Mi perfil</a></li>
                 <hr class="dropdown-divider">
-                </li>
+                </li> -->
                 <li><a class="dropdown-item" href="{{ route('usuario.cerrarSesion') }}">Cerrar Sesion</a></li>
             </ul>
         </div>
