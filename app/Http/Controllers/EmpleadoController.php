@@ -7,8 +7,7 @@ class EmpleadoController extends Controller
 {
 
     // FUNCIONES DE LAS VISTAS
-    public function gestionView()
-    {
+    public function gestionView(){
         // verifico que el usuario que inicio sesion sea empleado
         if (auth()->user()->tipoUsuario == "empleado") {
             return view('Empleado.inicio');
@@ -16,18 +15,23 @@ class EmpleadoController extends Controller
             return redirect('/');
         }
     }
-    public function reportesView()
-    {
+
+    public function reportesView(){
         // verifico que el usuario que inicio sesion sea empleado
         if (auth()->user()->tipoUsuario == "empleado") {
-            return view('Empleado.reportes');
+            $vueloController = new VueloController();
+
+            // reportes
+            $destinosMasVisitados = $vueloController->reporteDestinosMasVisitados();
+            $cantVuelosRegistrados = $vueloController->reporteCantVuelosRegistrados();
+    
+            return view('Empleado.reportes', compact('destinosMasVisitados','cantVuelosRegistrados'));
         } else {
             return redirect('/');
         }
     }
 
-    public function administrarEmpleadosView()
-    {
+    public function administrarEmpleadosView(){
         // verifico que el usuario que inicio sesion sea empleado
         if (auth()->user()->tipoUsuario !== "empleado") {
             return redirect('/');
@@ -51,8 +55,7 @@ class EmpleadoController extends Controller
         return view('Empleado.AdministrarEmpleados', compact('empleados'));
     }
 
-    public function altaEmpleadoView()
-    {
+    public function altaEmpleadoView(){
         if (auth()->user()->tipoUsuario !== "empleado") {
             return redirect('/');
         }
