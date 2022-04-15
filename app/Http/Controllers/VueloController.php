@@ -6,7 +6,6 @@ use App\Models\ciudad;
 use App\Models\servicio;
 use App\Models\vuelo;
 use Carbon\Carbon;
-use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -279,12 +278,71 @@ class VueloController extends Controller
         return $vuelos;
     }
 
-    public function destinosMasVisitados()
+    // metricas de un vuelo determinado
+    public function reporteDestinosMasVisitados()
     {
+        return DB::select('
+        SELECT cd.nombre destino,
+
+        IFNULL((SELECT count(cd1.nombre) destino
+                FROM vuelo v1
+                INNER JOIN ciudad cd1 ON v1.idCiudadDestino = cd1.idCiudad
+                INNER JOIN boleto b ON v1.nroVuelo = b.nroVuelo
+                WHERE v1.estadoVuelo = "realizado" AND estadoBoleto = "comprado" AND cd1.nombre = cd.nombre AND b.claseBoleto = "turista"
+                GROUP BY cd1.nombre
+                order by cd1.nombre),0) as cantBoletosTurista,
+    
+        IFNULL((SELECT count(cd1.nombre) destino
+                FROM vuelo v1
+                INNER JOIN ciudad cd1 ON v1.idCiudadDestino = cd1.idCiudad
+                INNER JOIN boleto b ON v1.nroVuelo = b.nroVuelo
+                WHERE v1.estadoVuelo = "realizado" AND estadoBoleto = "comprado" AND cd1.nombre = cd.nombre AND b.claseBoleto = "primera"
+                GROUP BY cd1.nombre
+                order by cd1.nombre),0) as cantBoletosPrimera,
+                
+        IFNULL((SELECT count(cd1.nombre) destino
+                FROM vuelo v1
+                INNER JOIN ciudad cd1 ON v1.idCiudadDestino = cd1.idCiudad
+                INNER JOIN boleto b ON v1.nroVuelo = b.nroVuelo
+                WHERE v1.estadoVuelo = "realizado" AND estadoBoleto = "comprado" AND cd1.nombre = cd.nombre AND b.claseBoleto = "business"
+                GROUP BY cd1.nombre
+                order by cd1.nombre),0) as cantBoletosBusiness,
+                
+            (SELECT count(cd1.nombre) destino
+            FROM vuelo v1
+            INNER JOIN ciudad cd1 ON v1.idCiudadDestino = cd1.idCiudad
+            INNER JOIN boleto b ON v1.nroVuelo = b.nroVuelo
+            WHERE v1.estadoVuelo = "realizado" AND estadoBoleto = "comprado" AND cd1.nombre = cd.nombre
+            GROUP BY cd1.nombre
+            order by cd1.nombre) as totalVendidos
+            
+        FROM vuelo v
+        INNER JOIN ciudad co ON v.idCiudadOrigen = co.idCiudad
+        INNER JOIN ciudad cd ON v.idCiudadDestino = cd.idCiudad
+        INNER JOIN boleto b ON v.nroVuelo = b.nroVuelo
+        WHERE v.estadoVuelo = "realizado"  AND estadoBoleto = "comprado"
+        GROUP BY cd.nombre
+        ORDER BY totalVendidos DESC, cd.nombre
+        ');
     }
 
-    public function cantVuelosRegistrados()
+    public function reporteCantVuelosRegistrados()
     {
+        return DB::select('
+            SELECT v.nroVuelo,
+                    cd.nombre origen,
+                    co.nombre destino,
+                    v.fechaVuelo,
+                    v.horaVuelo,
+                    v.planVuelo,
+                    v.estadoVuelo,
+                    COUNT(b.nroBoleto) cantidadBoletos
+            FROM vuelo v
+            INNER JOIN ciudad co ON v.idCiudadOrigen = co.idCiudad
+            INNER JOIN ciudad cd ON v.idCiudadDestino = cd.idCiudad
+            INNER JOIN boleto b ON v.nroVuelo = b.nroVuelo
+            GROUP BY v.nroVuelo
+        ');
     }
 
     public function cantVuelosActivos()
