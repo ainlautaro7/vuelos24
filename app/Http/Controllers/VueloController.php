@@ -47,8 +47,9 @@ class VueloController extends Controller
 
         $ciudades = ciudad::all();
         $servicios = servicio::all();
+        $now = Carbon::tomorrow();
 
-        return view('Empleado.AdministrarVuelos.altaVuelo', compact('ciudades', 'servicios'));
+        return view('Empleado.AdministrarVuelos.altaVuelo', compact('ciudades', 'servicios', 'now'));
     }
 
     // VISTA REASIGNAR PASAJEROS
@@ -93,6 +94,13 @@ class VueloController extends Controller
     // el vuelo no puede darse de alta hasta la fecha que establecio
     public function altaVuelo(Request $request)
     {
+        if ($request->origen = 'Seleccione una ciudad de origen' || $request->destino = 'Seleccione una ciudad de destino') {
+            return redirect('/gestion/administrarVuelos/nuevoVuelo')->with('message', 'Seleccione origen y destino');
+        }
+        if ($request->plazasPrimeraClase + $request->plazasBusinessClase + $request->plazasTuristaClase > 150) {
+            return redirect('/gestion/administrarVuelos/nuevoVuelo')->with('message', 'La cantidad de plazas totales debe ser de 150 como máximo');
+        }
+
         $vuelo = new vuelo();
         $servicios = servicio::all();
         $gestionarServicios = new ServiciosVueloController();
@@ -131,7 +139,7 @@ class VueloController extends Controller
         );
 
         // verificar (problema con url al redireccionar)
-        return redirect('/gestion/administrarVuelos')->with('registro', "Vuelo registrado con exito!");;
+        return redirect('/gestion/administrarVuelos')->with('registro', "Vuelo registrado con exito!");
     }
 
     public function iniciarVuelo(Request $request)
