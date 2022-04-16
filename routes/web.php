@@ -78,3 +78,5 @@ Route::get('/enviar', [MailController::class, 'sendEmail']);
 
 //PDF'S
 Route::get('/compraReservaPdf', [ClienteController::class, 'pdfCompraReserva'])->name('PDFs.compraReserva');
+
+Route::get('gestion/reportePlazasNroVuelo/{nroVuelo}', [VueloController::class, 'reportePlazasNroVuelo']);
