@@ -84,6 +84,7 @@
     <script>
         let destinosMasVisitados = {!! json_encode($boletos) !!};
         $("#tickets").kendoGrid({
+            filterable: true,
             columns: [{
                 field: "nroVuelo",
                 hidden: true,
@@ -117,6 +118,10 @@
             }, {
                 field: "origenVuelo",
                 title: "Origen",
+                filterable: {
+                        multi: true,
+                        search: true
+                    },
                 attributes: {
                     "class": "table-cell k-text-left",
                     style: "font-size: 14px"
@@ -127,6 +132,10 @@
             }, {
                 field: "destinoVuelo",
                 title: "Destino",
+                filterable: {
+                        multi: true,
+                        search: true
+                    },
                 attributes: {
                     "class": "table-cell k-text-left",
                     style: "font-size: 14px"
@@ -137,6 +146,7 @@
             }, {
                 field: "fechaVuelo",
                 title: "Fecha",
+                filterable: false,
                 attributes: {
                     "class": "table-cell k-text-left",
                     style: "font-size: 14px"
@@ -147,6 +157,7 @@
             }, {
                 field: "horaVuelo",
                 title: "Hora",
+                filterable: false,
                 attributes: {
                     "class": "table-cell k-text-left",
                     style: "font-size: 14px"
@@ -157,6 +168,10 @@
             }, {
                 field: "apellidoPasajero",
                 title: "Apellido",
+                filterable: {
+                        multi: true,
+                        search: true
+                    },
                 attributes: {
                     "class": "table-cell k-text-left",
                     style: "font-size: 14px"
@@ -167,6 +182,10 @@
             }, {
                 field: "nombrePasajero",
                 title: "Nombre",
+                filterable: {
+                        multi: true,
+                        search: true
+                    },
                 attributes: {
                     "class": "table-cell k-text-left",
                     style: "font-size: 14px"
@@ -177,6 +196,10 @@
             }, {
                 field: "documentoPasajero",
                 title: "Documento",
+                filterable: {
+                        multi: true,
+                        search: true
+                    },
                 attributes: {
                     "class": "table-cell k-text-left",
                     style: "font-size: 14px"
@@ -187,6 +210,10 @@
             }, {
                 field: "claseBoleto",
                 title: "Clase",
+                filterable: {
+                        multi: true,
+                        search: true
+                    },
                 attributes: {
                     "class": "table-cell k-text-left",
                     style: "font-size: 14px"
@@ -207,6 +234,7 @@
             }, {
                 field: "tipoBoleto",
                 title: "Clase",
+                filterable: false,
                 attributes: {
                     "class": "table-cell k-text-left",
                     style: "font-size: 14px"
@@ -217,6 +245,10 @@
             }, {
                 field: "estadoBoleto",
                 title: "Estado",
+                filterable: {
+                        multi: true,
+                        search: true
+                    },
                 attributes: {
                     "class": "table-cell k-text-left",
                     style: "font-size: 14px"
@@ -227,6 +259,7 @@
             }, {
                 field: "fechaTransaccion",
                 hidden: true,
+                filterable: false,
                 attributes: {
                     "class": "table-cell k-text-left",
                     style: "font-size: 14px"
