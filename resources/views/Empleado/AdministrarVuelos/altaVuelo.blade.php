@@ -40,6 +40,13 @@
 
             <h1 class="text-center">REGISTRAR NUEVO VUELO</h1>
 
+            @if (session()->has('message'))
+            <div class="alert alert-danger text-start mt-2" role="alert">
+                <div>{{ session ('message') }}</div>
+                {!! session()->forget('message') !!}
+            </div>
+            @endif
+
             <form class="container mt-5" action="{{route('vuelo.alta')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <h4 class="mx-2 my-4">Datos del vuelo
@@ -62,7 +69,7 @@
                         @endforeach
                     </select>
 
-                    <input type="date" id="fechaVuelo" name="fechaVuelo" placeholder="Fecha vuelo" aria-label="Fecha vuelo" class="form-control mx-2" required>
+                    <input type="date" id="fechaVuelo" name="fechaVuelo" placeholder="Fecha vuelo" aria-label="Fecha vuelo" class="form-control mx-2" min="{{ $now->format('Y-m-d') }}" required>
                     <input type="time" id="horaVuelo" name="horaVuelo" placeholder="Hora vuelo" aria-label="Hora vuelo" class="form-control mx-2" required>
                 </div>
 
