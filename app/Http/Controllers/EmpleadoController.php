@@ -10,7 +10,13 @@ class EmpleadoController extends Controller
     public function gestionView(){
         // verifico que el usuario que inicio sesion sea empleado
         if (auth()->user()->tipoUsuario == "empleado") {
-            return view('Empleado.inicio');
+            $vueloController = new VueloController();
+
+            // reportes
+            $destinosMasVisitados = $vueloController->reporteDestinosMasVisitados();
+            $cantVuelosRegistrados = $vueloController->reporteCantVuelosRegistrados();
+
+            return view('Empleado.inicio' , compact('destinosMasVisitados','cantVuelosRegistrados'));
         } else {
             return redirect('/');
         }
@@ -24,7 +30,7 @@ class EmpleadoController extends Controller
             // reportes
             $destinosMasVisitados = $vueloController->reporteDestinosMasVisitados();
             $cantVuelosRegistrados = $vueloController->reporteCantVuelosRegistrados();
-    
+
             return view('Empleado.reportes', compact('destinosMasVisitados','cantVuelosRegistrados'));
         } else {
             return redirect('/');
