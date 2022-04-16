@@ -12,12 +12,12 @@
           Inicio
         </a>
       </li>
-      <li>
+      {{-- <li>
         <a href="{{ url('/gestion/reportes') }}" class="nav-link text-white reportes">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
           Reportes
         </a>
-      </li>
+      </li> --}}
       <li>
         <a href="{{ url('/gestion/administrarVuelos') }}" class="nav-link text-white administrarVuelos">
           <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
