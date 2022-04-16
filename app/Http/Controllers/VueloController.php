@@ -278,7 +278,6 @@ class VueloController extends Controller
         return $vuelos;
     }
 
-    // metricas de un vuelo determinado
     public function reporteDestinosMasVisitados()
     {
         return DB::select('
@@ -345,11 +344,54 @@ class VueloController extends Controller
         ');
     }
 
-    public function cantVuelosActivos()
+    public static function reportePlazasNroVuelo($nroVuelo)
     {
+        return DB::select('
+            SELECT
+            b.nroVuelo AS nroVuelo,
+            b.claseBoleto AS claseBoleto,
+            
+            (SELECT COUNT(b2.nroBoleto) FROM boleto b2 WHERE b2.claseBoleto = b.claseBoleto AND b2.estadoBoleto = "activo" AND b2.nroVuelo = v.nroVuelo GROUP BY v.nroVuelo) AS 		boletosDisponibles,
+            
+                IFNULL(
+                (SELECT COUNT(b2.nroBoleto) FROM boleto b2 WHERE b2.claseBoleto = b.claseBoleto AND b2.estadoBoleto = "comprado" AND b2.nroVuelo = v.nroVuelo GROUP BY v.nroVuelo)
+                ,0) AS boletosComprados,
+                
+                IFNULL(
+                (SELECT COUNT(b2.nroBoleto) FROM boleto b2 WHERE b2.claseBoleto = b.claseBoleto AND b2.estadoBoleto = "reservado" AND b2.nroVuelo = v.nroVuelo GROUP BY v.nroVuelo)
+                ,0) AS boletosReservados,
+            
+                IFNULL(
+                (SELECT b2.tarifaBoleto FROM vuelos24.boleto b2 WHERE b2.claseBoleto = b.claseBoleto AND b2.estadoBoleto = "activo" AND b2.nroVuelo = v.nroVuelo GROUP BY v.nroVuelo)
+                ,0) AS tarifaBoleto
+        
+            FROM boleto b JOIN vuelo v ON v.nroVuelo = b.nroVuelo
+            WHERE v.nroVuelo = '.$nroVuelo.'
+            GROUP BY v.nroVuelo, b.claseBoleto
+            ORDER BY b.claseBoleto DESC
+        ');
     }
 
-    public function cantVuelosSuspendidos()
+    public static function detallesNroVuelo($nroVuelo)
     {
+        return DB::select('
+        SELECT
+            b.nroVuelo AS nroVuelo,
+            b.claseBoleto AS claseBoleto,
+            o.nombre AS origen,
+            o.codigoIATACiudad AS origenIATA,
+            d.nombre AS destino,
+            d.codigoIATACiudad AS destinoIATA,
+            v.fechaVuelo AS fechaVuelo,
+            v.horaVuelo AS horaVuelo,
+            v.planVuelo AS planVuelo,
+            v.estadoVuelo AS estadoVuelo
+            
+        FROM boleto b JOIN vuelo v ON v.nroVuelo = b.nroVuelo
+        JOIN vuelos24.ciudad o ON o.idCiudad = v.idCiudadOrigen
+        JOIN vuelos24.ciudad d ON d.idCiudad = v.idCiudadDestino
+        WHERE v.nroVuelo = '.$nroVuelo.'
+        GROUP BY v.nroVuelo
+        ');
     }
 }
