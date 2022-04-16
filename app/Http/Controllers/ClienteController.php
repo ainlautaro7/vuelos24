@@ -13,35 +13,41 @@ class ClienteController extends Controller
 {
 
     // FUNCIONES DE LA VISTA
-    public function inicioView(){
+    public function inicioView()
+    {
         return view('Cliente.inicio');
     }
 
-    public function registrarseView(){
+    public function registrarseView()
+    {
         return view('registrarse');
     }
 
-    public function listarVuelosView(){
+    public function listarVuelosView()
+    {
         return view('Cliente.listarVuelos');
     }
 
-    public function formularioCompraReservaView(){
+    public function formularioCompraReservaView()
+    {
         return view('cliente.formularioCompraReserva');
     }
 
-    public function perfilView(){
+    public function perfilView()
+    {
         $gestionarBoleto = new BoletoController();
         $codCliente = $this->codigoCliente(auth()->user()->id);
         $boletos = $gestionarBoleto->buscarBoletoPasajero(0, $codCliente);
 
         Session::put('boletos', $boletos);
-
+        
         return view('cliente.perfil', compact('boletos'));
         //return $boletos;
     }
 
     // FUNCIONES DEL SISTEMA
-    public function registroCliente(Request $request){
+    public function registroCliente(Request $request)
+    {
 
         $usuario = new Usuario();
 
@@ -59,7 +65,8 @@ class ClienteController extends Controller
     }
 
     // funcion que determina si el usuario compra o reserva el boleto
-    public function comprarReservarBoleto(Request $request){
+    public function comprarReservarBoleto(Request $request)
+    {
 
         Session::put('claseBoleto', $request->claseBoleto);
         Session::put('tipoBoleto', $request->tipoBoleto);
@@ -90,7 +97,8 @@ class ClienteController extends Controller
         }
     }
 
-    public function comprarBoleto(Request $request){
+    public function comprarBoleto(Request $request)
+    {
 
         // contemplando errores
         switch ($request->nombreCard) {
@@ -118,12 +126,12 @@ class ClienteController extends Controller
         return redirect('/perfil')->with('message', 'boleto comprado con exito! Descargue su comprobante');
     }
 
-    public function pdfCompraReserva(Request $request){  
-        $pdf = Pdf::loadView('PDFs.compraReserva',['request'=>$request]);
+    public function pdfCompraReserva(Request $request)
+    {
+        $pdf = Pdf::loadView('PDFs.compraReserva', ['request' => $request]);
         if ($request->estadoBoleto == 'reservado') {
             return $pdf->download('comprobanteReserva.pdf');
-        }
-        else {
+        } else {
             return $pdf->download('comprobanteCompra.pdf');
         }
     }
@@ -132,24 +140,24 @@ class ClienteController extends Controller
     {
         if ($request->url == "perfil") {
             //return $request;
-            Session::put('nroVuelo', $request->nroVuelo); 
-            Session::put('codCliente', $request->codCliente); 
-            Session::put('cantPasajeros', $request->cantPasajeros); 
+            Session::put('nroVuelo', $request->nroVuelo);
+            Session::put('codCliente', $request->codCliente);
+            Session::put('cantPasajeros', $request->cantPasajeros);
             Session::put('tipoBoleto', $request->tipoBoleto);
-            Session::put('url', $request->url); 
-            Session::put('origenVuelo', $request->origenVuelo); 
-            Session::put('destinoVuelo', $request->destinoVuelo); 
-            Session::put('fechaVuelo', $request->fechaVuelo); 
-            Session::put('horaVuelo', $request->horaVuelo); 
+            Session::put('url', $request->url);
+            Session::put('origenVuelo', $request->origenVuelo);
+            Session::put('destinoVuelo', $request->destinoVuelo);
+            Session::put('fechaVuelo', $request->fechaVuelo);
+            Session::put('horaVuelo', $request->horaVuelo);
             Session::put('apellidoPasajero1', $request->apellidoPasajero1);
             Session::put('nombrePasajero1', $request->nombrePasajero1);
             Session::put('documentoPasajero1', $request->documentoPasajero1);
-            Session::put('claseBoleto', $request->claseBoleto); 
+            Session::put('claseBoleto', $request->claseBoleto);
             Session::put('tarifaBoleto', $request->tarifaBoleto);
             Session::put('estadoBoleto', $request->estadoBoleto);
             return view('cliente.formularioPago', compact('request'));
         }
-        
+
         $gestionarBoleto = new BoletoController();
         Session::put('cantPasajeros', $request->cantPasajeros);
         Session::put('url', 'normal');
@@ -165,15 +173,13 @@ class ClienteController extends Controller
         //return $gestionarBoleto;
     }
 
-    public function codigoCliente($idUsuario){
+    public function codigoCliente($idUsuario)
+    {
         return DB::table('cliente')->where('idUsuario', $idUsuario)->value('codCliente');
     }
 
-    public function setPasswordAttribute($password){
+    public function setPasswordAttribute($password)
+    {
         return $this->attributes['password'] = bcrypt($password);
     }
-
-    public function cancelarReserva(){}
-
-    public function cancelarCompra(){}
 }
