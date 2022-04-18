@@ -308,6 +308,7 @@
                             }
                         },
                         modal: true,
+                        preventScroll: true,
                         width: "80%",
                         visible: false,
                         position: {

@@ -337,8 +337,8 @@ class VueloController extends Controller
     {
         return DB::select('
             SELECT v.nroVuelo,
-                    cd.nombre origen,
-                    co.nombre destino,
+                    co.nombre origen,
+                    cd.nombre destino,
                     v.fechaVuelo,
                     v.horaVuelo,
                     v.planVuelo,
