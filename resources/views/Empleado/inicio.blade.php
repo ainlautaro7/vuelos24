@@ -351,8 +351,7 @@
                     },
                     attributes: {
                         style: "text-align:right"
-                    },
-                    width: "10%"
+                    }
                 },
                 {
                     field: "origen",
@@ -455,7 +454,7 @@
             toolbar: ["excel"],
             excel: {
                 allPages: true,
-                fileName: "cantVuelosRegistrados.xlsx"
+                fileName: "historico_vuelos_registrados.xlsx"
             },
             pageable: {
                 pageSize: 10
