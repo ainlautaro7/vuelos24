@@ -94,11 +94,14 @@ class VueloController extends Controller
     // el vuelo no puede darse de alta hasta la fecha que establecio
     public function altaVuelo(Request $request)
     {
-        if ($request->origen = 'Seleccione una ciudad de origen' || $request->destino = 'Seleccione una ciudad de destino') {
-            return redirect('/gestion/administrarVuelos/nuevoVuelo')->with('message', 'Seleccione origen y destino');
-        }
         if ($request->plazasPrimeraClase + $request->plazasBusinessClase + $request->plazasTuristaClase > 150) {
             return redirect('/gestion/administrarVuelos/nuevoVuelo')->with('message', 'La cantidad de plazas totales debe ser de 150 como máximo');
+        }
+        if ($request->origen == 'Seleccione una ciudad de origen') {
+            return redirect('/gestion/administrarVuelos/nuevoVuelo')->with('message', 'Seleccione origen y destino');
+        }
+        if ($request->destino == 'Seleccione una ciudad de destino') {
+            return redirect('/gestion/administrarVuelos/nuevoVuelo')->with('message', 'Seleccione origen y destino');
         }
 
         $vuelo = new vuelo();
