@@ -30,7 +30,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.js"></script>
     <script src="https://kendo.cdn.telerik.com/2022.1.301/js/kendo.all.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2022.1.301/js/jszip.min.js"></script>
-
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
+        integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous">
+    </script>
     <!-- Estilos correspondientes al navbar -->
     <style>
         a.nav-link.inicio {
@@ -40,6 +42,14 @@
 
         span.k-button-text {
             align-self: center;
+        }
+
+        button.k-grid-.k-button.k-button-md.k-button-rectangle.k-rounded-md.k-button-solid.k-button-solid-base.k-icon-button {
+            border: 0;
+            width: auto;
+            padding: 0;
+            background: #6cb2eb;
+            margin: 0;
         }
 
     </style>
@@ -61,7 +71,7 @@
         <x-NavbarEmpleado section="Administrar Vuelos" />
 
         <div class="container mx-auto mt-5">
-            <h2>Destinos mas visitados</h2>
+            <h2>Destinos más visitados</h2>
             <div id="destinosMasVisitados"></div>
             <br>
             <h2>Historial de vuelos registrados</h2>
@@ -308,6 +318,7 @@
                             }
                         },
                         modal: true,
+                        preventScroll: true,
                         width: "80%",
                         visible: false,
                         position: {
@@ -316,7 +327,7 @@
                         }
                     });
                     $("#dialog").data("kendoWindow").open();
-                    
+
                     $("#dialog").data("kendoWindow").center();
                     $("#dialog").data("kendoWindow").pin();
                     // $("#dialog").title("Datos del vuelo nro " + data.nroVuelo);
@@ -418,8 +429,8 @@
                 },
                 {
                     command: [{
-                        name: "Detalles",
-                        iconClass: "k-icon k-i-paste-plain-text",
+                        name: " ",
+                        iconClass: "btn btn-info fas fas-solid fas-circle-info",
                         click: function(e) {
                             // prevent page scroll position change
                             e.preventDefault();
@@ -431,7 +442,11 @@
 
                             openWindow(data)
                         }
-                    }]
+                    }],
+                    width: "6%",
+                    attributes: {
+                        style: "text-align: center"
+                    }
                 }
             ],
             dataSource: cantVuelosRegistrados,
@@ -439,7 +454,7 @@
             toolbar: ["excel"],
             excel: {
                 allPages: true,
-                fileName: "cantVuelosRegistrados.xlsx"
+                fileName: "historico_vuelos_registrados.xlsx"
             },
             pageable: {
                 pageSize: 10

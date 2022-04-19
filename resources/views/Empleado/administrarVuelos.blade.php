@@ -18,6 +18,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+
     <!-- Estilos correspondientes al navbar -->
     <style>
         a.nav-link.administrarVuelos {
@@ -91,7 +93,7 @@
 
                 {{-- ACTIVOS --}}
                 <div class="tab-pane fade show active" id="Activos" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <table id="vuelos" class="table table-striped" style="width:100%">
+                    <table id="vuelos1" class="table table-striped" style="width:100%">
                         <thead>
                             <tr>
                                 <th scope="col">Nro Vuelo</th>
@@ -116,32 +118,31 @@
                                         <td class="text-center">
                                             <button data-bs-toggle="modal"
                                                 data-bs-target="#iniciar{{ $vuelo->nroVuelo }}" type="button"
-                                                class="btn btn-success text-white" title="Iniciar vuelo" @if (($vuelo->estadoVuelo == 'en vuelo') | ($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'suspendido') | ($now->format('Y-m-d') < $vuelo->fechaVuelo))
-                                                disabled
-                                @endif>
-                                <i class="fas fa-plane-departure"></i>
-                                </button>
-                                <button data-bs-toggle="modal" data-bs-target="#finalizar{{ $vuelo->nroVuelo }}"
-                                    type="button" class="btn btn-info text-white" title="Finalizar vuelo" @if (($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'activo') | ($vuelo->estadoVuelo == 'suspendido'))
-                                    disabled
-                            @endif>
-                            <i class="fas fa-plane-arrival"></i>
-                            </button>
-                            <button data-bs-toggle="modal" data-bs-target="#suspender{{ $vuelo->nroVuelo }}"
-                                type="button" class="btn btn-danger" title="Suspender vuelo" @if (($vuelo->estadoVuelo == 'en vuelo') | ($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'suspendido'))
-                                disabled
-                                @endif>
-                                <i class="fas fa-plane-slash"></i>
-                            </button>
-                            </td>
-                            </tr>
-                            <!-- modal iniciar vuelo -->
-                            @include('components.modales.iniciarVuelo')
-                            <!-- modal finalizar vuelo -->
-                            @include('components.modales.finalizarVuelo')
-                            <!-- modal suspender vuelo -->
-                            @include('components.modales.suspenderVuelo')
-                            @endif
+                                                class="btn btn-success text-white" title="Iniciar vuelo"
+                                                @if (($vuelo->estadoVuelo == 'en vuelo') | ($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'suspendido') | ($now->format('Y-m-d') < $vuelo->fechaVuelo)) disabled @endif>
+                                                <i class="fas fa-plane-departure"></i>
+                                            </button>
+                                            <button data-bs-toggle="modal"
+                                                data-bs-target="#finalizar{{ $vuelo->nroVuelo }}" type="button"
+                                                class="btn btn-info text-white" title="Finalizar vuelo"
+                                                @if (($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'activo') | ($vuelo->estadoVuelo == 'suspendido')) disabled @endif>
+                                                <i class="fas fa-plane-arrival"></i>
+                                            </button>
+                                            <button data-bs-toggle="modal"
+                                                data-bs-target="#suspender{{ $vuelo->nroVuelo }}" type="button"
+                                                class="btn btn-danger" title="Suspender vuelo"
+                                                @if (($vuelo->estadoVuelo == 'en vuelo') | ($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'suspendido')) disabled @endif>
+                                                <i class="fas fa-plane-slash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <!-- modal iniciar vuelo -->
+                                    @include('components.modales.iniciarVuelo')
+                                    <!-- modal finalizar vuelo -->
+                                    @include('components.modales.finalizarVuelo')
+                                    <!-- modal suspender vuelo -->
+                                    @include('components.modales.suspenderVuelo')
+                                @endif
                             @endforeach
                         </tbody>
                     </table>
@@ -149,7 +150,7 @@
 
                 {{-- EN VUELO --}}
                 <div class="tab-pane fade" id="EnVuelo" role="tabpanel" aria-labelledby="pills-profile-tab">
-                    <table id="vuelos" class="table table-striped" style="width:100%">
+                    <table id="vuelos2" class="table table-striped" style="width:100%">
                         <thead>
                             <tr>
                                 <th scope="col">Nro Vuelo</th>
@@ -174,32 +175,31 @@
                                         <td class="text-center">
                                             <button data-bs-toggle="modal"
                                                 data-bs-target="#iniciar{{ $vuelo->nroVuelo }}" type="button"
-                                                class="btn btn-success text-white" title="Iniciar vuelo" @if (($vuelo->estadoVuelo == 'en vuelo') | ($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'suspendido') | ($now->format('Y-m-d') < $vuelo->fechaVuelo))
-                                                disabled
-                                @endif>
-                                <i class="fas fa-plane-departure"></i>
-                                </button>
-                                <button data-bs-toggle="modal" data-bs-target="#finalizar{{ $vuelo->nroVuelo }}"
-                                    type="button" class="btn btn-info text-white" title="Finalizar vuelo" @if (($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'activo') | ($vuelo->estadoVuelo == 'suspendido'))
-                                    disabled
-                            @endif>
-                            <i class="fas fa-plane-arrival"></i>
-                            </button>
-                            <button data-bs-toggle="modal" data-bs-target="#suspender{{ $vuelo->nroVuelo }}"
-                                type="button" class="btn btn-danger" title="Suspender vuelo" @if (($vuelo->estadoVuelo == 'en vuelo') | ($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'suspendido'))
-                                disabled
-                                @endif>
-                                <i class="fas fa-plane-slash"></i>
-                            </button>
-                            </td>
-                            </tr>
-                            <!-- modal iniciar vuelo -->
-                            @include('components.modales.iniciarVuelo')
-                            <!-- modal finalizar vuelo -->
-                            @include('components.modales.finalizarVuelo')
-                            <!-- modal suspender vuelo -->
-                            @include('components.modales.suspenderVuelo')
-                            @endif
+                                                class="btn btn-success text-white" title="Iniciar vuelo"
+                                                @if (($vuelo->estadoVuelo == 'en vuelo') | ($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'suspendido') | ($now->format('Y-m-d') < $vuelo->fechaVuelo)) disabled @endif>
+                                                <i class="fas fa-plane-departure"></i>
+                                            </button>
+                                            <button data-bs-toggle="modal"
+                                                data-bs-target="#finalizar{{ $vuelo->nroVuelo }}" type="button"
+                                                class="btn btn-info text-white" title="Finalizar vuelo"
+                                                @if (($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'activo') | ($vuelo->estadoVuelo == 'suspendido')) disabled @endif>
+                                                <i class="fas fa-plane-arrival"></i>
+                                            </button>
+                                            <button data-bs-toggle="modal"
+                                                data-bs-target="#suspender{{ $vuelo->nroVuelo }}" type="button"
+                                                class="btn btn-danger" title="Suspender vuelo"
+                                                @if (($vuelo->estadoVuelo == 'en vuelo') | ($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'suspendido')) disabled @endif>
+                                                <i class="fas fa-plane-slash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <!-- modal iniciar vuelo -->
+                                    @include('components.modales.iniciarVuelo')
+                                    <!-- modal finalizar vuelo -->
+                                    @include('components.modales.finalizarVuelo')
+                                    <!-- modal suspender vuelo -->
+                                    @include('components.modales.suspenderVuelo')
+                                @endif
                             @endforeach
                         </tbody>
                     </table>
@@ -207,7 +207,7 @@
 
                 {{-- REALIZADOS --}}
                 <div class="tab-pane fade" id="Realizados" role="tabpanel" aria-labelledby="pills-contact-tab">
-                    <table id="vuelos" class="table table-striped" style="width:100%">
+                    <table id="vuelos3" class="table table-striped" style="width:100%">
                         <thead>
                             <tr>
                                 <th scope="col">Nro Vuelo</th>
@@ -232,32 +232,31 @@
                                         <td class="text-center">
                                             <button data-bs-toggle="modal"
                                                 data-bs-target="#iniciar{{ $vuelo->nroVuelo }}" type="button"
-                                                class="btn btn-success text-white" title="Iniciar vuelo" @if (($vuelo->estadoVuelo == 'en vuelo') | ($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'suspendido') | ($now->format('Y-m-d') < $vuelo->fechaVuelo))
-                                                disabled
-                                @endif>
-                                <i class="fas fa-plane-departure"></i>
-                                </button>
-                                <button data-bs-toggle="modal" data-bs-target="#finalizar{{ $vuelo->nroVuelo }}"
-                                    type="button" class="btn btn-info text-white" title="Finalizar vuelo" @if (($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'activo') | ($vuelo->estadoVuelo == 'suspendido'))
-                                    disabled
-                            @endif>
-                            <i class="fas fa-plane-arrival"></i>
-                            </button>
-                            <button data-bs-toggle="modal" data-bs-target="#suspender{{ $vuelo->nroVuelo }}"
-                                type="button" class="btn btn-danger" title="Suspender vuelo" @if (($vuelo->estadoVuelo == 'en vuelo') | ($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'suspendido'))
-                                disabled
-                                @endif>
-                                <i class="fas fa-plane-slash"></i>
-                            </button>
-                            </td>
-                            </tr>
-                            <!-- modal iniciar vuelo -->
-                            @include('components.modales.iniciarVuelo')
-                            <!-- modal finalizar vuelo -->
-                            @include('components.modales.finalizarVuelo')
-                            <!-- modal suspender vuelo -->
-                            @include('components.modales.suspenderVuelo')
-                            @endif
+                                                class="btn btn-success text-white" title="Iniciar vuelo"
+                                                @if (($vuelo->estadoVuelo == 'en vuelo') | ($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'suspendido') | ($now->format('Y-m-d') < $vuelo->fechaVuelo)) disabled @endif>
+                                                <i class="fas fa-plane-departure"></i>
+                                            </button>
+                                            <button data-bs-toggle="modal"
+                                                data-bs-target="#finalizar{{ $vuelo->nroVuelo }}" type="button"
+                                                class="btn btn-info text-white" title="Finalizar vuelo"
+                                                @if (($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'activo') | ($vuelo->estadoVuelo == 'suspendido')) disabled @endif>
+                                                <i class="fas fa-plane-arrival"></i>
+                                            </button>
+                                            <button data-bs-toggle="modal"
+                                                data-bs-target="#suspender{{ $vuelo->nroVuelo }}" type="button"
+                                                class="btn btn-danger" title="Suspender vuelo"
+                                                @if (($vuelo->estadoVuelo == 'en vuelo') | ($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'suspendido')) disabled @endif>
+                                                <i class="fas fa-plane-slash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <!-- modal iniciar vuelo -->
+                                    @include('components.modales.iniciarVuelo')
+                                    <!-- modal finalizar vuelo -->
+                                    @include('components.modales.finalizarVuelo')
+                                    <!-- modal suspender vuelo -->
+                                    @include('components.modales.suspenderVuelo')
+                                @endif
                             @endforeach
                         </tbody>
                     </table>
@@ -265,7 +264,7 @@
 
                 {{-- SUSPENDIDOS --}}
                 <div class="tab-pane fade" id="Suspendidos" role="tabpanel" aria-labelledby="pills-contact-tab">
-                    <table id="vuelos" class="table table-striped" style="width:100%">
+                    <table id="vuelos4" class="table table-striped" style="width:100%">
                         <thead>
                             <tr>
                                 <th scope="col">Nro Vuelo</th>
@@ -290,32 +289,31 @@
                                         <td class="text-center">
                                             <button data-bs-toggle="modal"
                                                 data-bs-target="#iniciar{{ $vuelo->nroVuelo }}" type="button"
-                                                class="btn btn-success text-white" title="Iniciar vuelo" @if (($vuelo->estadoVuelo == 'en vuelo') | ($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'suspendido') | ($now->format('Y-m-d') < $vuelo->fechaVuelo))
-                                                disabled
-                                @endif>
-                                <i class="fas fa-plane-departure"></i>
-                                </button>
-                                <button data-bs-toggle="modal" data-bs-target="#finalizar{{ $vuelo->nroVuelo }}"
-                                    type="button" class="btn btn-info text-white" title="Finalizar vuelo" @if (($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'activo') | ($vuelo->estadoVuelo == 'suspendido'))
-                                    disabled
-                            @endif>
-                            <i class="fas fa-plane-arrival"></i>
-                            </button>
-                            <button data-bs-toggle="modal" data-bs-target="#suspender{{ $vuelo->nroVuelo }}"
-                                type="button" class="btn btn-danger" title="Suspender vuelo" @if (($vuelo->estadoVuelo == 'en vuelo') | ($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'suspendido'))
-                                disabled
-                                @endif>
-                                <i class="fas fa-plane-slash"></i>
-                            </button>
-                            </td>
-                            </tr>
-                            <!-- modal iniciar vuelo -->
-                            @include('components.modales.iniciarVuelo')
-                            <!-- modal finalizar vuelo -->
-                            @include('components.modales.finalizarVuelo')
-                            <!-- modal suspender vuelo -->
-                            @include('components.modales.suspenderVuelo')
-                            @endif
+                                                class="btn btn-success text-white" title="Iniciar vuelo"
+                                                @if (($vuelo->estadoVuelo == 'en vuelo') | ($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'suspendido') | ($now->format('Y-m-d') < $vuelo->fechaVuelo)) disabled @endif>
+                                                <i class="fas fa-plane-departure"></i>
+                                            </button>
+                                            <button data-bs-toggle="modal"
+                                                data-bs-target="#finalizar{{ $vuelo->nroVuelo }}" type="button"
+                                                class="btn btn-info text-white" title="Finalizar vuelo"
+                                                @if (($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'activo') | ($vuelo->estadoVuelo == 'suspendido')) disabled @endif>
+                                                <i class="fas fa-plane-arrival"></i>
+                                            </button>
+                                            <button data-bs-toggle="modal"
+                                                data-bs-target="#suspender{{ $vuelo->nroVuelo }}" type="button"
+                                                class="btn btn-danger" title="Suspender vuelo"
+                                                @if (($vuelo->estadoVuelo == 'en vuelo') | ($vuelo->estadoVuelo == 'realizado') | ($vuelo->estadoVuelo == 'suspendido')) disabled @endif>
+                                                <i class="fas fa-plane-slash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <!-- modal iniciar vuelo -->
+                                    @include('components.modales.iniciarVuelo')
+                                    <!-- modal finalizar vuelo -->
+                                    @include('components.modales.finalizarVuelo')
+                                    <!-- modal suspender vuelo -->
+                                    @include('components.modales.suspenderVuelo')
+                                @endif
                             @endforeach
                         </tbody>
                     </table>
@@ -329,7 +327,7 @@
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
-        var table = $('#vuelos').DataTable({
+        var table1 = $('#vuelos1').DataTable({
             "lengthMenu": [
                 [10, 25, 50],
                 [10, 25, 50], "All"
@@ -337,7 +335,31 @@
         });
         // #myInput is a <input type="text"> element
         $('#search').on('keyup', function() {
-            table.search(this.value).draw();
+            table1.search(this.value).draw();
+        });
+    </script>
+    <script>
+        var table2 = $('#vuelos2').DataTable({
+            "lengthMenu": [
+                [10, 25, 50],
+                [10, 25, 50], "All"
+            ]
+        });
+        // #myInput is a <input type="text"> element
+        $('#search').on('keyup', function() {
+            table2.search(this.value).draw();
+        });
+    </script>
+    <script>
+        var table3 = $('#vuelos3').DataTable({
+            "lengthMenu": [
+                [10, 25, 50],
+                [10, 25, 50], "All"
+            ]
+        });
+        // #myInput is a <input type="text"> element
+        $('#search').on('keyup', function() {
+            table3.search(this.value).draw();
         });
     </script>
 </body>
